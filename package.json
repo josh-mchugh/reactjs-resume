@@ -1,0 +1,15 @@
+{
+  "name": "html-resume",
+  "version": "1.0.0",
+  "description": "simple html resume to convert to PDF",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Josh McHugh",
+  "license": "ISC",
+  "devDependencies": {
+    "electron-pdf": "^20.0.0",
+    "live-server": "^1.2.2"
+  }
+}

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>A4</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Normalize or reset CSS with your favorite library -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+
+  <!-- Load paper.css for happy printing -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.4.1/paper.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.cdnfonts.com/css/roboto" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/open-sans" rel="stylesheet">
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/brands.min.css" integrity="sha512-L+sMmtHht2t5phORf0xXFdTC0rSlML1XcraLTrABli/0MMMylsJi3XA23ReVQkZ7jLkOEIMicWGItyK4CAt2Xw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <!-- Set page size here: A5, A4 or A3 -->
+  <!-- Set also "landscape" if you need -->
+  <style>
+    @page { size: A4 }
+    .endless {
+	height: auto !important;
+    }
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+	theme: {
+	    extend: {
+		fontFamily: {
+		    'Roboto': ['Roboto', 'Open Sans', 'system-ui']
+		},
+		fontSize: {
+		    '3xs': '0.5rem',
+		    '2xs': '0.625rem',
+		},
+		colors: {
+		    'dark-primary': '#11212f',
+		    'accent': '#2bb0e1'
+		},
+	    }
+	}
+    }
+  </script>
+</head>
+
+<!-- Set "A5", "A4" or "A3" for class name -->
+<!-- Set also "landscape" if you need -->
+<body class="A4">
+  <!-- Each sheet element should have the class "sheet" -->
+  <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
+  <section class="sheet endless">
+    <div class="flex h-full font-['Roboto'] text-gray-700">
+      <!-- Left Column -->
+      <div class="flex-auto w-4 bg-dark-primary text-white">
+	<div class="mt-14 ml-8">
+	  <!-- Template: Header -->
+	  <div id="headerSection"></div>
+	  <div class="mt-12">
+	    <!-- Template: Objective -->
+	    <div id="objectiveSection"></div>
+	  </div>
+	  <div class="mt-10">
+	    <!-- Template: Contact -->
+	    <div id="contactSection"></div>
+	  </div>
+	  <div class="mt-12">
+	    <!-- Template: Social -->
+	    <div id="socialSection"></div>
+	  </div>
+	</div>
+      </div>
+      <!-- Right Column -->
+      <div class="flex-auto w-64 my-16 px-7">
+	<div>
+	  <!-- Template: Experience -->
+	  <div id="experienceSection"></div>
+	</div>
+	<div class="mt-6">
+	  <!-- Template: Skills -->
+	  <div id="skillsSection"></div>
+	</div>
+	<div class="mt-6">
+	  <!-- TEMPLATE: Education -->
+	  <div id="educationSection"></div>	  
+	</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JS Dependencies -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+
+  <!-- Template: Header -->
+  <div id="headerSectionTemplate" class="hidden">
+    <div class="font-bold text-3xl">{{name}}</div>
+    <div class="text-sm tracking-wider">{{title}}</div>    
+  </div>
+
+  <!-- Template: Objective -->
+  <div id="objectiveSectionTemplate" class="hidden">
+    <!-- Header -->
+    <div class="flex">
+      <div class="flex-auto font-bold">OBJECTIVE</div>
+      <div class="flex-auto w-full ml-2">
+	<div class="flex flex-col">
+	  <div class="h-0 mt-3 border-b border-white"></div>
+	</div>
+      </div>
+    </div>
+    <!-- Content -->
+    <div class="flex">
+      <div class="mt-6 ml-4 pr-4 text-xs">{{objective}}</div>
+    </div>
+  </div>
+
+  <!-- Template: Contact -->
+  <div id="contactSectionTemplate" class="hidden">
+    <!-- Header -->
+    <div class="flex">
+      <div class="flex-auto font-bold">CONTACT</div>
+      <div class="flex-auto w-full ml-2">
+	<div class="flex flex-col">
+	  <div class="h-0 mt-3 border-b border-white"></div>
+	</div>
+      </div>
+    </div>
+    <!-- Content -->
+    <div class="flex mt-4 ml-4">
+      <ul class="list-none text-sm">
+	<li>
+	  <i class="fa-solid fa-phone text-accent"></i>
+	  <span class="ml-2">{{phone}}<span>
+	</li>
+	<li class="mt-2">
+	  <i class="fa-solid fa-envelope text-accent"></i>
+	  <a class="ml-2" href="mailto:josh.mchugh@mailbox.org">{{email}}</a>
+	</li>
+	<li class="mt-2">
+	  <i class="fa-solid fa-location-dot text-accent"></i>
+	  <span class="ml-2">{{location}}</span>
+	</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Template: Social -->
+  <div id="socialSectionTemplate" class="hidden">
+    <!-- Header -->
+    <div class="flex">
+      <div class="flex-auto font-bold">Social</div>
+      <div class="flex-auto w-full ml-2">
+	<div class="flex flex-col">
+	  <div class="h-0 mt-3 border-b border-white"></div>
+	</div>
+      </div>
+    </div>
+    <!-- Content -->
+    <div class="flex mt-4 ml-4">
+      <ul class="list-none text-sm">
+	<li>
+	  <div>
+	    <i class="fa-brands fa-github text-accent"></i>
+	    <span class="ml-2">GitHub:<span>
+	  </div>
+	  <div>
+	    <a class="text-xs" href="{{github}}">{{github}}</a>
+	  </div>
+	</li>
+	<li class="mt-2">
+	  <div>
+	    <i class="fa-solid fa-globe text-accent"></i>
+	    <span class="ml-2">Portfolio:</span>
+	  </div>
+	  <div>
+	    <a class="text-xs" href="{{portfolio}}">{{portfolio}}</a>
+	  </div>
+	</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Template: Experience -->
+  <div id="experienceSectionTemplate" class="hidden">
+    <!-- Header -->
+    <div class="flex">
+      <div class="flex-auto font-bold whitespace-nowrap">WORK EXPERIENCE</div>
+      <div class="flex-auto w-full ml-2">
+	<div class="flex flex-col grow">
+	  <div class="h-0 mt-3 border-b border-gray-900"></div>
+	</div>
+      </div>
+    </div>
+
+    <div class="[&>*:first-child]:mt-4">
+      {{#each this}}
+        <!-- Work Experience: {{name}} -->
+        <div class="flex w-full mt-5">
+          <div class="text-xs">
+	    <div class="flex justify-between">
+	      <div class="font-bold text-accent">{{this.title}}</div>
+	      <div>{{this.duration}}</div>
+	    </div>
+	    <div class="flex justify-between">
+	      <div>{{this.name}}</div>
+	      <div>{{this.location}}</div>
+	    </div>
+	    <ui class="fa-ul">
+	      {{#each this.descriptions}}
+	        <li class="ml-4 mb-1">
+		  <span class="fa-li text-3xs text-dark-primary">
+		    <i class="fa-solid fa-chevron-right"></i>
+		  </span>
+	  	  {{this}}
+	        </li>
+	      {{/each}}
+            </ul>
+            <div class="mt-4 ml-4">
+	      <span class="rounded-md py-1 px-2 bg-dark-primary text-white">Java</span>
+	      <span class="rounded-md py-1 px-2 bg-dark-primary text-white">Groovy</span>
+	      <span class="rounded-md py-1 px-2 bg-dark-primary text-white">Spring Boot</span>
+	      <span class="rounded-md py-1 px-2 bg-dark-primary text-white">Angular</span>
+	      <span class="rounded-md py-1 px-2 bg-dark-primary text-white">TypeScript</span>
+	      <span class="rounded-md py-1 px-2 bg-dark-primary text-white">Oracle SQL</span>
+            </div>
+	  </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+
+  <!-- Template: Skills -->
+  <div id="skillsSectionTemplate" class="hidden">
+    <!-- Header -->
+    <div class="flex">
+      <div class="flex-auto font-bold  whitespace-nowrap">SKILL PROFICIENCY</div>
+      <div class="flex-auto w-full ml-2">
+	<div class="flex flex-col grow">
+	  <div class="h-0 mt-3 border-b border-gray-900"></div>
+	</div>
+      </div>
+    </div>
+    <!-- Content -->
+    <div class="grid grid-cols-2 gap-x-4 gap-y-3 mt-6 ml-3 text-xs">
+      {{#each this}}
+        <!-- Category: {this.name} -->
+        <div>
+	  <div class="mb-2 font-semibold">{{this.name}}</div>
+	  {{#each this.items}}
+	    <!-- SKILL: {{this.name}} -->
+	    <div class="grid grid-cols-2 place-content-between">
+	      <div>{{this.name}}</div>
+	      <div class="grid grid-cols-5 w-24 content-center">
+	        <div class="w-2 h-2 {{bgColor this.value 1}}"></div>
+	        <div class="w-2 h-2 {{bgColor this.value 2}}"></div>
+	        <div class="w-2 h-2 {{bgColor this.value 3}}"></div>
+	        <div class="w-2 h-2 {{bgColor this.value 4}}"></div>
+	        <div class="w-2 h-2 {{bgColor this.value 5}}"></div>
+	      </div>
+	    </div>
+	  {{/each}}
+        </div>
+      {{/each}}
+    </div>
+  </div>
+  
+  <!-- Template: Education -->
+  <div id="educationSectionTemplate" class="hidden">
+    <!-- Header -->
+    <div class="flex">
+      <div class="flex-auto font-bold whitespace-nowrap">EDUCATION</div>
+      <div class="flex-auto w-full ml-2">
+	<div class="flex flex-col grow">
+	  <div class="h-0 mt-3 border-b border-gray-900"></div>
+	</div>
+      </div>
+    </div>
+    <!-- Content -->
+    <div class="flex flex-col mt-6">
+      <div class="flex">
+	<div class="flex-auto w-full">
+	  <div class="text-xs">
+	    <div class="flex justify-between">
+	      <div class="font-bold tracking-widest text-accent">{{title}}</div>
+	      <div>{{degree}}</div>
+	    </div>
+	    <div class="flex justify-between">
+	      <div>{{name}}</div>
+	      <div>{{year}}</div>
+	    </div>
+	  </div>
+	</div>
+      </div>
+    </div>
+  </div>
+  
+  <script type="text/javascript">
+
+    Handlebars.registerHelper("bgColor", function(value, position) {
+	return value >= position ? 'bg-accent' : 'bg-gray-300';
+    });
+   
+    const renderTemplate = (templateId, selectorId, value) => {
+	const template = Handlebars.compile($(templateId).html());
+	const templateString = template(value);
+	console.log(templateString);
+	$(selectorId).html(templateString);
+    };
+    
+    $.getJSON('personal-resume-data.json', function(resume) {
+	renderTemplate('#headerSectionTemplate', '#headerSection', resume.personal);
+	renderTemplate('#objectiveSectionTemplate', '#objectiveSection', resume.personal);
+	renderTemplate('#contactSectionTemplate', '#contactSection', resume.personal);
+	renderTemplate('#socialSectionTemplate', '#socialSection', resume.personal);
+	renderTemplate('#skillsSectionTemplate', '#skillsSection', resume.skills);
+	renderTemplate('#experienceSectionTemplate', '#experienceSection', resume.experiences);
+	renderTemplate('#educationSectionTemplate', '#educationSection', resume.education);
+	document.body.dispatchEvent(new Event('view-ready'))
+    });
+
+  </script>
+</body>
+
+</html>
