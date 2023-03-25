@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>A4</title>
+  <title>Resume</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
@@ -24,9 +24,11 @@
   <!-- Set page size here: A5, A4 or A3 -->
   <!-- Set also "landscape" if you need -->
   <style>
-    @page { size: A4 }
-    .endless {
-	height: auto !important;
+    @page {
+	size: A4;
+    }
+    .h-297mm {
+	height: 297.13mm !important;
     }
   </style>
   <script src="https://cdn.tailwindcss.com"></script>
@@ -42,98 +44,72 @@
 		    '2xs': '0.625rem',
 		},
 		colors: {
-		    'dark-primary': '#11212f',
+		    'primary-dark': '#11212f',
 		    'accent': '#2bb0e1'
 		},
 	    }
 	}
-    }
+    };
   </script>
 </head>
 
-<!-- Set "A5", "A4" or "A3" for class name -->
-<!-- Set also "landscape" if you need -->
 <body class="A4">
-  <!-- Each sheet element should have the class "sheet" -->
-  <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
-  <section class="sheet endless">
-    <div class="flex h-full font-['Roboto'] text-gray-700">
-      <!-- Left Column -->
-      <div class="flex-auto w-4 bg-dark-primary text-white">
-	<div class="mt-14 ml-8">
-	  <!-- Template: Header -->
-	  <div id="headerSection"></div>
-	  <div class="mt-12">
-	    <!-- Template: Objective -->
-	    <div id="objectiveSection"></div>
+
+  <div id="sheetWrapper"></div>
+  
+  <!-- Template: Sheet -->
+  <div id="sheetTemplate" class="hidden">
+    {{#each this}}
+      <section class="sheet h-297mm">
+        <div class="flex h-full font-['Roboto'] text-gray-700">
+	  <!-- Left Column -->
+	  <div class="flex-auto w-4 bg-primary-dark text-white">
+	    <div class="mt-14 ml-8">
+	      {{#each sideContent}}
+	        {{{render this}}}
+	      {{/each}}
+	    </div>
 	  </div>
-	  <div class="mt-10">
-	    <!-- Template: Contact -->
-	    <div id="contactSection"></div>
-	  </div>
-	  <div class="mt-12">
-	    <!-- Template: Social -->
-	    <div id="socialSection"></div>
+	  <!-- Right Column -->
+	  <div class="flex-auto w-64 my-16 px-7">
+	    {{#each content}}
+	      {{{render this}}}
+	    {{/each}}
 	  </div>
 	</div>
-      </div>
-      <!-- Right Column -->
-      <div class="flex-auto w-64 my-16 px-7">
-	<div>
-	  <!-- Template: Experience -->
-	  <div id="experienceSection"></div>
-	</div>
-	<div class="mt-6">
-	  <!-- Template: Skills -->
-	  <div id="skillsSection"></div>
-	</div>
-	<div class="mt-6">
-	  <!-- TEMPLATE: Education -->
-	  <div id="educationSection"></div>	  
+      </section>
+    {{/each}}
+  </div>
+
+  <!-- Template: Name -->
+  <div id="nameTemplate" class="hidden">
+    <div class="font-bold text-3xl">{{name}}</div>
+    <div class="text-sm tracking-wider">{{title}}</div>
+  </div>
+
+  <!-- Template: Header -->
+  <div id="headerTemplate" class="hidden">
+    <div class="{{margins}}">
+      <div class="flex">
+	<div class="flex-auto font-bold whitespace-nowrap">{{title}}</div>
+	<div class="flex-auto w-full ml-2">
+	  <div class="flex flex-col">
+	    <div class="h-0 mt-3 border-b border-{{color}}"></div>
+	  </div>
 	</div>
       </div>
     </div>
-  </section>
-
-  <!-- JS Dependencies -->
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
-
-  <!-- Template: Header -->
-  <div id="headerSectionTemplate" class="hidden">
-    <div class="font-bold text-3xl">{{name}}</div>
-    <div class="text-sm tracking-wider">{{title}}</div>    
   </div>
 
   <!-- Template: Objective -->
-  <div id="objectiveSectionTemplate" class="hidden">
-    <!-- Header -->
-    <div class="flex">
-      <div class="flex-auto font-bold">OBJECTIVE</div>
-      <div class="flex-auto w-full ml-2">
-	<div class="flex flex-col">
-	  <div class="h-0 mt-3 border-b border-white"></div>
-	</div>
-      </div>
-    </div>
-    <!-- Content -->
+  <div id="objectiveTemplate" class="hidden">
     <div class="flex">
       <div class="mt-6 ml-4 pr-4 text-xs">{{objective}}</div>
     </div>
   </div>
 
   <!-- Template: Contact -->
-  <div id="contactSectionTemplate" class="hidden">
-    <!-- Header -->
-    <div class="flex">
-      <div class="flex-auto font-bold">CONTACT</div>
-      <div class="flex-auto w-full ml-2">
-	<div class="flex flex-col">
-	  <div class="h-0 mt-3 border-b border-white"></div>
-	</div>
-      </div>
-    </div>
-    <!-- Content -->
+  <div id="contactTemplate" class="hidden">
     <div class="flex mt-4 ml-4">
       <ul class="list-none text-sm">
 	<li>
@@ -153,17 +129,7 @@
   </div>
 
   <!-- Template: Social -->
-  <div id="socialSectionTemplate" class="hidden">
-    <!-- Header -->
-    <div class="flex">
-      <div class="flex-auto font-bold">Social</div>
-      <div class="flex-auto w-full ml-2">
-	<div class="flex flex-col">
-	  <div class="h-0 mt-3 border-b border-white"></div>
-	</div>
-      </div>
-    </div>
-    <!-- Content -->
+  <div id="socialTemplate" class="hidden">
     <div class="flex mt-4 ml-4">
       <ul class="list-none text-sm">
 	<li>
@@ -189,22 +155,11 @@
   </div>
 
   <!-- Template: Experience -->
-  <div id="experienceSectionTemplate" class="hidden">
-    <!-- Header -->
-    <div class="flex">
-      <div class="flex-auto font-bold whitespace-nowrap">WORK EXPERIENCE</div>
-      <div class="flex-auto w-full ml-2">
-	<div class="flex flex-col grow">
-	  <div class="h-0 mt-3 border-b border-gray-900"></div>
-	</div>
-      </div>
-    </div>
-
+  <div id="experienceTemplate" class="hidden">
     <div class="[&>*:first-child]:mt-4">
-      {{#each this}}
+      {{#each this.experiences}}
         <!-- Work Experience: {{name}} -->
         <div class="flex flex-col w-full mt-5 text-xs">
-          
 	    <div class="flex justify-between">
 	      <div class="font-bold text-accent">{{this.title}}</div>
 	      <div>{{this.duration}}</div>
@@ -216,7 +171,8 @@
 	    <ul class="fa-ul mt-2 ml-5">
 	      {{#each this.descriptions}}
 	        <li class="mb-1">
-		  <span class="fa-li text-3xs text-dark-primary">
+
+		  <span class="fa-li text-3xs text-primary-dark">
 		    <i class="fa-solid fa-chevron-right"></i>
 		  </span>
 	  	  {{this}}
@@ -224,39 +180,24 @@
 	      {{/each}}
             </ul>
             <div class="flex flex-wrap ml-4">
-	      <div class="mt-1 mr-1"><div class="rounded-md py-0.5 px-1.5 bg-dark-primary text-white">Java</div></div>
-	      <div class="mt-1 mr-1"><div class="rounded-md py-0.5 px-1.5 bg-dark-primary text-white">Groovy</div></div>
-	      <div class="mt-1 mr-1"><div class="rounded-md py-0.5 px-1.5 bg-dark-primary text-white">Spring Boot</div></div>
-	      <div class="mt-1 mr-1"><div class="rounded-md py-0.5 px-1.5 bg-dark-primary text-white">Angular</div></div>
-	      <div class="mt-1 mr-1"><div class="rounded-md py-0.5 px-1.5 bg-dark-primary text-white">TypeScript</div></div>
-	      <div class="mt-1 mr-1"><div class="rounded-md py-0.5 px-1.5 bg-dark-primary text-white">Oracle SQL</div></div>
-	      <div class="mt-1 mr-1"><div class="rounded-md py-0.5 px-1.5 bg-dark-primary text-white">Pivotal Cloud Foundry</div></div>
+	      {{#each this.technologies }}
+	        <div class="mt-1 mr-1">
+		  <div class="rounded-md py-0.5 px-1.5 bg-primary-dark text-white">{{this}}</div>
+	        </div>
+	      {{/each}}
             </div>
-	  
         </div>
       {{/each}}
     </div>
   </div>
 
   <!-- Template: Skills -->
-  <div id="skillsSectionTemplate" class="hidden">
-    <!-- Header -->
-    <div class="flex">
-      <div class="flex-auto font-bold  whitespace-nowrap">SKILL PROFICIENCY</div>
-      <div class="flex-auto w-full ml-2">
-	<div class="flex flex-col grow">
-	  <div class="h-0 mt-3 border-b border-gray-900"></div>
-	</div>
-      </div>
-    </div>
-    <!-- Content -->
+  <div id="skillsTemplate" class="hidden">
     <div class="grid grid-cols-2 gap-x-4 gap-y-3 mt-6 ml-3 text-xs">
-      {{#each this}}
-        <!-- Category: {this.name} -->
+      {{#each this.skills}}
         <div>
 	  <div class="mb-2 font-semibold">{{this.name}}</div>
 	  {{#each this.items}}
-	    <!-- SKILL: {{this.name}} -->
 	    <div class="grid grid-cols-2 place-content-between">
 	      <div>{{this.name}}</div>
 	      <div class="grid grid-cols-5 w-24 content-center">
@@ -272,19 +213,9 @@
       {{/each}}
     </div>
   </div>
-  
+
   <!-- Template: Education -->
-  <div id="educationSectionTemplate" class="hidden">
-    <!-- Header -->
-    <div class="flex">
-      <div class="flex-auto font-bold whitespace-nowrap">EDUCATION</div>
-      <div class="flex-auto w-full ml-2">
-	<div class="flex flex-col grow">
-	  <div class="h-0 mt-3 border-b border-gray-900"></div>
-	</div>
-      </div>
-    </div>
-    <!-- Content -->
+  <div id="educationTemplate" class="hidden">
     <div class="flex flex-col mt-6">
       <div class="flex">
 	<div class="flex-auto w-full">
@@ -303,30 +234,28 @@
     </div>
   </div>
   
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+
   <script type="text/javascript">
-
-    Handlebars.registerHelper("bgColor", function(value, position) {
-	return value >= position ? 'bg-accent' : 'bg-gray-300';
-    });
-   
-    const renderTemplate = (templateId, selectorId, value) => {
-	const template = Handlebars.compile($(templateId).html());
-	const templateString = template(value);
-	console.log(templateString);
-	$(selectorId).html(templateString);
-    };
+    $(function() {
     
-    $.getJSON('personal-resume-data.json', function(resume) {
-	renderTemplate('#headerSectionTemplate', '#headerSection', resume.personal);
-	renderTemplate('#objectiveSectionTemplate', '#objectiveSection', resume.personal);
-	renderTemplate('#contactSectionTemplate', '#contactSection', resume.personal);
-	renderTemplate('#socialSectionTemplate', '#socialSection', resume.personal);
-	renderTemplate('#skillsSectionTemplate', '#skillsSection', resume.skills);
-	renderTemplate('#experienceSectionTemplate', '#experienceSection', resume.experiences);
-	renderTemplate('#educationSectionTemplate', '#educationSection', resume.education);
-	document.body.dispatchEvent(new Event('view-ready'))
-    });
+	Handlebars.registerHelper("bgColor", function(value, position) {
+	    return value >= position ? 'bg-accent' : 'bg-gray-300';
+	});
 
+	Handlebars.registerHelper("render", function(value) {
+	    const template = Handlebars.compile($(`#${value.templateId}`).html());
+	    return template(value.data);
+	});
+
+	$.getJSON('personal-resume-data-1.json', function(data) {
+	    const template = Handlebars.compile($('#sheetTemplate').html());
+	    $('#sheetWrapper').html(template(data));
+	    document.body.dispatchEvent(new Event('view-ready'))
+	});
+    });
+    
   </script>
 </body>
 

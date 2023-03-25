@@ -1,4 +1,5 @@
 node_modules/
 **.*~
-*-resume-data.json
+*-resume-data*.json
 *modern_cv.png
+*.pdf
