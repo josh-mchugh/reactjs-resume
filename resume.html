@@ -171,11 +171,10 @@
 	    <ul class="fa-ul mt-3 ml-5">
 	      {{#each this.descriptions}}
 	        <li class="mb-1">
-
 		  <span class="fa-li text-3xs text-primary-dark">
 		    <i class="fa-solid fa-chevron-right"></i>
 		  </span>
-	  	  {{this}}
+	  	  <span class="text-xs">{{this}}</span>
 	        </li>
 	      {{/each}}
             </ul>
@@ -224,15 +223,50 @@
 	  <div class="text-xs">
 	    <div class="flex justify-between">
 	      <div class="font-bold text-accent">{{title}}</div>
-	      <div>{{degree}}</div>
+	      <div>{{year}}</div>
 	    </div>
 	    <div class="flex justify-between">
 	      <div>{{name}}</div>
-	      <div>{{year}}</div>
 	    </div>
 	  </div>
 	</div>
       </div>
+    </div>
+  </div>
+
+  <!-- Template: Interests -->
+  <div id="interestsTemplate" class="hidden">
+    <ul class="fa-ul mt-3 ml-5 text-sm">
+      {{#each this.interests}}
+        <li class="mb-1">
+	  <span class="fa-li text-3xs text-primary-dark">
+	    <i class="fa-solid fa-chevron-right"></i>
+	  </span>
+	  <span class="text-xs">{{this}}</span>
+	</li>
+      {{/each}}
+    </ul>
+  </div>
+
+  <!-- Template: Projects -->
+  <div id="projectsTemplate" class="hidden">
+    <div class="[&>*:first-child]:mt-4">
+      {{#each this.projects}}
+        <!-- Project: {{name}} -->
+        <div class="flex flex-col w-full mt-5 text-xs">
+	  <div class="font-bold text-accent mr-2">{{this.name}}</div>
+	  <div class="mt-2 ml-1">{{this.description}}</div>
+          <div class="flex flex-wrap mt-2 ml-1">
+	    {{#each this.technologies }}
+	      <div class="mt-1 mr-1">
+		<div class="rounded-md py-0.5 px-1.5 bg-primary-dark text-white">
+		  {{this}}
+		</div>
+	      </div>
+	    {{/each}}
+          </div>
+        </div>
+      {{/each}}
     </div>
   </div>
   
