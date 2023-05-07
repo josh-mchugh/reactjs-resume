@@ -189,17 +189,19 @@
       {{#each this.skills}}
         <div>
 	  <div class="mb-2 font-semibold underline">{{this.name}}</div>
-	  <div class="grid grid-cols-2 gap-x-16 place-content-between">
+    <div class="grid grid-cols-2 gap-x-16 place-content-between">
 	    {{#each this.items}}
-	      <div class="grid grid-cols-2 place-content-between">
+	      <div class="grid {{#if ../showGauge}} grid-cols-2 {{else}} {{/if}} place-content-between">
 	        <div>{{this.name}}</div>
+          {{#if ../showGauge}}
 	          <div class="grid grid-cols-5 w-24 content-center">
-	          <div class="w-2 h-2 {{bgColor this.value 1}}"></div>
-	          <div class="w-2 h-2 {{bgColor this.value 2}}"></div>
-	          <div class="w-2 h-2 {{bgColor this.value 3}}"></div>
-	          <div class="w-2 h-2 {{bgColor this.value 4}}"></div>
-	          <div class="w-2 h-2 {{bgColor this.value 5}}"></div>
-	        </div>
+	            <div class="w-2 h-2 {{bgColor this.value 1}}"></div>
+	            <div class="w-2 h-2 {{bgColor this.value 2}}"></div>
+	            <div class="w-2 h-2 {{bgColor this.value 3}}"></div>
+	            <div class="w-2 h-2 {{bgColor this.value 4}}"></div>
+	            <div class="w-2 h-2 {{bgColor this.value 5}}"></div>
+	          </div>
+          {{/if}}
 	      </div>
 	    {{/each}}
 	  </div>
@@ -210,21 +212,23 @@
 
   <!-- Template: Education -->
   <div id="educationTemplate" class="hidden">
-    <div class="flex flex-col mt-6">
-      <div class="flex">
-	<div class="flex-auto w-full">
-	  <div class="text-xs">
-	    <div class="flex justify-between">
-	      <div class="font-bold text-accent">{{title}}</div>
-	      <div>{{year}}</div>
-	    </div>
-	    <div class="flex justify-between">
-	      <div>{{name}}</div>
-	    </div>
-	  </div>
-	</div>
+    {{#each this.certifications}}
+      <div class="flex flex-col mt-6">
+        <div class="flex">
+	        <div class="flex-auto w-full">
+	          <div class="text-xs">
+	            <div class="flex justify-between">
+	              <div class="font-bold text-accent">{{title}}</div>
+	              <div>{{year}}</div>
+	            </div>
+	            <div class="flex justify-between">
+	              <div>{{name}}</div>
+	            </div>
+	          </div>
+	        </div>
+        </div>
       </div>
-    </div>
+    {{/each}}
   </div>
 
   <!-- Template: Interests -->
