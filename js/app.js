@@ -1,3 +1,4 @@
+
 class Resume extends React.Component {
 
     state = {
@@ -54,8 +55,33 @@ class SideContentList extends React.Component {
             if(content.templateId === 'nameTemplate') {
                 return (<NameSection {...content.data} />);
             }
+            if(content.templateId == 'headerTemplate') {
+                return (<HeaderSection {...content.data} />)
+            }
+            if(content.templateId == 'objectiveTemplate') {
+                return (<ObjectiveSection {...content.data} />)
+            }
             return (<div></div>);
         });
+    }
+}
+
+class HeaderSection extends React.Component {
+    render() {
+        return (
+            <div>
+                <div className={this.props.margins}>
+                <div className="flex">
+	                <div className="flex-auto font-bold whitespace-nowrap">{this.props.title}</div>
+	                <div className="flex-auto w-full ml-2">
+	                  <div className="flex flex-col">
+	                    <div className={`h-0 mt-3 border-b border-${this.props.color}`}></div>
+	                  </div>
+	                </div>
+                </div>
+              </div>
+            </div>
+        );
     }
 }
 
@@ -65,6 +91,18 @@ class NameSection extends React.Component {
             <div>
               <div className="font-bold text-3xl">{this.props.name}</div>
               <div className="text-sm tracking-wider">{this.props.title}</div>
+            </div>
+        );
+    }
+}
+
+class ObjectiveSection extends React.Component {
+    render() {
+        return (
+            <div>
+              <div className="flex">
+                <div className="mt-6 ml-4 pr-4 text-xs">{this.props.objective}</div>
+              </div>
             </div>
         );
     }
