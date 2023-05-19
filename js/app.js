@@ -53,15 +53,18 @@ class SideContentList extends React.Component {
     render() {
         return this.props.sideContent.map(content => {
             if(content.templateId === 'nameTemplate') {
-                return (<NameSection {...content.data} />);
+                return <NameSection {...content.data} />;
             }
-            if(content.templateId == 'headerTemplate') {
-                return (<HeaderSection {...content.data} />)
+            if(content.templateId === 'headerTemplate') {
+                return <HeaderSection {...content.data} />
             }
-            if(content.templateId == 'objectiveTemplate') {
-                return (<ObjectiveSection {...content.data} />)
+            if(content.templateId === 'objectiveTemplate') {
+                return <ObjectiveSection {...content.data} />
             }
-            return (<div></div>);
+            if(content.templateId === 'contactTemplate') {
+                return <ContactSection {...content.data} />
+            }
+            return <div></div>;
         });
     }
 }
@@ -102,6 +105,31 @@ class ObjectiveSection extends React.Component {
             <div>
               <div className="flex">
                 <div className="mt-6 ml-4 pr-4 text-xs">{this.props.objective}</div>
+              </div>
+            </div>
+        );
+    }
+}
+
+class ContactSection extends React.Component {
+    render() {
+        return (
+            <div>
+              <div className="flex mt-4 ml-4">
+                <ul className="list-none text-sm">
+	                <li>
+	                  <i className="fa-solid fa-phone text-accent"></i>
+	                  <span className="ml-2">{this.props.phone}</span>
+	                </li>
+	                <li className="mt-2">
+	                  <i className="fa-solid fa-envelope text-accent"></i>
+	                  <a className="ml-2" href={`mailto:${this.props.email}`}>{this.props.email}</a>
+	                </li>
+	                <li className="mt-2">
+	                  <i className="fa-solid fa-location-dot text-accent"></i>
+	                  <span className="ml-2">{this.props.location}</span>
+	                </li>
+                </ul>
               </div>
             </div>
         );
