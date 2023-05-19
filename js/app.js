@@ -51,20 +51,23 @@ class Sheet extends React.Component {
 
 class SideContentList extends React.Component {
     render() {
-        return this.props.sideContent.map(content => {
+        return this.props.sideContent.map((content, index) => {
             if(content.templateId === 'nameTemplate') {
-                return <NameSection {...content.data} />;
+                return <NameSection key={index} {...content.data} />;
             }
             if(content.templateId === 'headerTemplate') {
-                return <HeaderSection {...content.data} />
+                return <HeaderSection key={index} {...content.data} />
             }
             if(content.templateId === 'objectiveTemplate') {
-                return <ObjectiveSection {...content.data} />
+                return <ObjectiveSection key={index} {...content.data} />
             }
             if(content.templateId === 'contactTemplate') {
-                return <ContactSection {...content.data} />
+                return <ContactSection key={index} {...content.data} />
             }
-            return <div></div>;
+            if(content.templateId === 'socialTemplate') {
+                return <SocialSection key={index} data={content.data} />
+            }
+            return <div key={index}></div>;
         });
     }
 }
@@ -135,6 +138,46 @@ class ContactSection extends React.Component {
         );
     }
 }
+
+class SocialSection extends React.Component {
+    render() {
+        return (
+            <div>
+              <div className="flex mt-1 ml-4">
+                <SocialList {...this.props} />
+              </div>
+            </div>
+        );
+    }
+}
+
+class SocialList extends React.Component {
+    render() {
+        const socialItems = this.props.data.map((item, index) => <SocialListItem key={index} {...item} />);
+        return (
+            <ul className="list-none text-sm">
+              {socialItems}
+            </ul>
+        );
+    }
+}
+
+class SocialListItem extends React.Component {
+    render() {
+        return (
+            <li className="mt-3">
+	            <div>
+	              <i className={`${this.props.icon} text-accent`}></i>
+	              <span className="ml-2">{this.props.name}:</span>
+	            </div>
+	            <div>
+	              <a className="text-xs" href={this.props.url}>{this.props.url}</a>
+	            </div>
+	          </li>
+        );
+    }
+}
+
 
 const root = ReactDOM.createRoot(document.getElementById('content'));
 root.render(<Resume />);
