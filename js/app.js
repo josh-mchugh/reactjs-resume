@@ -25,7 +25,7 @@ class Resume extends React.Component {
 class SheetList extends React.Component {
     render() {
         return this.props.sheets.map(
-            sheet => <Sheet key={sheet.page} sideContent={sheet.sideContent} />
+            sheet => <Sheet key={sheet.page} {...sheet} />
         );
     }
 }
@@ -41,7 +41,7 @@ class Sheet extends React.Component {
 	                </div>
 	              </div>
 	              <div className="flex-auto w-64 my-16 px-7">
-                  Main Content
+                  <MainContentList content={this.props.content} />
                 </div>
 	            </div>
             </section>
@@ -66,6 +66,17 @@ class SideContentList extends React.Component {
             }
             if(content.templateId === 'socialTemplate') {
                 return <SocialSection key={index} data={content.data} />
+            }
+            return <div key={index}></div>;
+        });
+    }
+}
+
+class MainContentList extends React.Component {
+    render() {
+        return this.props.content.map((content, index) => {
+            if(content.templateId === 'headerTemplate') {
+                return <HeaderSection key={index} {...content.data} />;
             }
             return <div key={index}></div>;
         });
