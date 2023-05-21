@@ -1,4 +1,5 @@
 
+
 class Resume extends React.Component {
 
     state = {
@@ -77,6 +78,9 @@ class MainContentList extends React.Component {
         return this.props.content.map((content, index) => {
             if(content.templateId === 'headerTemplate') {
                 return <HeaderSection key={index} {...content.data} />;
+            }
+            if(content.templateId === 'experienceTemplate') {
+                return <ExperienceSection key={index} {...content.data} />
             }
             return <div key={index}></div>;
         });
@@ -185,6 +189,45 @@ class SocialListItem extends React.Component {
 	              <a className="text-xs" href={this.props.url}>{this.props.url}</a>
 	            </div>
 	          </li>
+        );
+    }
+}
+
+class ExperienceSection extends React.Component {
+    render() {
+        return (
+            <div>
+              <div className="[&>*:first-child]:mt-4">
+                <ExperienceList {...this.props} />
+              </div>
+            </div>
+        );
+    }
+}
+
+class ExperienceList extends React.Component {
+    render() {
+        return this.props.experiences.map((content, index) => <ExperienceListItem key={index} {...content} />);
+    }
+}
+
+class ExperienceListItem extends React.Component {
+    render() {
+        return (
+            <div className="flex flex-col w-full mt-5 text-xs">
+	            <div className="flex justify-between">
+	              <div className="font-bold text-accent">{this.props.title}</div>
+	              <div>{this.props.duration}</div>
+	            </div>
+	            <div className="flex justify-between">
+	              <div>{this.props.name}</div>
+	              <div>{this.props.location}</div>
+	            </div>
+	            <ul className="fa-ul mt-3 ml-5">
+	            </ul>
+              <div className="flex flex-wrap mt-1 ml-4">
+	            </div>
+            </div>
         );
     }
 }
