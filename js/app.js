@@ -223,15 +223,57 @@ class ExperienceListItem extends React.Component {
 	              <div>{this.props.name}</div>
 	              <div>{this.props.location}</div>
 	            </div>
-	            <ul className="fa-ul mt-3 ml-5">
-	            </ul>
-              <div className="flex flex-wrap mt-1 ml-4">
-	            </div>
+	            <ExperienceDescriptionList descriptions={this.props.descriptions} />
+              <TechnologyList technologies={this.props.technologies} />
             </div>
         );
     }
 }
 
+class ExperienceDescriptionList extends React.Component {
+    render() {
+        const descriptionItems = this.props.descriptions.map((description, index) => <ExperienceDescriptionItem key={index} description={description} />);
+        return (
+            <ul className="fa-ul mt-3 ml-5">
+              {descriptionItems}
+	          </ul>
+        );
+    }
+}
+
+class ExperienceDescriptionItem extends React.Component {
+    render() {
+        return (
+            <li className="mb-1">
+		          <span className="fa-li text-3xs text-primary-dark">
+		            <i className="fa-solid fa-chevron-right"></i>
+		          </span>
+	  	        <span className="text-xs">{this.props.description}</span>
+	          </li>
+        );
+    }
+}
+
+class TechnologyList extends React.Component {
+    render() {
+        const technologyItems = this.props.technologies.map((technology, index) => <TechnologyListItem key={index} technology={technology} />);
+        return (
+            <div className="flex flex-wrap mt-1 ml-4">
+              {technologyItems}
+	          </div>
+        );
+    }
+}
+
+class TechnologyListItem extends React.Component {
+    render() {
+        return (
+            <div class="mt-1 mr-1">
+		          <div class="rounded-md py-0.5 px-1.5 bg-primary-dark text-white">{this.props.technology}</div>
+	          </div>
+        );
+    }
+}
 
 const root = ReactDOM.createRoot(document.getElementById('content'));
 root.render(<Resume />);
