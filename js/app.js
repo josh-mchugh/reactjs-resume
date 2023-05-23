@@ -82,6 +82,9 @@ class MainContentList extends React.Component {
             if(content.templateId === 'experienceTemplate') {
                 return <ExperienceSection key={index} {...content.data} />
             }
+            if(content.templateId === 'skillsTemplate') {
+                return <SkillSection key={index} {...content.data} />
+            }
             return <div key={index}></div>;
         });
     }
@@ -268,9 +271,67 @@ class TechnologyList extends React.Component {
 class TechnologyListItem extends React.Component {
     render() {
         return (
-            <div class="mt-1 mr-1">
-		          <div class="rounded-md py-0.5 px-1.5 bg-primary-dark text-white">{this.props.technology}</div>
+            <div className="mt-1 mr-1">
+		          <div className="rounded-md py-0.5 px-1.5 bg-primary-dark text-white">{this.props.technology}</div>
 	          </div>
+        );
+    }
+}
+
+class SkillSection extends React.Component {
+    render() {
+        const skillListItems = this.props.skills.map((skill, index) => <SkillListItem key={index} {...skill} />);
+        return (
+            <div>
+              <div className="grid grid-cols-1 gap-y-3 mt-6 mx-4 text-xs">
+                {skillListItems}
+              </div>
+            </div>
+        );
+    }
+}
+
+
+class SkillListItem extends React.Component {
+    render() {
+        const skillValueItems = this.props.items.map((item, index) => <SkillValueItem key={index} showGauge={this.props.showGauge} {...item} />);
+        return (
+            <div>
+	            <div className="mb-2 font-semibold underline">{this.props.name}</div>
+              <div className="grid grid-cols-2 gap-x-16 place-content-between">
+                {skillValueItems}
+              </div>
+            </div>
+        );
+    }
+}
+
+class SkillValueItem extends React.Component {
+    render() {
+        return (
+            <div className={`grid ${this.props.showGauge ? 'grid-cols-2' : ''} place-content-between`}>
+	              <div>{this.props.name}</div>
+                {this.props.showGauge && <SkillValueGaugeList value={this.props.value} />}
+	          </div>
+        );
+    }
+}
+
+class SkillValueGaugeList extends React.Component {
+    render() {;
+        const gaugeListItems = [1,2,3,4,5].map((value, index) => <SkillValueGaugeListItem highlighted={this.props.value >= value} />);
+        return (
+            <div className="grid grid-cols-5 w-24 content-center">
+	            {gaugeListItems}
+	          </div>
+        );
+    }
+}
+
+class SkillValueGaugeListItem extends React.Component {
+    render() {
+        return (
+             <div className={`w-2 h-2 ${this.props.highlighted ? 'bg-accent' : 'bg-gray-300'}`}></div>
         );
     }
 }
