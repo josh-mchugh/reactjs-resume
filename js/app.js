@@ -1,5 +1,6 @@
 
 
+
 class Resume extends React.Component {
 
     state = {
@@ -84,6 +85,9 @@ class MainContentList extends React.Component {
             }
             if(content.templateId === 'skillsTemplate') {
                 return <SkillSection key={index} {...content.data} />
+            }
+            if(content.templateId === 'educationTemplate') {
+                return <CertificationSection key={index} {...content.data} />
             }
             return <div key={index}></div>;
         });
@@ -332,6 +336,39 @@ class SkillValueGaugeListItem extends React.Component {
     render() {
         return (
              <div className={`w-2 h-2 ${this.props.highlighted ? 'bg-accent' : 'bg-gray-300'}`}></div>
+        );
+    }
+}
+
+class CertificationSection extends React.Component {
+    render() {
+        const certificationItems = this.props.certifications.map((certification, index) => <Certification key={index} {...certification} />);
+        return (
+            <div>
+                {certificationItems}
+            </div>
+        );
+    }
+}
+
+class Certification extends React.Component {
+    render() {
+        return (
+            <div className="flex flex-col mt-6">
+              <div className="flex">
+	              <div className="flex-auto w-full">
+	                <div className="text-xs">
+	                  <div className="flex justify-between">
+	                    <div className="font-bold text-accent">{this.props.title}</div>
+	                    <div>{this.props.year}</div>
+	                  </div>
+	                 <div className="flex justify-between">
+	                   <div>{this.props.name}</div>
+	                 </div>
+	               </div>
+	             </div>
+             </div>
+           </div>
         );
     }
 }
