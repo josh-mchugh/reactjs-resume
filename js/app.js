@@ -1,6 +1,4 @@
 
-
-
 class Resume extends React.Component {
 
     state = {
@@ -88,6 +86,9 @@ class MainContentList extends React.Component {
             }
             if(content.templateId === 'educationTemplate') {
                 return <CertificationSection key={index} {...content.data} />
+            }
+            if(content.templateId === 'interestsTemplate') {
+                return <InterestSection key={index} {...content.data} />
             }
             return <div key={index}></div>;
         });
@@ -362,13 +363,39 @@ class Certification extends React.Component {
 	                    <div className="font-bold text-accent">{this.props.title}</div>
 	                    <div>{this.props.year}</div>
 	                  </div>
-	                 <div className="flex justify-between">
-	                   <div>{this.props.name}</div>
+	                  <div className="flex justify-between">
+	                    <div>{this.props.name}</div>
 	                 </div>
 	               </div>
 	             </div>
              </div>
            </div>
+        );
+    }
+}
+
+class InterestSection extends React.Component {
+    render() {
+        const interests = this.props.interests.map((description, index) => <Interest key={index} description={description} />);
+        return (
+            <div>
+              <ul className="fa-ul mt-3 ml-5 text-sm">
+                {interests}
+              </ul>
+            </div>
+        );
+    }
+}
+
+class Interest extends React.Component {
+    render() {
+        return (
+            <li className="mb-1">
+	            <span className="fa-li text-3xs text-primary-dark">
+	              <i className="fa-solid fa-chevron-right"></i>
+	            </span>
+	            <span className="text-xs">{this.props.description}</span>
+	          </li>
         );
     }
 }
