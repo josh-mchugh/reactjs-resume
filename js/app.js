@@ -79,16 +79,19 @@ class MainContentList extends React.Component {
                 return <HeaderSection key={index} {...content.data} />;
             }
             if(content.templateId === 'experienceTemplate') {
-                return <ExperienceSection key={index} {...content.data} />
+                return <ExperienceSection key={index} {...content.data} />;
             }
             if(content.templateId === 'skillsTemplate') {
-                return <SkillSection key={index} {...content.data} />
+                return <SkillSection key={index} {...content.data} />;
             }
             if(content.templateId === 'educationTemplate') {
-                return <CertificationSection key={index} {...content.data} />
+                return <CertificationSection key={index} {...content.data} />;
             }
             if(content.templateId === 'interestsTemplate') {
-                return <InterestSection key={index} {...content.data} />
+                return <InterestSection key={index} {...content.data} />;
+            }
+            if(content.templateId === 'projectsTemplate') {
+                return <ProjectSection key={index} {...content.data} />;
             }
             return <div key={index}></div>;
         });
@@ -324,7 +327,7 @@ class SkillValueItem extends React.Component {
 
 class SkillValueGaugeList extends React.Component {
     render() {;
-        const gaugeListItems = [1,2,3,4,5].map((value, index) => <SkillValueGaugeListItem highlighted={this.props.value >= value} />);
+              const gaugeListItems = [1,2,3,4,5].map((value, index) => <SkillValueGaugeListItem key={index} highlighted={this.props.value >= value} />);
         return (
             <div className="grid grid-cols-5 w-24 content-center">
 	            {gaugeListItems}
@@ -396,6 +399,31 @@ class Interest extends React.Component {
 	            </span>
 	            <span className="text-xs">{this.props.description}</span>
 	          </li>
+        );
+    }
+}
+
+class ProjectSection extends React.Component {
+    render() {
+        const projects = this.props.projects.map((project, index) => <Project key={index} {...project} />);
+        return (
+            <div>
+              <div className="[&>*:first-child]:mt-4">
+                {projects}
+              </div>
+            </div>
+        );
+    }
+}
+
+class Project extends React.Component {
+    render() {
+        return (
+            <div className="flex flex-col w-full mt-5 text-xs">
+	            <div className="font-bold text-accent mr-2">{this.props.name}</div>
+	            <div className="mt-2 ml-1">{this.props.description}</div>
+              <TechnologyList technologies={this.props.technologies} />
+            </div>
         );
     }
 }
