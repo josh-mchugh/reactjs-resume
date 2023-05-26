@@ -167,28 +167,20 @@ class ContactSection extends React.Component {
 
 class SocialSection extends React.Component {
     render() {
+        const socialItems = this.props.data.map((item, index) => <Social key={index} {...item} />);
         return (
             <div>
               <div className="flex mt-1 ml-4">
-                <SocialList {...this.props} />
+                <ul className="list-none text-sm">
+                  {socialItems}
+                </ul>
               </div>
             </div>
         );
     }
 }
 
-class SocialList extends React.Component {
-    render() {
-        const socialItems = this.props.data.map((item, index) => <SocialListItem key={index} {...item} />);
-        return (
-            <ul className="list-none text-sm">
-              {socialItems}
-            </ul>
-        );
-    }
-}
-
-class SocialListItem extends React.Component {
+class Social extends React.Component {
     render() {
         return (
             <li className="mt-3">
@@ -206,24 +198,20 @@ class SocialListItem extends React.Component {
 
 class ExperienceSection extends React.Component {
     render() {
+        const experiences = this.props.experiences.map((content, index) => <Experience key={index} {...content} />);
         return (
             <div>
               <div className="[&>*:first-child]:mt-4">
-                <ExperienceList {...this.props} />
+                {experiences}
               </div>
             </div>
         );
     }
 }
 
-class ExperienceList extends React.Component {
+class Experience extends React.Component {
     render() {
-        return this.props.experiences.map((content, index) => <ExperienceListItem key={index} {...content} />);
-    }
-}
-
-class ExperienceListItem extends React.Component {
-    render() {
+        const descriptions = this.props.descriptions.map((description, index) => <ExperienceDescription key={index} description={description} />);
         return (
             <div className="flex flex-col w-full mt-5 text-xs">
               <div className="flex justify-between">
@@ -234,25 +222,16 @@ class ExperienceListItem extends React.Component {
                 <div>{this.props.name}</div>
                 <div>{this.props.location}</div>
               </div>
-              <ExperienceDescriptionList descriptions={this.props.descriptions} />
+              <ul className="fa-ul mt-3 ml-5">
+                {descriptions}
+              </ul>
               <TechnologyList technologies={this.props.technologies} />
             </div>
         );
     }
 }
 
-class ExperienceDescriptionList extends React.Component {
-    render() {
-        const descriptionItems = this.props.descriptions.map((description, index) => <ExperienceDescriptionItem key={index} description={description} />);
-        return (
-            <ul className="fa-ul mt-3 ml-5">
-              {descriptionItems}
-	          </ul>
-        );
-    }
-}
-
-class ExperienceDescriptionItem extends React.Component {
+class ExperienceDescription extends React.Component {
     render() {
         return (
             <li className="mb-1">
