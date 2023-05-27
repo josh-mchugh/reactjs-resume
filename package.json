@@ -9,7 +9,6 @@
   "author": "Josh McHugh",
   "license": "ISC",
   "devDependencies": {
-    "electron-pdf": "^20.0.0",
     "live-server": "^1.2.2"
   }
 }
