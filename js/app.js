@@ -33,7 +33,7 @@ class SheetList extends React.Component {
 class Sheet extends React.Component {
     render() {
         return (
-            <section className="sheet h-297mm">
+            <section className="sheet h-296mm">
               <div className="flex h-full font-['Roboto'] text-gray-700">
                 <div className="flex-auto w-4 bg-primary-dark text-white">
                   <div className="mt-14 ml-8">
