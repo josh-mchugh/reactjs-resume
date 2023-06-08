@@ -1,4 +1,3 @@
-p
 class Resume extends React.Component {
 
     state = {
