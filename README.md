@@ -1,4 +1,4 @@
-# React Resume
+# ReactJS Resume
 
 > Data Driven ReactJS and Tailwindcss Resume
 
