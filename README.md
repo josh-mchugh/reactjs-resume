@@ -1,6 +1,6 @@
 # React Resume
 
-> Data Driven React and Tailwindcss Resume
+> Data Driven ReactJS and Tailwindcss Resume
 
 Create a clean looking resume with ReactJS and Tailwindcss with a web view of a A4 paper. 
 
