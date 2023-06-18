@@ -1,11 +1,11 @@
-# HTML Resume
+# React Resume
 
-> Data Driven HTML and CSS Resume
+> Data Driven React and Tailwindcss Resume
 
-Create a clean looking resume with HTML and CSS with a web view of a A4 paper. 
+Create a clean looking resume with ReactJS and Tailwindcss with a web view of a A4 paper. 
 
 ## Example Image
-![demo.png](/demo.png)
+![Screenshot of ReactJS Resume](./documentation/example.png)
 
 ## Installation
 Run npm install to install dependencies.
@@ -13,20 +13,20 @@ Run npm install to install dependencies.
 $ npm install
 ```
 
-## Run live-server
-Make changes with live reload with live-server.
+## Run App
+Hot reload and live reload with Vite
 ```bash
-$ npx live-server
+$ npm run dev
 ```
 
 ### Save as PDF
 To save as a PDF, use the browsers print functionality but make sure he destination field has `Save to PDF` selected. Also make sure to have `Print backgrounds` enabled so it saves correctly with the background colors.
 
 Save to PDF configuration
-![Example of Save to PDF configuration](/save-as-pdf-demonstration.png)
+![Example of Save to PDF configuration](./documentation/save-as-pdf-demonstration.png)
 
 Print backgrounds configuration
-![Example of Print backgrounds configuration](/print-backgrounds-configuration.png)
+![Example of Print backgrounds configuration](./documentation/print-backgrounds-configuration.png)
 
 ## Example Data Structure
 ```json

@@ -1,0 +1,16 @@
+@import 'normalize.css/normalize.css';
+@import 'paper-css/paper.css';
+@import '@fontsource/roboto';
+@import '@fontsource/open-sans';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@page {
+	  size: A4;
+}
+
+.h-297mm {
+	  height: 297.13mm !important;
+}

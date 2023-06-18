@@ -1,4 +1,6 @@
-class Resume extends React.Component {
+import React from 'react';
+
+class App extends React.Component {
 
     state = {
         resume: []
@@ -349,5 +351,4 @@ const Project = (props) => {
     );
 };
 
-const root = ReactDOM.createRoot(document.getElementById('content'));
-root.render(<Resume />);
+export default App;
