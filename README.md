@@ -1,4 +1,5 @@
 ![Build Status Badge](https://github.com/josh-mchugh/reactjs-resume/actions/workflows/main.yml/badge.svg)
+[![Code Coverage Badge](https://codecov.io/gh/josh-mchugh/html-resume/branch/main/graph/badge.svg?token=3rP70grID8)](https://codecov.io/gh/josh-mchugh/html-resume)
 
 # ReactJS Resume
 
