@@ -1,3 +1,5 @@
+![Build Status Badge](https://github.com/josh-mchugh/reactjs-resume/actions/workflows/main.yml/badge.svg)
+
 # ReactJS Resume
 
 > Data Driven ReactJS and Tailwindcss Resume
