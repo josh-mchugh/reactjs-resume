@@ -29,7 +29,7 @@ describe("App Component", () => {
 
         it("section title should be present", async () => {
             render(<App/>);
-            const element = await screen.findByText("Summary");
+            const element = await screen.findByText("SUMMARY");
             expect(element).toBeInTheDocument();
         });
 
@@ -43,6 +43,12 @@ describe("App Component", () => {
 
     describe("Contact section be present", () => {
 
+        it("section title should be present", async () => {
+            render(<App/>);
+            const element = await screen.findByText("CONTACT");
+            expect(element).toBeInTheDocument();
+        });
+        
         it("phone number should be present", async () => {
             render(<App/>);
             const element = await screen.findByText("(123) 456-8899");
@@ -64,6 +70,12 @@ describe("App Component", () => {
 
     describe("Social section be present", () => {
 
+        it("section title should be present", async () => {
+            render(<App/>);
+            const element = await screen.findByText("SOCIAL");
+            expect(element).toBeInTheDocument();
+        });
+        
         it("facebook label should be present", async () => {
             render(<App/>);
             const element = await screen.findByText("Facebook:");

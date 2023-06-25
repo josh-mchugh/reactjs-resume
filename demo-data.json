@@ -12,7 +12,7 @@
       {
         "templateId": "headerTemplate",
         "data": {
-          "title": "Summary",
+          "title": "SUMMARY",
           "color": "white",
           "margins": "mt-10"
         }
