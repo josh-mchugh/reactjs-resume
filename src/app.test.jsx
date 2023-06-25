@@ -190,7 +190,26 @@ describe("App Component", () => {
                 expect(element).toBeInTheDocument();
             });
         });
+    });
 
+    describe("Profession Skills section", () => {
 
+        it("section title should be present", async () => {
+            render(<App/>);
+            const element = await screen.findByText("PROFESSIONAL SKILLS");
+            expect(element).toBeInTheDocument(); 
+        });
+
+        it("skill refrence 'WordPress' should be present", async () => {
+            render(<App/>);
+            const element = await screen.findByText("WordPress");
+            expect(element).toBeInTheDocument();
+        });
+
+        it("skill reference 'Joomla' should be present", async () => {
+            render(<App/>);
+            const element = await screen.findByText("Joomla");
+            expect(element).toBeInTheDocument();
+        });
     });
 });
