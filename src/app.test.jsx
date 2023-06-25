@@ -212,4 +212,32 @@ describe("App Component", () => {
             expect(element).toBeInTheDocument();
         });
     });
+
+    describe("Education Section", () => {
+
+        it("section title should be present", async () => {
+            render(<App/>);
+            const element = await screen.findByText("EDUCATION");
+            expect(element).toBeInTheDocument();
+        });
+
+        it("certificate title should be present", async () => {
+            render(<App/>);
+            const element = await screen.findByText("Master Degree in Studies");
+            expect(element).toBeInTheDocument();
+        });
+
+        it("certification institute should be present", async () => {
+            render(<App/>);
+            const element = await screen.findByText("Name of University");
+            expect(element).toBeInTheDocument();
+        });
+
+        it("certification aqcuisition time should be present", async () => {
+            render(<App/>);
+            const element = await screen.findByText("2012");
+            expect(element).toBeInTheDocument();
+        });
+
+    });
 });
