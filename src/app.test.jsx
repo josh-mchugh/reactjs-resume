@@ -112,4 +112,85 @@ describe("App Component", () => {
             expect(element).toBeInTheDocument();
         });
     });
+
+    describe("Work Experience section should be present", ()  => {
+
+        it("section title should be present", async () => {
+            render(<App/>);
+            const element = await screen.findByText("WORK EXPERIENCE");
+            expect(element).toBeInTheDocument();
+        });
+
+        it("job titles should be present", async () => {
+            render(<App/>);
+            const elements = await screen.findAllByText("Senior Web Developer");
+            expect(elements.length).toBe(3);
+        });
+
+        it("company names should be present", async () => {
+            render(<App/>);
+            const elements = await screen.findAllByText("Company Name Here");
+            expect(elements.length).toBe(3);
+        });
+
+        it("job location should be present", async () => {
+            render(<App/>);
+            const elements = await screen.findAllByText("Remote");
+            expect(elements.length).toBe(3);
+        });
+
+        it("skill references for 'Photoshop' should be present", async () => {
+            render(<App/>);
+            const elements = await screen.findAllByText("Photoshop");
+            expect(elements.length).toBe(4);
+        });
+
+        it("skill references for 'HTML' should be present", async () => {
+            render(<App/>);
+            const elements = await screen.findAllByText("HTML");
+            expect(elements.length).toBe(4);
+        });
+
+        it("skill references for 'CSS' should be present", async () => {
+            render(<App/>);
+            const elements = await screen.findAllByText("CSS");
+            expect(elements.length).toBe(4);
+        });
+
+        it("skill references for 'Illustrator' should be present", async () => {
+            render(<App/>);
+            const elements = await screen.findAllByText("Illustrator");
+            expect(elements.length).toBe(4);
+        });
+
+        it("skill references for 'PHP' should be present", async () => {
+            render(<App/>);
+            const elements = await screen.findAllByText("PHP");
+            expect(elements.length).toBe(4);
+        });
+
+        it("skill references for 'JavaScript' should be present", async () => {
+            render(<App/>);
+            const elements = await screen.findAllByText("HTML");
+            expect(elements.length).toBe(4);
+        });
+
+        describe("latest job experience should be present", () => {
+
+            it("experience time time range should be present", async () => {
+                render(<App/>);
+                const element = await screen.findByText("Jan 2023 - Present");
+                expect(element).toBeInTheDocument();
+            });
+
+            it("should contain work experience description", async () => {
+                render(<App/>);
+                const expected = "Efficiently unleash cross-media information without cross-media value.";
+                const element = await screen.findByText(expected);
+                expect(element).toBeInTheDocument();
+            });
+        });
+
+
+    });
 });
