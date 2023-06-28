@@ -1,6 +1,6 @@
 import { describe, beforeEach, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import App from './app';
+import App from './App';
 import data from './../demo-data';
 
 global.fetch = vi.fn();
