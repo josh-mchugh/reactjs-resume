@@ -1,5 +1,6 @@
 import React from 'react';
 import InterestSection from './InterestSection';
+import CertificationSection from './CertificationSection';
 
 class App extends React.Component {
 
@@ -277,35 +278,6 @@ const SkillValueGaugeList = (props) => {
 const SkillValueGaugeListItem = (props) => {
     return (
         <div className={`w-2 h-2 ${props.highlighted ? 'bg-accent' : 'bg-gray-300'}`}></div>
-    );
-};
-
-const CertificationSection = (props) => {
-    const certificationItems = props.certifications.map((certification, index) => <Certification key={index} {...certification} />);
-    return (
-        <div>
-          {certificationItems}
-        </div>
-    );
-};
-
-const Certification = (props) => {
-    return (
-        <div className="flex flex-col mt-6">
-          <div className="flex">
-            <div className="flex-auto w-full">
-              <div className="text-xs">
-                <div className="flex justify-between">
-                  <div className="font-bold text-accent">{props.title}</div>
-                  <div>{props.year}</div>
-                </div>
-                <div className="flex justify-between">
-                  <div>{props.name}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
     );
 };
 
