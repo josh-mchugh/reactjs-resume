@@ -1,6 +1,7 @@
 import React from 'react';
 import CertificationSection from './CertificationSection';
 import InterestSection from './InterestSection';
+import ProjectSection from './ProjectSection';
 import TechnologyList from './TechnologyList';
 
 class App extends React.Component {
@@ -262,27 +263,6 @@ const SkillValueGaugeList = (props) => {
 const SkillValueGaugeListItem = (props) => {
     return (
         <div className={`w-2 h-2 ${props.highlighted ? 'bg-accent' : 'bg-gray-300'}`}></div>
-    );
-};
-
-const ProjectSection = (props) => {
-    const projects = props.projects.map((project, index) => <Project key={index} {...project} />);
-    return (
-        <div>
-          <div className="[&>*:first-child]:mt-4">
-            {projects}
-          </div>
-        </div>
-    );
-};
-
-const Project = (props) => {
-    return (
-        <div className="flex flex-col w-full mt-5 text-xs">
-          <div className="font-bold text-accent mr-2">{props.name}</div>
-          <div className="mt-2 ml-1">{props.description}</div>
-          <TechnologyList technologies={props.technologies} />
-        </div>
     );
 };
 
