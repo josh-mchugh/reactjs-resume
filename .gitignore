@@ -1,4 +1,5 @@
 node_modules/
+dist/
 **.*~
 *-resume-data*.json
 *modern_cv.png

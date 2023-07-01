@@ -4,6 +4,7 @@ import ContactSection from './ContactSection';
 import ExperienceSection from './ExperienceSection';
 import InterestSection from './InterestSection';
 import ProjectSection from './ProjectSection';
+import ObjectiveSection from './ObjectiveSection';
 import SkillSection from './SkillSection';
 import SocialSection from './SocialSection';
 
@@ -115,16 +116,6 @@ const NameSection = (props) => {
         <div>
           <div className="font-bold text-3xl">{props.name}</div>
           <div className="text-sm tracking-wider">{props.title}</div>
-        </div>
-    );
-};
-
-const ObjectiveSection = (props) => {
-    return (
-        <div>
-          <div className="flex">
-            <div className="mt-6 ml-4 pr-4 text-xs">{props.objective}</div>
-          </div>
         </div>
     );
 };
