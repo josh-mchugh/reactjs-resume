@@ -2,6 +2,7 @@ import React from 'react';
 import CertificationSection from './CertificationSection';
 import ContactSection from './ContactSection';
 import ExperienceSection from './ExperienceSection';
+import HeaderSection from './HeaderSection';
 import InterestSection from './InterestSection';
 import ProjectSection from './ProjectSection';
 import NameSection from './NameSection';
@@ -93,23 +94,6 @@ const MainContentList = (props) => {
             return <div key={index}></div>;
         }
     });
-}
-
-const HeaderSection = (props) => {
-    return (
-        <div>
-          <div className={props.margins}>
-            <div className="flex">
-              <div className="flex-auto font-bold whitespace-nowrap">{props.title}</div>
-              <div className="flex-auto w-full ml-2">
-                <div className="flex flex-col">
-                  <div className={`h-0 mt-3 border-b border-${props.color}`}></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-    );
 };
 
 export default App;
