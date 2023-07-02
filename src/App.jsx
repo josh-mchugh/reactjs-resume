@@ -1,13 +1,9 @@
 import React from 'react';
-import CertificationSection from './CertificationSection';
 import ContactSection from './ContactSection';
-import ExperienceSection from './ExperienceSection';
 import HeaderSection from './HeaderSection';
-import InterestSection from './InterestSection';
-import ProjectSection from './ProjectSection';
+import MainContentList from './MainContentList';
 import NameSection from './NameSection';
 import ObjectiveSection from './ObjectiveSection';
-import SkillSection from './SkillSection';
 import SocialSection from './SocialSection';
 
 class App extends React.Component {
@@ -69,27 +65,6 @@ const SideContentList = (props) => {
             return <ContactSection key={index} {...content.data} />;
           case 'socialTemplate':
             return <SocialSection key={index} data={content.data} />;
-          default:
-            return <div key={index}></div>;
-        }
-    });
-};
-
-const MainContentList = (props) => {
-    return props.content.map((content, index) => {
-        switch(content.templateId) {
-          case 'headerTemplate':
-            return <HeaderSection key={index} {...content.data} />;
-          case 'experienceTemplate':
-            return <ExperienceSection key={index} {...content.data} />;
-          case 'skillsTemplate':
-            return <SkillSection key={index} {...content.data} />;
-          case 'educationTemplate':
-            return <CertificationSection key={index} {...content.data} />;
-          case 'interestsTemplate':
-            return <InterestSection key={index} {...content.data} />;
-          case 'projectsTemplate':
-            return <ProjectSection key={index} {...content.data} />;
           default:
             return <div key={index}></div>;
         }
