@@ -1,192 +1,186 @@
-import { describe, beforeEach, it, expect, vi } from 'vitest';
+import { describe, beforeEach, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import App from './App';
-import data from './../demo-data';
-
-global.fetch = vi.fn();
-fetch.mockResolvedValue({
-    json: () => new Promise((resolve) => resolve(data))
-});
 
 describe("App Component", () => {
 
     describe("Header section should be present", () => {
 
-        it("person name should be present", async () => {
+        it("person name should be present", () => {
             render(<App/>);
-            const element = await screen.findByText("John Doe");
+            const element = screen.getByText("John Doe");
             expect(element).toBeInTheDocument();
         });
 
-        it("personal title should be present", async () => {
+        it("personal title should be present", () => {
             render(<App/>);
-            const element = await screen.findByText("Web and Graphic Designer");
+            const element = screen.getByText("Web and Graphic Designer");
             expect(element).toBeInTheDocument();
         });
     });
 
     describe("Summary section should be present", () => {
 
-        it("section title should be present", async () => {
+        it("section title should be present", () => {
             render(<App/>);
-            const element = await screen.findByText("SUMMARY");
+            const element = screen.getByText("SUMMARY");
             expect(element).toBeInTheDocument();
         });
 
-        it("summary statement should be present", async () => {
+        it("summary statement should be present", () => {
             render(<App/>);
             const summary = "Rock Star/Ninja can you ballpark the cost per unit for me, for touch base disband the squad but rehydrate as needed sacred cow.";
-            const element = await screen.findByText(summary);
+            const element = screen.getByText(summary);
             expect(element).toBeInTheDocument();
         });
     });
 
     describe("Contact section be present", () => {
 
-        it("section title should be present", async () => {
+        it("section title should be present", () => {
             render(<App/>);
-            const element = await screen.findByText("CONTACT");
+            const element = screen.getByText("CONTACT");
             expect(element).toBeInTheDocument();
         });
         
-        it("phone number should be present", async () => {
+        it("phone number should be present", () => {
             render(<App/>);
-            const element = await screen.findByText("(123) 456-8899");
+            const element = screen.getByText("(123) 456-8899");
             expect(element).toBeInTheDocument();
         });
 
-        it("email should be present", async () => {
+        it("email should be present", () => {
             render(<App/>);
-            const element = await screen.findByText("info@youremail.com");
+            const element = screen.getByText("info@youremail.com");
             expect(element).toBeInTheDocument();
         });
 
-        it("location should be present", async () => {
+        it("location should be present", () => {
             render(<App/>);
-            const element = await screen.findByText("New York, New York");
+            const element = screen.getByText("New York, New York");
             expect(element).toBeInTheDocument();
         });
     });
 
     describe("Social section be present", () => {
 
-        it("section title should be present", async () => {
+        it("section title should be present", () => {
             render(<App/>);
-            const element = await screen.findByText("SOCIAL");
+            const element = screen.getByText("SOCIAL");
             expect(element).toBeInTheDocument();
         });
         
-        it("facebook label should be present", async () => {
+        it("facebook label should be present", () => {
             render(<App/>);
-            const element = await screen.findByText("Facebook:");
+            const element = screen.getByText("Facebook:");
             expect(element).toBeInTheDocument();
         });
 
-        it("facebook url should be present", async () => {
+        it("facebook url should be present", () => {
             render(<App/>);
-            const element = await screen.findByText("https://facebook.com/profile");
+            const element = screen.getByText("https://facebook.com/profile");
             expect(element).toBeInTheDocument();
         });
 
-        it("twitter label should be present", async () => {
+        it("twitter label should be present", () => {
             render(<App/>);
-            const element = await screen.findByText("Twitter:");
+            const element = screen.getByText("Twitter:");
             expect(element).toBeInTheDocument();
         });
 
-        it("twitter url should be present", async () => {
+        it("twitter url should be present", () => {
             render(<App/>);
-            const element = await screen.findByText("https://twitter.com/profile");
+            const element = screen.getByText("https://twitter.com/profile");
             expect(element).toBeInTheDocument();
         });
 
-        it("LinkedIn label should be present", async () => {
+        it("LinkedIn label should be present", () => {
             render(<App/>);
-            const element = await screen.findByText("LinkedIn:");
+            const element = screen.getByText("LinkedIn:");
             expect(element).toBeInTheDocument();
         });
 
-        it("LinkedIn url should be present", async () => {
+        it("LinkedIn url should be present", () => {
             render(<App/>);
-            const element = await screen.findByText("https://linkedin.com/profile");
+            const element = screen.getByText("https://linkedin.com/profile");
             expect(element).toBeInTheDocument();
         });
     });
 
     describe("Work Experience section should be present", ()  => {
 
-        it("section title should be present", async () => {
+        it("section title should be present", () => {
             render(<App/>);
-            const element = await screen.findByText("WORK EXPERIENCE");
+            const element = screen.getByText("WORK EXPERIENCE");
             expect(element).toBeInTheDocument();
         });
 
-        it("job titles should be present", async () => {
+        it("job titles should be present", () => {
             render(<App/>);
-            const elements = await screen.findAllByText("Senior Web Developer");
+            const elements = screen.getAllByText("Senior Web Developer");
             expect(elements.length).toBe(3);
         });
 
-        it("company names should be present", async () => {
+        it("company names should be present", () => {
             render(<App/>);
-            const elements = await screen.findAllByText("Company Name Here");
+            const elements = screen.getAllByText("Company Name Here");
             expect(elements.length).toBe(3);
         });
 
-        it("job location should be present", async () => {
+        it("job location should be present", () => {
             render(<App/>);
-            const elements = await screen.findAllByText("Remote");
+            const elements = screen.getAllByText("Remote");
             expect(elements.length).toBe(3);
         });
 
-        it("skill references for 'Photoshop' should be present", async () => {
+        it("skill references for 'Photoshop' should be present", () => {
             render(<App/>);
-            const elements = await screen.findAllByText("Photoshop");
+            const elements = screen.getAllByText("Photoshop");
             expect(elements.length).toBe(4);
         });
 
-        it("skill references for 'HTML' should be present", async () => {
+        it("skill references for 'HTML' should be present", () => {
             render(<App/>);
-            const elements = await screen.findAllByText("HTML");
+            const elements = screen.getAllByText("HTML");
             expect(elements.length).toBe(4);
         });
 
-        it("skill references for 'CSS' should be present", async () => {
+        it("skill references for 'CSS' should be present", () => {
             render(<App/>);
-            const elements = await screen.findAllByText("CSS");
+            const elements = screen.getAllByText("CSS");
             expect(elements.length).toBe(4);
         });
 
-        it("skill references for 'Illustrator' should be present", async () => {
+        it("skill references for 'Illustrator' should be present", () => {
             render(<App/>);
-            const elements = await screen.findAllByText("Illustrator");
+            const elements = screen.getAllByText("Illustrator");
             expect(elements.length).toBe(4);
         });
 
-        it("skill references for 'PHP' should be present", async () => {
+        it("skill references for 'PHP' should be present", () => {
             render(<App/>);
-            const elements = await screen.findAllByText("PHP");
+            const elements = screen.getAllByText("PHP");
             expect(elements.length).toBe(4);
         });
 
-        it("skill references for 'JavaScript' should be present", async () => {
+        it("skill references for 'JavaScript' should be present", () => {
             render(<App/>);
-            const elements = await screen.findAllByText("HTML");
+            const elements = screen.getAllByText("HTML");
             expect(elements.length).toBe(4);
         });
 
         describe("latest job experience should be present", () => {
 
-            it("experience time time range should be present", async () => {
+            it("experience time time range should be present", () => {
                 render(<App/>);
-                const element = await screen.findByText("Jan 2023 - Present");
+                const element = screen.getByText("Jan 2023 - Present");
                 expect(element).toBeInTheDocument();
             });
 
-            it("should contain work experience description", async () => {
+            it("should contain work experience description", () => {
                 render(<App/>);
                 const expected = "Efficiently unleash cross-media information without cross-media value.";
-                const element = await screen.findByText(expected);
+                const element = screen.getByText(expected);
                 expect(element).toBeInTheDocument();
             });
         });
@@ -194,48 +188,48 @@ describe("App Component", () => {
 
     describe("Profession Skills section", () => {
 
-        it("section title should be present", async () => {
+        it("section title should be present", () => {
             render(<App/>);
-            const element = await screen.findByText("PROFESSIONAL SKILLS");
+            const element = screen.getByText("PROFESSIONAL SKILLS");
             expect(element).toBeInTheDocument(); 
         });
 
-        it("skill refrence 'WordPress' should be present", async () => {
+        it("skill refrence 'WordPress' should be present", () => {
             render(<App/>);
-            const element = await screen.findByText("WordPress");
+            const element = screen.getByText("WordPress");
             expect(element).toBeInTheDocument();
         });
 
-        it("skill reference 'Joomla' should be present", async () => {
+        it("skill reference 'Joomla' should be present", () => {
             render(<App/>);
-            const element = await screen.findByText("Joomla");
+            const element = screen.getByText("Joomla");
             expect(element).toBeInTheDocument();
         });
     });
 
     describe("Education Section", () => {
 
-        it("section title should be present", async () => {
+        it("section title should be present", () => {
             render(<App/>);
-            const element = await screen.findByText("EDUCATION");
+            const element = screen.getByText("EDUCATION");
             expect(element).toBeInTheDocument();
         });
 
-        it("certificate title should be present", async () => {
+        it("certificate title should be present", () => {
             render(<App/>);
-            const element = await screen.findByText("Master Degree in Studies");
+            const element = screen.getByText("Master Degree in Studies");
             expect(element).toBeInTheDocument();
         });
 
-        it("certification institute should be present", async () => {
+        it("certification institute should be present", () => {
             render(<App/>);
-            const element = await screen.findByText("Name of University");
+            const element = screen.getByText("Name of University");
             expect(element).toBeInTheDocument();
         });
 
-        it("certification aqcuisition time should be present", async () => {
+        it("certification aqcuisition time should be present", () => {
             render(<App/>);
-            const element = await screen.findByText("2012");
+            const element = screen.getByText("2012");
             expect(element).toBeInTheDocument();
         });
 

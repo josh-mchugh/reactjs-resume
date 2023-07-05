@@ -1,21 +1,12 @@
 import React from 'react';
 import SheetList from './SheetList';
+import data from '../demo-data.json';
 
 class App extends React.Component {
 
     state = {
-        resume: []
+        resume: data
     };
-
-    componentDidMount() {
-        this.loadResume();
-    }
-
-    loadResume = () => {
-        fetch("/demo-data.json")
-            .then(response => response.json())
-            .then(json => this.setState({ resume: json }));
-    }
 
     render() {
         return (
