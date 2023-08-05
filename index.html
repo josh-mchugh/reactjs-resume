@@ -4,9 +4,37 @@
   <meta charset="utf-8">
   <title>Resume</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+   .content {
+       display: flex;
+       justify-content: space-between;
+   }
+   .content__input {
+       width: 250px;
+       background-color: white;
+       border-right: 1px solid #333;
+   }
+   .content__display {
+       display: flex;
+       margin: 0 auto 0 auto;
+   }
+   .resume {
+       width: 210mm;
+       height: 296mm;
+   }
+  </style>
 </head>
-<body class="A4">
-  <div id="root"></div>
+<body>
+    <div class="content">
+        <div class="content__input">
+            Left Side
+        </div>
+        <div class="content__display">
+            <div class="resume">
+                <div id="root"></div>
+            </div>
+        </div>
+    </div>
   <script type="module" src="./src/Main.jsx"></script>
 </body>
 </html>
