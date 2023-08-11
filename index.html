@@ -6,28 +6,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
    .content {
-       display: flex;
-       justify-content: space-between;
+      width: 100%;
+      display: flex;
    }
    .content__input {
-       width: 250px;
-       background-color: white;
-       border-right: 1px solid #333;
+      width: 33%;
+      min-width: 250px;
+      border-right: 1px solid black;
    }
    .content__display {
-       display: flex;
-       margin: 0 auto 0 auto;
+      display: flex;
+      margin: 0 auto 0 auto;
    }
    .resume {
-       width: 210mm;
-       height: 296mm;
+      width: 210mm;
+      height: 296mm;
+   }
+   input[type=text] {
+       width: 100%;
+       padding: 12px 20px;
+       margin: 8px 0;
+       box-sizing: border-box;
    }
   </style>
 </head>
 <body>
     <div class="content">
         <div class="content__input">
-            Left Side
+            <div>
+                <h3>Your Details</h3>
+                <div>
+                    <label for="firstName">First Name</label>
+                    <input id="firstName" type="text" placeholder="First Name"/>
+                </div>
+                <div>
+                    <label for="lastName">Last Name</label>
+                    <input id="lastName" type="text" placeholder="Last Name"/>
+                </div>
+                <div>
+                    <label for="jobTitle">Job Title</label>
+                    <input id="jobTitle" type="text" placeholder="Job title"/>
+                </div>
+                <div>
+                    <label for="summary">Summary</label>
+                    <input id="summary" type="text" placeholder="Summary"/>
+                </div>
+            </div>
+            <div>
+                <h4>Contact Details</h4>
+                <div>
+                    <label for="phoneNumber">Phone Number</label>
+                    <input id="phoneNumber" type="text" placeholder="Phone Number"/>
+                </div>
+                <div>
+                    <label for="email">Email</label>
+                    <input id="email" type="text" placeholder="Email"/>
+                </div>
+                <div>
+                    <label for="location">Location</label>
+                    <input id="location" type="text" placeholder="Location"/>
+                </div>
+            </div>
         </div>
         <div class="content__display">
             <div class="resume">
