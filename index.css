@@ -1,0 +1,51 @@
+.content {
+  width: 100%;
+  display: flex;
+}
+.content__input {
+  width: 33%;
+  min-width: 250px;
+  border-right: 1px solid black;
+}
+.content__display {
+    display: flex;
+    width: 100%;
+}
+.resume {
+  margin: 0 auto 0 auto;
+}
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+.sheet {
+    width: 210mm;
+    height: 296mm;
+    margin: 0;
+    overflow: hidden;
+    box-sizing: border-box;
+    page-break-after: always;
+}
+
+
+/** For screen preview **/
+@media screen {
+  .content__display {
+    background: #e0e0e0
+  }
+  .sheet {
+    background: white;
+    box-shadow: 0 .5mm 2mm rgba(0,0,0,.3);
+    margin: 5mm auto;
+  }
+}
+
+/** Fix for Chrome issue #273306 **/
+@media print {
+  body.A4 {
+
+  }
+}

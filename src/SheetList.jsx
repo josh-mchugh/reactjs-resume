@@ -9,7 +9,7 @@ const SheetList = (props) => {
 
 const Sheet = (props) => {
     return (
-        <section className="sheet h-296mm">
+        <section className="sheet">
           <div className="flex h-full font-['Roboto'] text-gray-700">
             <div className="flex-auto w-4 bg-primary-dark text-white">
               <div className="mt-14 ml-8">
