@@ -4,9 +4,49 @@
   <meta charset="utf-8">
   <title>Resume</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+  <link rel="stylesheet" href="./index.css">
 </head>
-<body class="A4">
-  <div id="root"></div>
+<body>
+    <div class="content">
+        <div class="content__input">
+            <div>
+                <h3>Your Details</h3>
+
+                <label for="firstName">First Name</label>
+                <input id="firstName" type="text" placeholder="First Name"/>
+
+                <label for="lastName">Last Name</label>
+                <input id="lastName" type="text" placeholder="Last Name"/>
+
+                <label for="jobTitle">Job Title</label>
+                <input id="jobTitle" type="text" placeholder="Job title"/>
+
+                <label for="summary">Summary</label>
+                <input id="summary" type="text" placeholder="Summary"/>
+
+            </div>
+            <div>
+                <h4>Contact Details</h4>
+
+                <label for="phoneNumber">Phone Number</label>
+                <input id="phoneNumber" type="text" placeholder="Phone Number"/>
+
+                <label for="email">Email</label>
+                <input id="email" type="text" placeholder="Email"/>
+
+                <label for="location">Location</label>
+                <input id="location" type="text" placeholder="Location"/>
+
+            </div>
+
+        </div>
+        <div class="content__display">
+            <div class="resume">
+                <div id="root"></div>
+            </div>
+        </div>
+    </div>
   <script type="module" src="./src/Main.jsx"></script>
 </body>
 </html>
