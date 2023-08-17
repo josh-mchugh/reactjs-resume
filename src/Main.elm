@@ -1,9 +1,13 @@
-module Main exposing (main)
+port module Main exposing (main)
 
 import Browser
 import Html exposing (..)
 import Html.Attributes exposing (class, for, id, placeholder, type_, value)
 import Html.Events exposing (onInput)
+
+
+
+-- MAIN
 
 
 {-| Main function to generate program for Elm element
@@ -19,7 +23,14 @@ main =
 
 
 
--- Model
+-- PORTS
+
+
+port updateDisplay : Model -> Cmd msg
+
+
+
+-- MODEL
 
 
 type alias Model =
@@ -47,7 +58,9 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         FirstName firstName ->
-            ( { model | firstName = firstName }, Cmd.none )
+            ( { model | firstName = firstName }
+            , updateDisplay model
+            )
 
 
 {-| Subscrtions functions to handle subscriptions
