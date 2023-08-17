@@ -1,18 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SheetList from './SheetList';
 import data from '../demo-data.json';
 
-class App extends React.Component {
+function App() {
 
-    state = {
-        resume: data
-    };
+    const [resume, setResume] = useState(data);
 
-    render() {
-        return (
-            <SheetList sheets={this.state.resume} />
-        );
-    }
+    return (
+        <SheetList sheets={resume} />
+    );
 }
 
 export default App;
