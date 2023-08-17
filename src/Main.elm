@@ -3,9 +3,11 @@ module Main exposing (main)
 import Browser
 import Html exposing (..)
 import Html.Attributes exposing (class, for, id, placeholder, type_, value)
-import Html.Events exposing(onInput)
+import Html.Events exposing (onInput)
 
 
+{-| Main function to generate program for Elm element
+-}
 main : Program () Model Msg
 main =
     Browser.element
@@ -21,9 +23,11 @@ main =
 
 
 type alias Model =
-    { firstName: String }
+    { firstName : String }
 
 
+{-| Init function to initialize application state
+-}
 init : () -> ( Model, Cmd Msg )
 init () =
     ( { firstName = "" }, Cmd.none )
@@ -37,6 +41,8 @@ type Msg
     = FirstName String
 
 
+{-| Update function for handling Msg types
+-}
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
@@ -44,6 +50,8 @@ update msg model =
             ( { model | firstName = firstName }, Cmd.none )
 
 
+{-| Subscrtions functions to handle subscriptions
+-}
 subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.none
@@ -53,17 +61,21 @@ subscriptions model =
 -- View
 
 
+{-| Main view function for handling applictions view
+-}
 view : Model -> Html Msg
 view model =
     div [ class "input__section" ]
         [ div [ class "section__header" ] [ text "Your Details" ]
         , label [ for "firstName" ] [ text "First Name" ]
-        , input [ id "firstName"
-                , type_ "text"
-                , placeholder "First Name"
-                , value model.firstName
-                , onInput FirstName
-                ] []
+        , input
+            [ id "firstName"
+            , type_ "text"
+            , placeholder "First Name"
+            , value model.firstName
+            , onInput FirstName
+            ]
+            []
         , label [ for "lastName" ] [ text "Last Name" ]
         , input [ id "lastName", type_ "text", placeholder "Last Name" ] []
         , label [ for "jobTitle" ] [ text "Job Title" ]
