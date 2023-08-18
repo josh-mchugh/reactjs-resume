@@ -1,19 +1,17 @@
 const SkillSection = (props) => {
-    const skillListItems = props.skills.map((skill, index) => <SkillListItem key={index} {...skill} />);
     return (
         <div>
           <div className="grid grid-cols-1 gap-y-3 mt-6 mx-4 text-xs">
-            {skillListItems}
+            <SkillListItem {...props}/>
           </div>
         </div>
     );
 };
 
 const SkillListItem = (props) => {
-    const skillValueItems = props.items.map((item, index) => <SkillValueItem key={index} showGauge={props.showGauge} {...item} />);
+    const skillValueItems = props.skills.map((item, index) => <SkillValueItem key={index} {...item} />);
     return (
         <div>
-          <div className="mb-2 font-semibold underline">{props.name}</div>
           <div className="grid grid-cols-2 gap-x-16 place-content-between">
             {skillValueItems}
           </div>
@@ -23,9 +21,9 @@ const SkillListItem = (props) => {
 
 const SkillValueItem = (props) => {
     return (
-        <div className={`grid ${props.showGauge ? 'grid-cols-2' : ''} place-content-between`}>
+        <div className="grid grid-cols-2 place-content-between">
           <div>{props.name}</div>
-          {props.showGauge && <SkillValueGaugeList value={props.value} />}
+          <SkillValueGaugeList value={props.value} />
         </div>
     );
 };

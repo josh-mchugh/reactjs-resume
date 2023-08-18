@@ -1,4 +1,4 @@
-import TechnologyList from './TechnologyList';
+import SkillList from './SkillList';
 
 const ProjectSection = (props) => {
     const projects = props.projects.map((project, index) => <Project key={index} {...project} />);
@@ -16,7 +16,7 @@ const Project = (props) => {
         <div className="flex flex-col w-full mt-5 text-xs">
           <div className="font-bold text-accent mr-2">{props.name}</div>
           <div className="mt-2 ml-1">{props.description}</div>
-          <TechnologyList technologies={props.technologies} />
+          <SkillList skills={props.skills} />
         </div>
     );
 };

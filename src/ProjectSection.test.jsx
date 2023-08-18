@@ -8,7 +8,7 @@ describe("ProjectSection Component", () => {
         {
             name: "Mars Discovery App",
             description: "A mobile application for astronauts to take pictures of Mars while still wearing their space suit.",
-            technologies: [
+            skills: [
                 "JavaScript"
             ]
         }
@@ -26,7 +26,7 @@ describe("ProjectSection Component", () => {
         expect(element).toBeInTheDocument();
     });
 
-    it("technologies of the project should be in the document", () => {
+    it("skills of the project should be in the document", () => {
         render(<ProjectSection projects={projects}/>);
         const element = screen.getByText("JavaScript");
         expect(element).toBeInTheDocument();

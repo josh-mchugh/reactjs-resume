@@ -1,0 +1,85 @@
+{
+  "rows": [
+    {
+      "columns": [
+        {
+          "sections": [
+            {
+              "template": "name"
+            },
+            {
+              "template": "header",
+              "data": {
+                "title": "SUMMARY",
+                "color": "white",
+                "margins": "mt-10"
+              }
+            },
+            {
+              "template": "summary"
+            },
+            {
+              "template": "header",
+              "data": {
+                "title": "CONTACT",
+                "color": "white",
+                "margins": "mt-10"
+              }
+            },
+            {
+              "template": "contact"
+            },
+            {
+              "template": "header",
+              "data": {
+                "title": "SOCIAL",
+                "color": "white",
+                "margins": "mt-12"
+              }
+            },
+            {
+              "template": "social"
+            }
+          ]
+        },
+        {
+          "sections": [
+            {
+              "template": "header",
+              "data": {
+                "title": "WORK EXPERIENCE",
+                "color": "gray-700",
+                "margins": ""
+              }
+            },
+            {
+              "template": "experiences"
+            },
+            {
+              "template": "header",
+              "data": {
+                "title": "PROFESSIONAL SKILLS",
+                "color": "gray-700",
+                "margins": "mt-6"
+              }
+            },
+            {
+              "template": "skills"
+            },
+            {
+              "template": "header",
+              "data": {
+                "title": "EDUCATION",
+                "color": "gray-700",
+                "margins": "mt-6"
+              }
+            },
+            {
+              "template": "certifications"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
