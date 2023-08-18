@@ -14,7 +14,7 @@ describe("ExperienceSection Component", () => {
                 "Creating corporate logos over multiple iterations",
                 "Fixing missized and misused emailed images"
             ],
-            technologies: [
+            skills: [
                 "Photoshop",
                 "Figma"
             ]
@@ -57,15 +57,15 @@ describe("ExperienceSection Component", () => {
         expect(element).toBeInTheDocument();
     });
 
-    it("experience 'photoshop' technology should be in the document", () => {
+    it("experience 'photoshop' skill should be in the document", () => {
         render(<ExperienceSection experiences={experiences}/>);
         const element = screen.getByText("Photoshop");
         expect(element).toBeInTheDocument();
     });
 
-    it("experience 'Figma' technology should be in the document", () => {
+    it("experience 'Figma' skill should be in the document", () => {
         render(<ExperienceSection experiences={experiences}/>);
         const element = screen.getByText("Figma");
         expect(element).toBeInTheDocument();
-    })
+    });
 });

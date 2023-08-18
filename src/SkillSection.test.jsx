@@ -8,22 +8,10 @@ describe("SkillSection Component", () => {
 
         const skills = [
             {
-                name: "Frontend Development",
-                showGauge: true,
-                items: [
-                    {
-                        name: "JavaScript",
-                        value: 3
-                    }
-                ]
+                name: "JavaScript",
+                value: 3
             }
         ];
-
-        it("skill group name to be in the document", () => {
-            render(<SkillSection skills={skills}/>);
-            const element = screen.getByText("Frontend Development");
-            expect(element).toBeInTheDocument();
-        });
 
         it("skill 'JavaScript' to be present in the document", () => {
             render(<SkillSection skills={skills}/>);
@@ -41,39 +29,6 @@ describe("SkillSection Component", () => {
             const { container } = render(<SkillSection skills={skills}/>);
             const elements = container.querySelectorAll(".w-2.h-2.bg-accent");
             expect(elements.length).toBe(3);
-        });
-    });
-
-    describe("show gauge is disabled", () => {
-
-        const skills = [
-            {
-                name: "Backend Development",
-                showGauge: false,
-                items: [
-                    {
-                        name: "Java"
-                    }
-                ]
-            }
-        ];
-
-        it("skill gorup name is in the document", () => {
-            render(<SkillSection skills={skills}/>);
-            const elements = screen.getByText("Backend Development");
-            expect(elements).toBeInTheDocument();
-        });
-
-        it("skill 'Java' is present in the document", () => {
-            render(<SkillSection skills={skills}/>);
-            const elements = screen.getByText("Java");
-            expect(elements).toBeInTheDocument();
-        });
-
-        it("skill guages are not present in the document", () => {
-            const { container } = render(<SkillSection skills={skills}/>);
-            const elements = container.querySelectorAll('.w-2.h-2');
-            expect(elements.length).toBe(0);
         });
     });
 });

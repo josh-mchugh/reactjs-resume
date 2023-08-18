@@ -1,4 +1,4 @@
-import TechnologyList from './TechnologyList';
+import SkillList from './SkillList';
 
 const ExperienceSection = (props) => {
     const experiences = props.experiences.map((content, index) => <Experience key={index} {...content} />);
@@ -26,7 +26,7 @@ const Experience = (props) => {
           <ul className="fa-ul mt-3 ml-5">
             {descriptions}
           </ul>
-          <TechnologyList technologies={props.technologies} />
+          <SkillList skills={props.skills} />
         </div>
     );
 };

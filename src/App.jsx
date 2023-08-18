@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import SheetList from './SheetList';
-import data from '../demo-data.json';
+import data from '../resume-demo-data.json';
+import layoutData from '../layout.json';
 
 function App() {
 
     const [resume, setResume] = useState(data);
+    const [layout, setLayout] = useState(layoutData);
 
     return (
-        <SheetList sheets={resume} />
+        <SheetList layout={layout} resume={resume}/>
     );
 }
 

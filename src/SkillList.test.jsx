@@ -1,23 +1,23 @@
 
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import TechnologyList from './TechnologyList';
+import SkillList from './SkillList';
 
-describe("TechnologyList Component", () => {
+describe("SkillList Component", () => {
 
-    const technologies = [
+    const skills = [
         'JavaScript',
         'ReactJS'
     ];
 
     it("'JavaScript' should be in the document", () => {
-        render(<TechnologyList technologies={technologies}/>);
+        render(<SkillList skills={skills}/>);
         const element = screen.getByText('JavaScript');
         expect(element).toBeInTheDocument();
     });
 
     it("'ReactJS' should be in the document", () => {
-        render(<TechnologyList technologies={technologies}/>);
+        render(<SkillList skills={skills}/>);
         const element = screen.getByText('ReactJS');
         expect(element).toBeInTheDocument();
     });

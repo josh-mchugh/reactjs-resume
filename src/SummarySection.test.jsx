@@ -1,15 +1,15 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import ObjectiveSection from './ObjectiveSection';
+import SummarySection from './SummarySection';
 
-describe("ObjectiveSection", () => {
+describe("SummarySection", () => {
 
     const props = {
-        objective: "Build high quality software."
+        summary: "Build high quality software."
     };
 
-    it("objective should be in the document", () => {
-        render(<ObjectiveSection {...props}/>);
+    it("summary should be in the document", () => {
+        render(<SummarySection {...props}/>);
         const element = screen.getByText("Build high quality software.");
         expect(element).toBeInTheDocument();
     });

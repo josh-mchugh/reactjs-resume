@@ -1,10 +1,7 @@
-import MainContentList from './MainContentList';
-import SideContentList from './SideContentList';
+import SectionFactory from './SectionFactory';
 
 const SheetList = (props) => {
-    return props.sheets.map(
-        sheet => <Sheet key={sheet.page} {...sheet} />
-    );
+    return <Sheet layout={props.layout} resume={props.resume} />;
 };
 
 const Sheet = (props) => {
@@ -13,11 +10,11 @@ const Sheet = (props) => {
           <div className="flex h-full font-['Roboto'] text-gray-700">
             <div className="flex-auto w-4 bg-primary-dark text-white">
               <div className="mt-14 ml-8">
-                <SideContentList sideContent={props.sideContent} />
+                { props.layout.rows[0].columns[0].sections.map((section, index) => <SectionFactory key={index} section={section} resume={props.resume} /> )  }
               </div>
             </div>
             <div className="flex-auto w-64 my-16 px-7">
-              <MainContentList content={props.content} />
+              { props.layout.rows[0].columns[1].sections.map((section, index) => <SectionFactory key={index} section={section} resume={props.resume} /> )  }
             </div>
           </div>
         </section>
