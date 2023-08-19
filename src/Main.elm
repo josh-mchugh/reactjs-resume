@@ -26,7 +26,7 @@ main =
 -- PORTS
 
 
-port updateDisplay : Model -> Cmd msg
+port updateDisplay : String -> Cmd msg
 
 
 
@@ -34,14 +34,14 @@ port updateDisplay : Model -> Cmd msg
 
 
 type alias Model =
-    { firstName : String }
+    { name : String }
 
 
 {-| Init function to initialize application state
 -}
 init : () -> ( Model, Cmd Msg )
 init () =
-    ( { firstName = "" }, Cmd.none )
+    ( { name = "" }, Cmd.none )
 
 
 
@@ -49,7 +49,7 @@ init () =
 
 
 type Msg
-    = FirstName String
+    = UpdateName String
 
 
 {-| Update function for handling Msg types
@@ -57,9 +57,9 @@ type Msg
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        FirstName firstName ->
-            ( { model | firstName = firstName }
-            , updateDisplay model
+        UpdateName name ->
+            ( { model | name = name }
+            , updateDisplay name
             )
 
 
@@ -80,19 +80,17 @@ view : Model -> Html Msg
 view model =
     div [ class "input__section" ]
         [ div [ class "section__header" ] [ text "Your Details" ]
-        , label [ for "firstName" ] [ text "First Name" ]
+        , label [ for "name" ] [ text "Name" ]
         , input
-            [ id "firstName"
+            [ id "name"
             , type_ "text"
-            , placeholder "First Name"
-            , value model.firstName
-            , onInput FirstName
+            , placeholder "Name"
+            , value model.name
+            , onInput UpdateName
             ]
             []
-        , label [ for "lastName" ] [ text "Last Name" ]
-        , input [ id "lastName", type_ "text", placeholder "Last Name" ] []
-        , label [ for "jobTitle" ] [ text "Job Title" ]
-        , input [ id "jobTitle", type_ "text", placeholder "Job Title " ] []
+        , label [ for "title" ] [ text "Title" ]
+        , input [ id "title", type_ "text", placeholder "Title " ] []
         , label [ for "summary" ] [ text "Summary" ]
         , input [ id "summary", type_ "text", placeholder "Summary" ] []
         ]

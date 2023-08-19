@@ -4,7 +4,7 @@ import App from './App.jsx';
 import { Elm } from './Main.elm';
 import './index.css';
 
-const app = Elm.Main.init({
+const elmApp = Elm.Main.init({
     node: document.getElementById('elmRoot')
 });
 
@@ -16,7 +16,12 @@ root.render(
     </React.StrictMode>
 );
 
-app.ports.updateDisplay.subscribe(function(data) {
+elmApp.ports.updateDisplay.subscribe(function(resume) {
     console.log("Updating display");
-    console.log(data);
+    console.log(resume);
+    root.render(
+        <React.StrictMode>
+          <App resume={resume}/>
+        </React.StrictMode>
+    );
 });
