@@ -26,7 +26,7 @@ main =
 -- PORTS
 
 
-port updateDisplay : String -> Cmd msg
+port updateDisplay : Model -> Cmd msg
 
 
 
@@ -34,14 +34,22 @@ port updateDisplay : String -> Cmd msg
 
 
 type alias Model =
-    { name : String }
+    { name : String
+    , title : String
+    , summary : String
+    }
 
 
 {-| Init function to initialize application state
 -}
 init : () -> ( Model, Cmd Msg )
 init () =
-    ( { name = "" }, Cmd.none )
+    ( { name = ""
+      , title = ""
+      , summary = ""
+      }
+    , Cmd.none
+    )
 
 
 
@@ -50,17 +58,27 @@ init () =
 
 type Msg
     = UpdateName String
+    | UpdateSummary String
+    | UpdateTitle String
 
 
 {-| Update function for handling Msg types
 -}
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case msg of
-        UpdateName name ->
-            ( { model | name = name }
-            , updateDisplay name
-            )
+    let
+        newModel =
+            case msg of
+                UpdateName name ->
+                    { model | name = name }
+
+                UpdateSummary summary ->
+                    { model | summary = summary }
+
+                UpdateTitle title ->
+                    { model | title = title }
+    in
+    ( newModel, updateDisplay newModel )
 
 
 {-| Subscrtions functions to handle subscriptions
@@ -90,7 +108,19 @@ view model =
             ]
             []
         , label [ for "title" ] [ text "Title" ]
-        , input [ id "title", type_ "text", placeholder "Title " ] []
+        , input
+            [ id "title"
+            , type_ "text"
+            , placeholder "Title "
+            , onInput UpdateTitle
+            ]
+            []
         , label [ for "summary" ] [ text "Summary" ]
-        , input [ id "summary", type_ "text", placeholder "Summary" ] []
+        , input
+            [ id "summary"
+            , type_ "text"
+            , placeholder "Summary"
+            , onInput UpdateSummary
+            ]
+            []
         ]

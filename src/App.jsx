@@ -23,7 +23,7 @@ function updateName(props, resume) {
             ...resume,
             personal: {
                 ...resume.personal,
-                name: props.resume
+                ...props.resume
             }
         };
     }
