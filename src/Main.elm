@@ -77,9 +77,13 @@ type Msg
     = UpdateName String
     | UpdateSummary String
     | UpdateTitle String
-    | UpdatePhone String
-    | UpdateEmail String
-    | UpdateLocation String
+    | ContactMsg ContactMsg
+
+
+type ContactMsg
+    = SetPhone String
+    | SetEmail String
+    | SetLocation String
 
 
 {-| Update function for handling Msg types
@@ -98,43 +102,23 @@ update msg model =
                 UpdateTitle title ->
                     { model | title = title }
 
-                UpdatePhone phone ->
-                    { model | contact = updateContactPhone model phone }
-
-                UpdateEmail email ->
-                    { model | contact = updateContactEmail model email }
-
-                UpdateLocation location ->
-                    { model | contact = updateContactLocation model location }
+                ContactMsg contactMsg ->
+                    { model | contact = updateContact contactMsg model.contact }
     in
     ( newModel, updateDisplay newModel )
 
 
-updateContactPhone : Model -> String -> Contact
-updateContactPhone model phone =
-    let
-        contact =
-            model.contact
-    in
-    { contact | phone = phone }
+updateContact : ContactMsg -> Contact -> Contact
+updateContact msg contact =
+    case msg of
+        SetPhone phone ->
+            { contact | phone = phone }
 
+        SetEmail email ->
+            { contact | email = email }
 
-updateContactEmail : Model -> String -> Contact
-updateContactEmail model email =
-    let
-        contact =
-            model.contact
-    in
-    { contact | email = email }
-
-
-updateContactLocation : Model -> String -> Contact
-updateContactLocation model location =
-    let
-        contact =
-            model.contact
-    in
-    { contact | location = location }
+        SetLocation location ->
+            { contact | location = location }
 
 
 {-| Subscrtions functions to handle subscriptions
@@ -189,7 +173,7 @@ view model =
                 , type_ "text"
                 , placeholder "Phone"
                 , value model.contact.phone
-                , onInput UpdatePhone
+                , onInput (ContactMsg << SetPhone)
                 ]
                 []
             , label [ for "email" ] [ text "Email" ]
@@ -198,7 +182,7 @@ view model =
                 , type_ "text"
                 , placeholder "Email"
                 , value model.contact.email
-                , onInput UpdateEmail
+                , onInput (ContactMsg << SetEmail)
                 ]
                 []
             , label [ for "location" ] [ text "Location" ]
@@ -207,7 +191,7 @@ view model =
                 , type_ "text"
                 , placeholder "Location"
                 , value model.contact.location
-                , onInput UpdateLocation
+                , onInput (ContactMsg << SetLocation)
                 ]
                 []
             ]
