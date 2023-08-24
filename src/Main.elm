@@ -183,67 +183,30 @@ subscriptions model =
 
 {-| Main view function for handling applictions view
 -}
-view : Model -> Html
- Msg
+view :
+    Model
+    ->
+        Html
+            Msg
 view model =
     div []
         [ div [ class "input__section" ]
             [ div [ class "section__header" ] [ text "Your Details" ]
             , label [ for "name" ] [ text "Name" ]
-            , input
-                [ id "name"
-                , type_ "text"
-                , placeholder "Name"
-                , value model.name
-                , onInput SetName
-                ]
-                []
+            , viewInput "name" "Name" model.name SetName
             , label [ for "title" ] [ text "Title" ]
-            , input
-                [ id "title"
-                , type_ "text"
-                , placeholder "Title "
-                , onInput SetTitle
-                ]
-                []
+            , viewInput "title" "Title" model.title SetTitle
             , label [ for "summary" ] [ text "Summary" ]
-            , input
-                [ id "summary"
-                , type_ "text"
-                , placeholder "Summary"
-                , onInput SetSummary
-                ]
-                []
+            , viewInput "summary" "Summary" model.summary SetSummary
             ]
         , div [ class "input__section" ]
             [ div [ class "section__header" ] [ text "Contact Details" ]
             , label [ for "phone" ] [ text "Phone" ]
-            , input
-                [ id "phone"
-                , type_ "text"
-                , placeholder "Phone"
-                , value model.contact.phone
-                , onInput (ContactMsg << SetPhone)
-                ]
-                []
+            , viewInput "phone" "Phone" model.contact.phone (ContactMsg << SetPhone)
             , label [ for "email" ] [ text "Email" ]
-            , input
-                [ id "email"
-                , type_ "text"
-                , placeholder "Email"
-                , value model.contact.email
-                , onInput (ContactMsg << SetEmail)
-                ]
-                []
+            , viewInput "email" "Email" model.contact.email (ContactMsg << SetEmail)
             , label [ for "location" ] [ text "Location" ]
-            , input
-                [ id "location"
-                , type_ "text"
-                , placeholder "Location"
-                , value model.contact.location
-                , onInput (ContactMsg << SetLocation)
-                ]
-                []
+            , viewInput "location" "Location" model.contact.location (ContactMsg << SetLocation)
             ]
         , div [ class "input__section" ]
             (div [ class "section__header" ] [ text "Social" ]
@@ -252,25 +215,23 @@ view model =
         ]
 
 
+viewInput : String -> String -> String -> (String -> Msg) -> Html Msg
+viewInput id_ placeholder_ value_ msg_ =
+    input
+        [ id id_
+        , type_ "text"
+        , placeholder placeholder_
+        , value value_
+        , onInput msg_
+        ]
+        []
+
+
 viewSocialInput : Social -> Html Msg
 viewSocialInput social =
     div []
         [ label [ for "name" ] [ text "Name" ]
-        , input
-            [ id "name"
-            , type_ "text"
-            , placeholder "Name"
-            , value social.name
-            , onInput (SocialMsg << SetSocialName)
-            ]
-            []
+        , viewInput "name" "Name" social.name (SocialMsg << SetSocialName)
         , label [ for "url" ] [ text "URL" ]
-        , input
-            [ id "url"
-            , type_ "text"
-            , placeholder "url"
-            , value social.url
-            , onInput (SocialMsg << SetSocialUrl)
-            ]
-            []
+        , viewInput "url" "Url" social.url (SocialMsg << SetSocialUrl)
         ]
