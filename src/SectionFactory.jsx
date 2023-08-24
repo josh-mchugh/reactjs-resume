@@ -30,7 +30,7 @@ const SectionFactory = (props) => {
     case 'skills':
         return <SkillSection skills={props.resume.skills} />;
     case 'social':
-        return <SocialSection data={props.resume.personal.social} />;
+        return <SocialSection data={props.resume.personal.socials} />;
     default:
         return <div key={props.key}></div>;
     }

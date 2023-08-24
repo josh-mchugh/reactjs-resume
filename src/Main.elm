@@ -38,6 +38,7 @@ type alias Model =
     , title : String
     , summary : String
     , contact : Contact
+    , socials : List Social
     }
 
 
@@ -45,6 +46,12 @@ type alias Contact =
     { phone : String
     , email : String
     , location : String
+    }
+
+
+type alias Social =
+    { name : String
+    , url : String
     }
 
 
@@ -56,6 +63,7 @@ init () =
       , title = ""
       , summary = ""
       , contact = initContact
+      , socials = initSocials
       }
     , Cmd.none
     )
@@ -69,6 +77,14 @@ initContact =
     }
 
 
+initSocials : List Social
+initSocials =
+    [ { name = ""
+      , url = ""
+      }
+    ]
+
+
 
 -- Update
 
@@ -78,12 +94,18 @@ type Msg
     | SetSummary String
     | SetTitle String
     | ContactMsg ContactMsg
+    | SocialMsg SocialMsg
 
 
 type ContactMsg
     = SetPhone String
     | SetEmail String
     | SetLocation String
+
+
+type SocialMsg
+    = SetSocialName String
+    | SetSocialUrl String
 
 
 {-| Update function for handling Msg types
@@ -104,6 +126,9 @@ update msg model =
 
                 ContactMsg contactMsg ->
                     { model | contact = updateContact contactMsg model.contact }
+
+                SocialMsg socialMsg ->
+                    { model | socials = updateSocials socialMsg model.socials }
     in
     ( newModel, updateDisplay newModel )
 
@@ -121,6 +146,30 @@ updateContact msg contact =
             { contact | location = location }
 
 
+updateSocials : SocialMsg -> List Social -> List Social
+updateSocials msg socials =
+    let
+        maybeSocial =
+            List.head socials
+
+        newSocial =
+            case maybeSocial of
+                Just social ->
+                    case msg of
+                        SetSocialName name ->
+                            { social | name = name }
+
+                        SetSocialUrl url ->
+                            { social | url = url }
+
+                Nothing ->
+                    { name = ""
+                    , url = ""
+                    }
+    in
+    newSocial :: []
+
+
 {-| Subscrtions functions to handle subscriptions
 -}
 subscriptions : Model -> Sub Msg
@@ -134,7 +183,8 @@ subscriptions model =
 
 {-| Main view function for handling applictions view
 -}
-view : Model -> Html Msg
+view : Model -> Html
+ Msg
 view model =
     div []
         [ div [ class "input__section" ]
@@ -195,4 +245,32 @@ view model =
                 ]
                 []
             ]
+        , div [ class "input__section" ]
+            (div [ class "section__header" ] [ text "Social" ]
+                :: List.map (\social -> viewSocialInput social) model.socials
+            )
+        ]
+
+
+viewSocialInput : Social -> Html Msg
+viewSocialInput social =
+    div []
+        [ label [ for "name" ] [ text "Name" ]
+        , input
+            [ id "name"
+            , type_ "text"
+            , placeholder "Name"
+            , value social.name
+            , onInput (SocialMsg << SetSocialName)
+            ]
+            []
+        , label [ for "url" ] [ text "URL" ]
+        , input
+            [ id "url"
+            , type_ "text"
+            , placeholder "url"
+            , value social.url
+            , onInput (SocialMsg << SetSocialUrl)
+            ]
+            []
         ]

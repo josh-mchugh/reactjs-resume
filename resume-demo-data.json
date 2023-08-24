@@ -8,7 +8,7 @@
       "email": "info@youremail.com",
       "location": "New York, New York"
     },
-    "social": [
+    "socials": [
       {
         "name": "Facebook",
         "icon": "fa-brands fa-facebook",
