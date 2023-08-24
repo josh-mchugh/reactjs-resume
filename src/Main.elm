@@ -33,13 +33,6 @@ port updateDisplay : Model -> Cmd msg
 -- MODEL
 
 
-type alias Contact =
-    { phone : String
-    , email : String
-    , location : String
-    }
-
-
 type alias Model =
     { name : String
     , title : String
@@ -48,11 +41,10 @@ type alias Model =
     }
 
 
-initContact : Contact
-initContact =
-    { phone = ""
-    , email = ""
-    , location = ""
+type alias Contact =
+    { phone : String
+    , email : String
+    , location : String
     }
 
 
@@ -69,14 +61,22 @@ init () =
     )
 
 
+initContact : Contact
+initContact =
+    { phone = ""
+    , email = ""
+    , location = ""
+    }
+
+
 
 -- Update
 
 
 type Msg
-    = UpdateName String
-    | UpdateSummary String
-    | UpdateTitle String
+    = SetName String
+    | SetSummary String
+    | SetTitle String
     | ContactMsg ContactMsg
 
 
@@ -93,13 +93,13 @@ update msg model =
     let
         newModel =
             case msg of
-                UpdateName name ->
+                SetName name ->
                     { model | name = name }
 
-                UpdateSummary summary ->
+                SetSummary summary ->
                     { model | summary = summary }
 
-                UpdateTitle title ->
+                SetTitle title ->
                     { model | title = title }
 
                 ContactMsg contactMsg ->
@@ -145,7 +145,7 @@ view model =
                 , type_ "text"
                 , placeholder "Name"
                 , value model.name
-                , onInput UpdateName
+                , onInput SetName
                 ]
                 []
             , label [ for "title" ] [ text "Title" ]
@@ -153,7 +153,7 @@ view model =
                 [ id "title"
                 , type_ "text"
                 , placeholder "Title "
-                , onInput UpdateTitle
+                , onInput SetTitle
                 ]
                 []
             , label [ for "summary" ] [ text "Summary" ]
@@ -161,7 +161,7 @@ view model =
                 [ id "summary"
                 , type_ "text"
                 , placeholder "Summary"
-                , onInput UpdateSummary
+                , onInput SetSummary
                 ]
                 []
             ]
