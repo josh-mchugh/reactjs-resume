@@ -183,36 +183,42 @@ subscriptions model =
 
 {-| Main view function for handling applictions view
 -}
-view :
-    Model
-    ->
-        Html
-            Msg
+view : Model -> Html Msg
 view model =
     div []
         [ div [ class "input__section" ]
-            [ div [ class "section__header" ] [ text "Your Details" ]
-            , label [ for "name" ] [ text "Name" ]
+            [ viewInputSectionHeader "Your Details"
+            , viewLabel "name" "Name"
             , viewInput "name" "Name" model.name SetName
-            , label [ for "title" ] [ text "Title" ]
+            , viewLabel "title" "Title"
             , viewInput "title" "Title" model.title SetTitle
-            , label [ for "summary" ] [ text "Summary" ]
+            , viewLabel "summary" "Summary"
             , viewInput "summary" "Summary" model.summary SetSummary
             ]
         , div [ class "input__section" ]
-            [ div [ class "section__header" ] [ text "Contact Details" ]
-            , label [ for "phone" ] [ text "Phone" ]
+            [ viewInputSectionHeader "Contact Details"
+            , viewLabel "phone" "Phone"
             , viewInput "phone" "Phone" model.contact.phone (ContactMsg << SetPhone)
-            , label [ for "email" ] [ text "Email" ]
+            , viewLabel "email" "Email"
             , viewInput "email" "Email" model.contact.email (ContactMsg << SetEmail)
-            , label [ for "location" ] [ text "Location" ]
+            , viewLabel "location" "Location"
             , viewInput "location" "Location" model.contact.location (ContactMsg << SetLocation)
             ]
         , div [ class "input__section" ]
-            (div [ class "section__header" ] [ text "Social" ]
+            (viewInputSectionHeader "Social"
                 :: List.map (\social -> viewSocialInput social) model.socials
             )
         ]
+
+
+viewInputSectionHeader : String -> Html Msg
+viewInputSectionHeader title =
+    div [ class "section__header" ] [ text title ]
+
+
+viewLabel : String -> String -> Html Msg
+viewLabel id_ text_ =
+    label [ for id_ ] [ text text_ ]
 
 
 viewInput : String -> String -> String -> (String -> Msg) -> Html Msg
@@ -230,8 +236,8 @@ viewInput id_ placeholder_ value_ msg_ =
 viewSocialInput : Social -> Html Msg
 viewSocialInput social =
     div []
-        [ label [ for "name" ] [ text "Name" ]
+        [ viewLabel "name" "Name"
         , viewInput "name" "Name" social.name (SocialMsg << SetSocialName)
-        , label [ for "url" ] [ text "URL" ]
+        , viewLabel "url" "URL"
         , viewInput "url" "Url" social.url (SocialMsg << SetSocialUrl)
         ]
