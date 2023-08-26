@@ -207,7 +207,7 @@ describe("SectionFactory Component", () => {
 
         const resume = {
             personal: {
-                social: [
+                socials: [
                     {
                         name: "Facebook",
                         icon: "fa-brands fa-facebook",
