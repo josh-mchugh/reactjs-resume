@@ -39,6 +39,7 @@ type alias Model =
     , summary : String
     , contact : Contact
     , socials : List Social
+    , experiences : List Experience
     }
 
 
@@ -54,6 +55,14 @@ type alias Social =
     , url : String
     }
 
+type alias Experience =
+    { title : String
+    , organization : String
+    , duration : String
+    , location : String
+    , description: String
+    , skills : List String
+    }
 
 {-| Init function to initialize application state
 -}
@@ -64,6 +73,7 @@ init () =
       , summary = ""
       , contact = initContact
       , socials = initSocials
+      , experiences = initExperiences
       }
     , Cmd.none
     )
@@ -84,6 +94,16 @@ initSocials =
       }
     ]
 
+initExperiences : List Experience
+initExperiences =
+    [ { title = ""
+      , organization = ""
+      , duration = ""
+      , location = ""
+      , description = ""
+      , skills = []
+      }
+    ]
 
 
 -- Update
@@ -95,6 +115,7 @@ type Msg
     | SetTitle String
     | ContactMsg ContactMsg
     | SocialMsg SocialMsg
+    | ExperienceMsg ExperienceMsg
 
 
 type ContactMsg
@@ -107,6 +128,14 @@ type SocialMsg
     = SetSocialName String
     | SetSocialUrl String
 
+
+type ExperienceMsg
+    = SetExperienceTitle String
+    | SetExperienceOrganization String
+    | SetExperienceDuration String
+    | SetExperienceLocation String
+    | SetExperienceDescription String
+    | SetExperienceSkills String
 
 {-| Update function for handling Msg types
 -}
@@ -129,6 +158,9 @@ update msg model =
 
                 SocialMsg socialMsg ->
                     { model | socials = updateSocials socialMsg model.socials }
+
+                ExperienceMsg experienceMsg ->
+                    { model | experiences = updateExperiences experienceMsg model.experiences }
     in
     ( newModel, updateDisplay newModel )
 
@@ -170,6 +202,11 @@ updateSocials msg socials =
     newSocial :: []
 
 
+updateExperiences : ExperienceMsg -> List Experience -> List Experience
+updateExperiences msg experiences =
+    experiences
+
+
 {-| Subscrtions functions to handle subscriptions
 -}
 subscriptions : Model -> Sub Msg
@@ -206,7 +243,11 @@ view model =
             ]
         , div [ class "input__section" ]
             (viewInputSectionHeader "Social"
-                :: List.map (\social -> viewSocialInput social) model.socials
+                :: List.map (\social -> viewSocialInputs social) model.socials
+            )
+        , div [ class "input__section" ]
+            ( viewInputSectionHeader "Experiences"
+                :: List.map (\experience -> viewExperienceInputs experience) model.experiences
             )
         ]
 
@@ -233,11 +274,29 @@ viewInput id_ placeholder_ value_ msg_ =
         []
 
 
-viewSocialInput : Social -> Html Msg
-viewSocialInput social =
+viewSocialInputs : Social -> Html Msg
+viewSocialInputs social =
     div []
         [ viewLabel "name" "Name"
         , viewInput "name" "Name" social.name (SocialMsg << SetSocialName)
         , viewLabel "url" "URL"
         , viewInput "url" "Url" social.url (SocialMsg << SetSocialUrl)
+        ]
+
+
+viewExperienceInputs : Experience ->  Html Msg
+viewExperienceInputs experience =
+    div []
+        [ viewLabel "title" "Title"
+        , viewInput "title" "Title" experience.title (ExperienceMsg << SetExperienceTitle)
+        , viewLabel "organization" "Organization"
+        , viewInput "organization" "Organization" experience.organization (ExperienceMsg << SetExperienceOrganization)
+        , viewLabel "duration" "Duration"
+        , viewInput "duration" "Duration" experience.duration (ExperienceMsg << SetExperienceDuration)
+        , viewLabel "location" "Location"
+        , viewInput "location" "Location" experience.location (ExperienceMsg << SetExperienceLocation)
+        , viewLabel "description" "Description"
+        , viewInput "description" "Description" experience.description (ExperienceMsg << SetExperienceDescription)
+        , viewLabel "skills" "Skills"
+        , viewInput "skills" "Skills" (String.join ", " experience.skills) (ExperienceMsg << SetExperienceSkills)
         ]
