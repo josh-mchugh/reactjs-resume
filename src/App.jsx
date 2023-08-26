@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import SheetList from './SheetList';
 import data from '../resume-demo-data.json';
@@ -21,10 +22,7 @@ function updateName(props, resume) {
     if(props.resume) {
         return {
             ...resume,
-            personal: {
-                ...resume.personal,
-                ...props.resume
-            }
+            ...props.resume
         };
     }
     return resume;

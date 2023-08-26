@@ -12,7 +12,7 @@ import SocialSection from './SocialSection';
 const SectionFactory = (props) => {
     switch(props.section.template) {
     case 'contact':
-        return <ContactSection {...props.resume.personal.contact} />;
+        return <ContactSection {...props.resume.contact} />;
     case 'certifications':
         return <CertificationSection certifications={props.resume.certifications} />;
     case 'experiences':
@@ -22,15 +22,15 @@ const SectionFactory = (props) => {
     case 'interests':
         return <InterestSection interests={props.resume.interests} />;
     case 'name':
-        return <NameSection {...props.resume.personal} />;
+        return <NameSection {...props.resume} />;
     case 'projects':
         return <ProjectSection projects={props.resume.projects} />;
     case 'summary':
-        return <SummarySection {...props.resume.personal} />;
+        return <SummarySection {...props.resume} />;
     case 'skills':
         return <SkillSection skills={props.resume.skills} />;
     case 'social':
-        return <SocialSection data={props.resume.personal.socials} />;
+        return <SocialSection data={props.resume.socials} />;
     default:
         return <div key={props.key}></div>;
     }

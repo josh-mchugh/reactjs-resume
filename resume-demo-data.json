@@ -1,31 +1,29 @@
 {
-  "personal": {
-    "name": "John Doe",
-    "title": "Web and Graphic Designer",
-    "summary": "Rock Star/Ninja can you ballpark the cost per unit for me, for touch base disband the squad but rehydrate as needed sacred cow.",
-    "contact": {
-      "phone": "(123) 456-8899",
-      "email": "info@youremail.com",
-      "location": "New York, New York"
-    },
-    "socials": [
-      {
-        "name": "Facebook",
-        "icon": "fa-brands fa-facebook",
-        "url": "https://facebook.com/profile"
-      },
-      {
-        "name": "Twitter",
-        "icon": "fa-brands fa-twitter",
-        "url": "https://twitter.com/profile"
-      },
-      {
-        "name": "LinkedIn",
-        "icon": "fa-brands fa-linkedin",
-        "url": "https://linkedin.com/profile"
-      }
-    ]
+  "name": "John Doe",
+  "title": "Web and Graphic Designer",
+  "summary": "Rock Star/Ninja can you ballpark the cost per unit for me, for touch base disband the squad but rehydrate as needed sacred cow.",
+  "contact": {
+    "phone": "(123) 456-8899",
+    "email": "info@youremail.com",
+    "location": "New York, New York"
   },
+  "socials": [
+    {
+      "name": "Facebook",
+      "icon": "fa-brands fa-facebook",
+      "url": "https://facebook.com/profile"
+    },
+    {
+      "name": "Twitter",
+      "icon": "fa-brands fa-twitter",
+      "url": "https://twitter.com/profile"
+    },
+    {
+      "name": "LinkedIn",
+      "icon": "fa-brands fa-linkedin",
+      "url": "https://linkedin.com/profile"
+    }
+  ],
   "experiences": [
     {
       "name": "Company Name Here",

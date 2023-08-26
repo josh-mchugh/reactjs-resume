@@ -58,10 +58,10 @@ type alias Social =
 
 type alias Experience =
     { title : String
-    , organization : String
+    , name : String
     , duration : String
     , location : String
-    , description : String
+    , descriptions : List String
     , skills : List String
     }
 
@@ -109,10 +109,10 @@ initExperiences =
 emptyExperience : Experience
 emptyExperience =
     { title = ""
-    , organization = ""
+    , name = ""
     , duration = ""
     , location = ""
-    , description = ""
+    , descriptions = []
     , skills = []
     }
 
@@ -143,7 +143,7 @@ type SocialMsg
 
 type ExperienceMsg
     = SetExperienceTitle String
-    | SetExperienceOrganization String
+    | SetExperienceName String
     | SetExperienceDuration String
     | SetExperienceLocation String
     | SetExperienceDescription String
@@ -226,8 +226,8 @@ updateExperiences msg experiences =
                         SetExperienceTitle title ->
                             { experience | title = title }
 
-                        SetExperienceOrganization organization ->
-                            { experience | organization = organization }
+                        SetExperienceName name ->
+                            { experience | name = name }
 
                         SetExperienceDuration duration ->
                             { experience | duration = duration }
@@ -236,10 +236,10 @@ updateExperiences msg experiences =
                             { experience | location = location }
 
                         SetExperienceDescription description ->
-                            { experience | description = description }
+                            { experience | descriptions = String.split ". " description }
 
                         SetExperienceSkills skills ->
-                            { experience | skills = String.split "," skills }
+                            { experience | skills = String.split "," skills |> List.map (\skill -> String.trim skill) }
 
                 Nothing ->
                     emptyExperience
@@ -330,13 +330,13 @@ viewExperienceInputs experience =
         [ viewLabel "title" "Title"
         , viewInput "title" "Title" experience.title (ExperienceMsg << SetExperienceTitle)
         , viewLabel "organization" "Organization"
-        , viewInput "organization" "Organization" experience.organization (ExperienceMsg << SetExperienceOrganization)
+        , viewInput "organization" "Organization" experience.name (ExperienceMsg << SetExperienceName)
         , viewLabel "duration" "Duration"
         , viewInput "duration" "Duration" experience.duration (ExperienceMsg << SetExperienceDuration)
         , viewLabel "location" "Location"
         , viewInput "location" "Location" experience.location (ExperienceMsg << SetExperienceLocation)
         , viewLabel "description" "Description"
-        , viewInput "description" "Description" experience.description (ExperienceMsg << SetExperienceDescription)
+        , viewInput "description" "Description" (String.join ". " experience.descriptions) (ExperienceMsg << SetExperienceDescription)
         , viewLabel "skills" "Skills"
-        , viewInput "skills" "Skills" (String.join ", " experience.skills) (ExperienceMsg << SetExperienceSkills)
+        , viewInput "skills" "Skills" (String.join "," experience.skills) (ExperienceMsg << SetExperienceSkills)
         ]
