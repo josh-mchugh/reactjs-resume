@@ -55,14 +55,16 @@ type alias Social =
     , url : String
     }
 
+
 type alias Experience =
     { title : String
     , organization : String
     , duration : String
     , location : String
-    , description: String
+    , description : String
     , skills : List String
     }
+
 
 {-| Init function to initialize application state
 -}
@@ -89,21 +91,31 @@ initContact =
 
 initSocials : List Social
 initSocials =
-    [ { name = ""
-      , url = ""
-      }
-    ]
+    [ emptySocial ]
+
+
+emptySocial : Social
+emptySocial =
+    { name = ""
+    , url = ""
+    }
+
 
 initExperiences : List Experience
 initExperiences =
-    [ { title = ""
-      , organization = ""
-      , duration = ""
-      , location = ""
-      , description = ""
-      , skills = []
-      }
-    ]
+    [ emptyExperience ]
+
+
+emptyExperience : Experience
+emptyExperience =
+    { title = ""
+    , organization = ""
+    , duration = ""
+    , location = ""
+    , description = ""
+    , skills = []
+    }
+
 
 
 -- Update
@@ -136,6 +148,7 @@ type ExperienceMsg
     | SetExperienceLocation String
     | SetExperienceDescription String
     | SetExperienceSkills String
+
 
 {-| Update function for handling Msg types
 -}
@@ -195,16 +208,43 @@ updateSocials msg socials =
                             { social | url = url }
 
                 Nothing ->
-                    { name = ""
-                    , url = ""
-                    }
+                    emptySocial
     in
     newSocial :: []
 
 
 updateExperiences : ExperienceMsg -> List Experience -> List Experience
 updateExperiences msg experiences =
-    experiences
+    let
+        maybeExperience =
+            List.head experiences
+
+        newExperience =
+            case maybeExperience of
+                Just experience ->
+                    case msg of
+                        SetExperienceTitle title ->
+                            { experience | title = title }
+
+                        SetExperienceOrganization organization ->
+                            { experience | organization = organization }
+
+                        SetExperienceDuration duration ->
+                            { experience | duration = duration }
+
+                        SetExperienceLocation location ->
+                            { experience | location = location }
+
+                        SetExperienceDescription description ->
+                            { experience | description = description }
+
+                        SetExperienceSkills skills ->
+                            { experience | skills = String.split "," skills }
+
+                Nothing ->
+                    emptyExperience
+    in
+    newExperience :: []
 
 
 {-| Subscrtions functions to handle subscriptions
@@ -246,7 +286,7 @@ view model =
                 :: List.map (\social -> viewSocialInputs social) model.socials
             )
         , div [ class "input__section" ]
-            ( viewInputSectionHeader "Experiences"
+            (viewInputSectionHeader "Experiences"
                 :: List.map (\experience -> viewExperienceInputs experience) model.experiences
             )
         ]
@@ -284,7 +324,7 @@ viewSocialInputs social =
         ]
 
 
-viewExperienceInputs : Experience ->  Html Msg
+viewExperienceInputs : Experience -> Html Msg
 viewExperienceInputs experience =
     div []
         [ viewLabel "title" "Title"
