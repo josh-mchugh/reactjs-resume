@@ -116,7 +116,7 @@
   "certifications": [
     {
       "title": "Master Degree in Studies",
-      "name": "Name of University",
+      "organization": "Name of University",
       "location": "New York, NY",
       "year": "2012"
     }

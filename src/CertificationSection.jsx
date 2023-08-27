@@ -18,7 +18,8 @@ const Certification = (props) => {
                   <div>{props.year}</div>
                 </div>
                 <div className="flex justify-between">
-                  <div>{props.name}</div>
+                  <div>{props.organization}</div>
+                  <div>{props.location}</div>
                 </div>
               </div>
             </div>

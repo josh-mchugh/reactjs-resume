@@ -7,13 +7,15 @@ describe("Certification Section", () => {
     const certifications = [
         {
             title: "Certified Cloud Practitioner",
+            organization: "Web Services",
             year: "2020",
-            name: "Web Services"
+            location: "Online"
         },
         {
             title: "Master of Libral Arts",
+            organization: "University",
             year: "2012",
-            name: "University"
+            location: "New York, New York"
         }
     ];
 
@@ -35,6 +37,12 @@ describe("Certification Section", () => {
         expect(element).toBeInTheDocument();
     });
 
+    it("certification name should be in the document", () => {
+        render(<CertificationSection certifications={certifications}/>);
+        const element = screen.getByText("Online");
+        expect(element).toBeInTheDocument();
+    });
+
     it("university title should be in the document", () => {
         render(<CertificationSection certifications={certifications}/>);
         const element = screen.getByText("Master of Libral Arts");
@@ -50,6 +58,12 @@ describe("Certification Section", () => {
     it("university name should be in the document", () => {
         render(<CertificationSection certifications={certifications}/>);
         const element = screen.getByText("University");
+        expect(element).toBeInTheDocument();
+    });
+
+    it("university location should be in the document", () => {
+        render(<CertificationSection certifications={certifications}/>);
+        const element = screen.getByText("New York, New York");
         expect(element).toBeInTheDocument();
     });
 });

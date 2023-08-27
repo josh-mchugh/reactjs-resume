@@ -41,6 +41,7 @@ type alias Model =
     , socials : List Social
     , experiences : List Experience
     , skills : List Skill
+    , certifications : List Certification
     }
 
 
@@ -73,6 +74,14 @@ type alias Skill =
     }
 
 
+type alias Certification =
+    { title : String
+    , organization : String
+    , location : String
+    , year : String
+    }
+
+
 {-| Init function to initialize application state
 -}
 init : () -> ( Model, Cmd Msg )
@@ -84,6 +93,7 @@ init () =
       , socials = initSocials
       , experiences = initExperiences
       , skills = initSkills
+      , certifications = initCertifications
       }
     , Cmd.none
     )
@@ -137,6 +147,20 @@ emptySkill =
     }
 
 
+initCertifications : List Certification
+initCertifications =
+    [ emptyCertification ]
+
+
+emptyCertification : Certification
+emptyCertification =
+    { title = ""
+    , organization = ""
+    , location = ""
+    , year = ""
+    }
+
+
 
 -- Update
 
@@ -149,6 +173,7 @@ type Msg
     | SocialMsg SocialMsg
     | ExperienceMsg ExperienceMsg
     | SkillMsg SkillMsg
+    | CertificationMsg CertificationMsg
 
 
 type ContactMsg
@@ -174,6 +199,13 @@ type ExperienceMsg
 type SkillMsg
     = SetSkillName String
     | SetSkillProficiency String
+
+
+type CertificationMsg
+    = SetCertificationTitle String
+    | SetCertificationOrganization String
+    | SetCertificationYear String
+    | SetCertificationLocation String
 
 
 {-| Update function for handling Msg types
@@ -203,6 +235,9 @@ update msg model =
 
                 SkillMsg skillMsg ->
                     { model | skills = updateSkills skillMsg model.skills }
+
+                CertificationMsg certificationMsg ->
+                    { model | certifications = updateCertifications certificationMsg model.certifications }
     in
     ( newModel, updateDisplay newModel )
 
@@ -298,6 +333,34 @@ updateSkills msg skills =
     [ newSkill ]
 
 
+updateCertifications : CertificationMsg -> List Certification -> List Certification
+updateCertifications certificationMsg certifications =
+    let
+        maybeCertification =
+            List.head certifications
+
+        newCertification =
+            case maybeCertification of
+                Just certification ->
+                    case certificationMsg of
+                        SetCertificationTitle title ->
+                            { certification | title = title }
+
+                        SetCertificationOrganization organization ->
+                            { certification | organization = organization }
+
+                        SetCertificationYear year ->
+                            { certification | year = year }
+
+                        SetCertificationLocation location ->
+                            { certification | location = location }
+
+                Nothing ->
+                    emptyCertification
+    in
+    [ newCertification ]
+
+
 {-| Subscrtions functions to handle subscriptions
 -}
 subscriptions : Model -> Sub Msg
@@ -343,6 +406,10 @@ view model =
         , div [ class "input__section" ]
             (viewInputSectionHeader "Skills"
                 :: List.map (\skill -> viewSkillInputs skill) model.skills
+            )
+        , div [ class "input__section" ]
+            (viewInputSectionHeader "Certifications"
+                :: List.map (\certification -> viewCertificationsInputs certification) model.certifications
             )
         ]
 
@@ -404,4 +471,18 @@ viewSkillInputs skill =
         , viewInput "name" "Name" skill.name (SkillMsg << SetSkillName)
         , viewLabel "proficiency" "Proficiency"
         , viewInput "proficiency" "Proficiency" (String.fromInt skill.proficiency) (SkillMsg << SetSkillProficiency)
+        ]
+
+
+viewCertificationsInputs : Certification -> Html Msg
+viewCertificationsInputs certification =
+    div []
+        [ viewLabel "title" "Title"
+        , viewInput "title" "Title" certification.title (CertificationMsg << SetCertificationTitle)
+        , viewLabel "organization" "Organization"
+        , viewInput "organization" "Organization" certification.organization (CertificationMsg << SetCertificationOrganization)
+        , viewLabel "year" "Year"
+        , viewInput "year" "Year" certification.year (CertificationMsg << SetCertificationYear)
+        , viewLabel "location" "Location"
+        , viewInput "location" "Location" certification.location (CertificationMsg << SetCertificationLocation)
         ]
