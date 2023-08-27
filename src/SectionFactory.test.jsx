@@ -144,10 +144,8 @@ describe("SectionFactory Component", () => {
         };
 
         const resume = {
-            personal: {
-                name: "John Doe",
-                title: "Web and Graphic Designer"                
-            }
+            name: "John Doe",
+            title: "Web and Graphic Designer"
         };
 
         it("elements should be rendered", () => {
@@ -164,9 +162,7 @@ describe("SectionFactory Component", () => {
         };
 
         const resume = {
-            personal: {
-                summary: "Create clean and useful web applications"
-            }
+            summary: "Create clean and useful web applications"
         };
 
         it("elements should be rendered", () => {
@@ -183,12 +179,10 @@ describe("SectionFactory Component", () => {
         };
 
         const resume = {
-            personal: {
-                contact: {
-                    phone: "(123) 456-8899",
-                    email: "info@youremail.com",
-                    location: "New York, New York"
-                }
+            contact: {
+                phone: "(123) 456-8899",
+                email: "info@youremail.com",
+                location: "New York, New York"
             }
         };
 
@@ -206,15 +200,13 @@ describe("SectionFactory Component", () => {
         };
 
         const resume = {
-            personal: {
-                socials: [
-                    {
-                        name: "Facebook",
-                        icon: "fa-brands fa-facebook",
-                        url: "https://facebook.com/profile"
-                    }
-                ]
-            }
+            socials: [
+                {
+                    name: "Facebook",
+                    icon: "fa-brands fa-facebook",
+                    url: "https://facebook.com/profile"
+                }
+            ]
         };
 
         it("elements should rendered", () => {
