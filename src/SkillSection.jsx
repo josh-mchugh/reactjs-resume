@@ -23,13 +23,13 @@ const SkillValueItem = (props) => {
     return (
         <div className="grid grid-cols-2 place-content-between">
           <div>{props.name}</div>
-          <SkillValueGaugeList value={props.value} />
+          <SkillValueGaugeList proficiency={props.proficiency} />
         </div>
     );
 };
 
 const SkillValueGaugeList = (props) => {
-    const gaugeListItems = [1,2,3,4,5].map((value, index) => <SkillValueGaugeListItem key={index} highlighted={props.value >= value} />);
+    const gaugeListItems = [1,2,3,4,5].map((value, index) => <SkillValueGaugeListItem key={index} highlighted={props.proficiency >= value} />);
     return (
         <div className="grid grid-cols-5 w-24 content-center">
           {gaugeListItems}

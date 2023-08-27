@@ -9,7 +9,7 @@ describe("SkillSection Component", () => {
         const skills = [
             {
                 name: "JavaScript",
-                value: 3
+                proficiency: 3
             }
         ];
 

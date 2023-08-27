@@ -40,6 +40,7 @@ type alias Model =
     , contact : Contact
     , socials : List Social
     , experiences : List Experience
+    , skills : List Skill
     }
 
 
@@ -66,6 +67,12 @@ type alias Experience =
     }
 
 
+type alias Skill =
+    { name : String
+    , proficiency : Int
+    }
+
+
 {-| Init function to initialize application state
 -}
 init : () -> ( Model, Cmd Msg )
@@ -76,6 +83,7 @@ init () =
       , contact = initContact
       , socials = initSocials
       , experiences = initExperiences
+      , skills = initSkills
       }
     , Cmd.none
     )
@@ -117,6 +125,18 @@ emptyExperience =
     }
 
 
+initSkills : List Skill
+initSkills =
+    [ emptySkill ]
+
+
+emptySkill : Skill
+emptySkill =
+    { name = ""
+    , proficiency = 0
+    }
+
+
 
 -- Update
 
@@ -128,6 +148,7 @@ type Msg
     | ContactMsg ContactMsg
     | SocialMsg SocialMsg
     | ExperienceMsg ExperienceMsg
+    | SkillMsg SkillMsg
 
 
 type ContactMsg
@@ -148,6 +169,11 @@ type ExperienceMsg
     | SetExperienceLocation String
     | SetExperienceDescription String
     | SetExperienceSkills String
+
+
+type SkillMsg
+    = SetSkillName String
+    | SetSkillProficiency String
 
 
 {-| Update function for handling Msg types
@@ -174,6 +200,9 @@ update msg model =
 
                 ExperienceMsg experienceMsg ->
                     { model | experiences = updateExperiences experienceMsg model.experiences }
+
+                SkillMsg skillMsg ->
+                    { model | skills = updateSkills skillMsg model.skills }
     in
     ( newModel, updateDisplay newModel )
 
@@ -210,7 +239,7 @@ updateSocials msg socials =
                 Nothing ->
                     emptySocial
     in
-    newSocial :: []
+    [ newSocial ]
 
 
 updateExperiences : ExperienceMsg -> List Experience -> List Experience
@@ -244,7 +273,29 @@ updateExperiences msg experiences =
                 Nothing ->
                     emptyExperience
     in
-    newExperience :: []
+    [ newExperience ]
+
+
+updateSkills : SkillMsg -> List Skill -> List Skill
+updateSkills msg skills =
+    let
+        maybeSkill =
+            List.head skills
+
+        newSkill =
+            case maybeSkill of
+                Just skill ->
+                    case msg of
+                        SetSkillName name ->
+                            { skill | name = name }
+
+                        SetSkillProficiency proficiency ->
+                            { skill | proficiency = Maybe.withDefault 0 (String.toInt proficiency) }
+
+                Nothing ->
+                    emptySkill
+    in
+    [ newSkill ]
 
 
 {-| Subscrtions functions to handle subscriptions
@@ -288,6 +339,10 @@ view model =
         , div [ class "input__section" ]
             (viewInputSectionHeader "Experiences"
                 :: List.map (\experience -> viewExperienceInputs experience) model.experiences
+            )
+        , div [ class "input__section" ]
+            (viewInputSectionHeader "Skills"
+                :: List.map (\skill -> viewSkillInputs skill) model.skills
             )
         ]
 
@@ -339,4 +394,14 @@ viewExperienceInputs experience =
         , viewInput "description" "Description" (String.join ". " experience.descriptions) (ExperienceMsg << SetExperienceDescription)
         , viewLabel "skills" "Skills"
         , viewInput "skills" "Skills" (String.join "," experience.skills) (ExperienceMsg << SetExperienceSkills)
+        ]
+
+
+viewSkillInputs : Skill -> Html Msg
+viewSkillInputs skill =
+    div []
+        [ viewLabel "name" "Name"
+        , viewInput "name" "Name" skill.name (SkillMsg << SetSkillName)
+        , viewLabel "proficiency" "Proficiency"
+        , viewInput "proficiency" "Proficiency" (String.fromInt skill.proficiency) (SkillMsg << SetSkillProficiency)
         ]

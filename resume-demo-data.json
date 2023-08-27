@@ -86,35 +86,31 @@
   "skills": [
     {
       "name": "Photoshop",
-      "value": 4
-    },
-    {
-      "name": "JavaScript",
-      "value": 4
+      "proficiency": 4
     },
     {
       "name": "Illustrator",
-      "value": 2
+      "proficiency": 2
     },
     {
       "name": "PHP",
-      "value": 2
+      "proficiency": 2
     },
     {
       "name": "HTML",
-      "value": 3
+      "proficiency": 3
     },
     {
       "name": "WordPress",
-      "value": 3
+      "proficiency": 3
     },
     {
       "name": "CSS",
-      "value": 3
+      "proficiency": 3
     },
     {
       "name": "Joomla",
-      "value": 3
+      "proficiency": 3
     }
   ],
   "certifications": [
