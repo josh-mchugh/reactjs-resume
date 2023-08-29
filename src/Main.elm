@@ -303,7 +303,7 @@ updateExperiences msg experiences =
                             { experience | descriptions = String.split ". " description }
 
                         SetExperienceSkills skills ->
-                            { experience | skills = String.split "," skills |> List.map (\skill -> String.trim skill) }
+                            { experience | skills = String.split "," skills |> List.map String.trim }
 
                 Nothing ->
                     emptyExperience
@@ -338,7 +338,7 @@ updateCertifications certificationMsg certifications =
     let
         maybeCertification =
             List.head certifications
-
+        
         newCertification =
             case maybeCertification of
                 Just certification ->
@@ -397,19 +397,19 @@ view model =
             ]
         , div [ class "input__section" ]
             (viewInputSectionHeader "Social"
-                :: List.map (\social -> viewSocialInputs social) model.socials
+                :: List.map viewSocialInputs model.socials
             )
         , div [ class "input__section" ]
             (viewInputSectionHeader "Experiences"
-                :: List.map (\experience -> viewExperienceInputs experience) model.experiences
+                :: List.map viewExperienceInputs model.experiences
             )
         , div [ class "input__section" ]
             (viewInputSectionHeader "Skills"
-                :: List.map (\skill -> viewSkillInputs skill) model.skills
+                :: List.map viewSkillInputs model.skills
             )
         , div [ class "input__section" ]
             (viewInputSectionHeader "Certifications"
-                :: List.map (\certification -> viewCertificationsInputs certification) model.certifications
+                :: List.map viewCertificationsInputs model.certifications
             )
         ]
 
