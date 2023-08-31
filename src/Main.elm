@@ -170,8 +170,8 @@ type Msg
     | SetSummary String
     | SetTitle String
     | ContactMsg ContactMsg
-    | SocialMsg SocialMsg
-    | ExperienceMsg ExperienceMsg
+    | SocialMsg Int SocialMsg
+    | ExperienceMsg Int ExperienceMsg
     | SkillMsg SkillMsg
     | CertificationMsg CertificationMsg
     | AddSocial
@@ -185,8 +185,8 @@ type ContactMsg
 
 
 type SocialMsg
-    = SetSocialName Int String
-    | SetSocialUrl Int String
+    = SetSocialName String
+    | SetSocialUrl String
 
 
 type ExperienceMsg
@@ -228,11 +228,11 @@ update msg model =
                 ContactMsg contactMsg ->
                     { model | contact = updateContact contactMsg model.contact }
 
-                SocialMsg socialMsg ->
-                    { model | socials = updateSocials socialMsg model.socials }
+                SocialMsg index socialMsg ->
+                    { model | socials = updateSocials index socialMsg model.socials }
 
-                ExperienceMsg experienceMsg ->
-                    { model | experiences = updateExperiences experienceMsg model.experiences }
+                ExperienceMsg index experienceMsg ->
+                    { model | experiences = updateExperiences index experienceMsg model.experiences }
 
                 SkillMsg skillMsg ->
                     { model | skills = updateSkills skillMsg model.skills }
@@ -262,59 +262,45 @@ updateContact msg contact =
             { contact | location = location }
 
 
-updateSocials : SocialMsg -> Array Social -> Array Social
-updateSocials msg socials =
+updateSocials : Int -> SocialMsg -> Array Social -> Array Social
+updateSocials index msg socials =
     let
-        maybeSocial index =
+        maybeSocial =
             Array.get index socials
     in
-    case msg of
-        SetSocialName index name ->
-            case (maybeSocial index) of
-                Just social ->
+    case maybeSocial of
+        Just social ->
+            case msg of
+                SetSocialName name ->
                     Array.set index { social | name = name } socials
-                Nothing ->
-                    socials
-        SetSocialUrl index url ->
-            case (maybeSocial index) of
-                Just social ->
+                SetSocialUrl url ->
                     Array.set index { social | url = url } socials
-                Nothing ->
-                    socials
+        Nothing ->
+            socials
 
-updateExperiences : ExperienceMsg -> Array Experience -> Array Experience
-updateExperiences msg experiences =
+updateExperiences : Int -> ExperienceMsg -> Array Experience -> Array Experience
+updateExperiences index msg experiences =
     let
         maybeExperience =
-            Array.get 0 experiences
-
-        newExperience =
-            case maybeExperience of
-                Just experience ->
-                    case msg of
-                        SetExperienceTitle title ->
-                            { experience | title = title }
-
-                        SetExperienceName name ->
-                            { experience | name = name }
-
-                        SetExperienceDuration duration ->
-                            { experience | duration = duration }
-
-                        SetExperienceLocation location ->
-                            { experience | location = location }
-
-                        SetExperienceDescription description ->
-                            { experience | descriptions = String.split ". " description }
-
-                        SetExperienceSkills skills ->
-                            { experience | skills = String.split "," skills |> List.map String.trim }
-
-                Nothing ->
-                    emptyExperience
+            Array.get index experiences
     in
-    Array.fromList [ newExperience ]
-
+    case maybeExperience of
+        Just experience ->
+            case msg of
+                SetExperienceTitle title ->
+                    Array.set index { experience | title = title} experiences
+                SetExperienceName name ->
+                    Array.set index { experience | name = name } experiences
+                SetExperienceDuration duration ->
+                    Array.set index { experience | duration = duration } experiences
+                SetExperienceLocation location ->
+                    Array.set index { experience | location = location } experiences
+                SetExperienceDescription description ->
+                    Array.set index { experience | descriptions = String.split ". " description } experiences
+                SetExperienceSkills skills ->
+                    Array.set index { experience | skills = String.split "," skills |> List.map String.trim } experiences
+        Nothing ->
+            experiences
 
 updateSkills : SkillMsg -> List Skill -> List Skill
 updateSkills msg skills =
@@ -472,33 +458,39 @@ viewSocialInputs tuple =
     in
     div []
         [ viewLabel "name" "Name"
-        , viewInput "name" "Name" social.name (SocialMsg << SetSocialName index)
+        , viewInput "name" "Name" social.name (SocialMsg index << SetSocialName)
         , viewLabel "url" "URL"
-        , viewInput "url" "Url" social.url (SocialMsg << SetSocialUrl index)
+        , viewInput "url" "Url" social.url (SocialMsg index << SetSocialUrl)
         ]
 
 
 viewExperience : Array Experience -> Html Msg
 viewExperience experiences =
     div []
-        ( Array.toList (Array.map viewExperienceInputs experiences ))
+        ( List.map viewExperienceInputs (Array.toIndexedList experiences) )
 
 
-viewExperienceInputs : Experience -> Html Msg
-viewExperienceInputs experience =
+viewExperienceInputs : (Int, Experience) -> Html Msg
+viewExperienceInputs tuple =
+    let
+        index =
+            Tuple.first tuple
+        experience =
+            Tuple.second tuple
+    in
     div []
         [ viewLabel "title" "Title"
-        , viewInput "title" "Title" experience.title (ExperienceMsg << SetExperienceTitle)
+        , viewInput "title" "Title" experience.title (ExperienceMsg index << SetExperienceTitle)
         , viewLabel "organization" "Organization"
-        , viewInput "organization" "Organization" experience.name (ExperienceMsg << SetExperienceName)
+        , viewInput "organization" "Organization" experience.name (ExperienceMsg index << SetExperienceName)
         , viewLabel "duration" "Duration"
-        , viewInput "duration" "Duration" experience.duration (ExperienceMsg << SetExperienceDuration)
+        , viewInput "duration" "Duration" experience.duration (ExperienceMsg index << SetExperienceDuration)
         , viewLabel "location" "Location"
-        , viewInput "location" "Location" experience.location (ExperienceMsg << SetExperienceLocation)
+        , viewInput "location" "Location" experience.location (ExperienceMsg index << SetExperienceLocation)
         , viewLabel "description" "Description"
-        , viewInput "description" "Description" (String.join ". " experience.descriptions) (ExperienceMsg << SetExperienceDescription)
+        , viewInput "description" "Description" (String.join ". " experience.descriptions) (ExperienceMsg index << SetExperienceDescription)
         , viewLabel "skills" "Skills"
-        , viewInput "skills" "Skills" (String.join "," experience.skills) (ExperienceMsg << SetExperienceSkills)
+        , viewInput "skills" "Skills" (String.join "," experience.skills) (ExperienceMsg index << SetExperienceSkills)
         ]
 
 
