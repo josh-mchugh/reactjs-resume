@@ -172,7 +172,7 @@ type Msg
     | ContactMsg ContactMsg
     | SocialMsg Int SocialMsg
     | ExperienceMsg Int ExperienceMsg
-    | SkillMsg SkillMsg
+    | SkillMsg Int SkillMsg
     | CertificationMsg CertificationMsg
     | AddSocial
     | AddExperience
@@ -235,8 +235,8 @@ update msg model =
                 ExperienceMsg index experienceMsg ->
                     { model | experiences = updateExperiences index experienceMsg model.experiences }
 
-                SkillMsg skillMsg ->
-                    { model | skills = updateSkills skillMsg model.skills }
+                SkillMsg index skillMsg ->
+                    { model | skills = updateSkills index skillMsg model.skills }
 
                 CertificationMsg certificationMsg ->
                     { model | certifications = updateCertifications certificationMsg model.certifications }
@@ -306,26 +306,21 @@ updateExperiences index msg experiences =
         Nothing ->
             experiences
 
-updateSkills : SkillMsg -> Array Skill -> Array Skill
-updateSkills msg skills =
+updateSkills : Int -> SkillMsg -> Array Skill -> Array Skill
+updateSkills index msg skills =
     let
         maybeSkill =
-            Array.get 0 skills
-
-        newSkill =
-            case maybeSkill of
-                Just skill ->
-                    case msg of
-                        SetSkillName name ->
-                            { skill | name = name }
-
-                        SetSkillProficiency proficiency ->
-                            { skill | proficiency = Maybe.withDefault 0 (String.toInt proficiency) }
-
-                Nothing ->
-                    emptySkill
+            Array.get index skills
     in
-    Array.fromList [ newSkill ]
+    case maybeSkill of
+        Just skill ->
+            case msg of
+                SetSkillName name ->
+                    Array.set index { skill | name = name } skills
+                SetSkillProficiency proficiency ->
+                    Array.set index { skill | proficiency = Maybe.withDefault 0 (String.toInt proficiency) } skills
+        Nothing ->
+            skills
 
 
 updateCertifications : CertificationMsg -> List Certification -> List Certification
@@ -502,16 +497,23 @@ viewExperienceInputs tuple =
 viewSkill : Array Skill -> Html Msg
 viewSkill skills =
     div []
-        ( Array.toList (Array.map viewSkillInputs skills) )
+        ( List.map viewSkillInputs (Array.toIndexedList skills) )
 
 
-viewSkillInputs : Skill -> Html Msg
-viewSkillInputs skill =
+viewSkillInputs : (Int, Skill) -> Html Msg
+viewSkillInputs tuple =
+    let
+        index =
+            Tuple.first tuple
+
+        skill =
+            Tuple.second tuple
+    in
     div []
         [ viewLabel "name" "Name"
-        , viewInput "name" "Name" skill.name (SkillMsg << SetSkillName)
+        , viewInput "name" "Name" skill.name (SkillMsg index << SetSkillName)
         , viewLabel "proficiency" "Proficiency"
-        , viewInputRange "proficiency" skill.proficiency (SkillMsg << SetSkillProficiency)
+        , viewInputRange "proficiency" skill.proficiency (SkillMsg index << SetSkillProficiency)
         ]
 
 
