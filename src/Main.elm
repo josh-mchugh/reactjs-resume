@@ -263,24 +263,18 @@ updateSocials msg socials =
     let
         maybeSocial index =
             Array.get index socials
-
-        updateName name social =
-            { social | name = name }
-
-        updateUrl url social  =
-            { social | url = url }
     in
     case msg of
         SetSocialName index name ->
             case (maybeSocial index) of
                 Just social ->
-                    Array.set index (updateName name social) socials
+                    Array.set index { social | name = name } socials
                 Nothing ->
                     socials
         SetSocialUrl index url ->
             case (maybeSocial index) of
                 Just social ->
-                    Array.set index (updateUrl url social) socials
+                    Array.set index { social | url = url } socials
                 Nothing ->
                     socials
 
