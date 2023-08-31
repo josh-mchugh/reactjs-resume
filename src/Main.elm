@@ -176,6 +176,7 @@ type Msg
     | CertificationMsg CertificationMsg
     | AddSocial
     | AddExperience
+    | AddSkill
 
 
 type ContactMsg
@@ -245,6 +246,9 @@ update msg model =
 
                 AddExperience ->
                     { model | experiences = Array.push emptyExperience model.experiences }
+
+                AddSkill ->
+                    { model | skills = Array.push emptySkill model.skills }
     in
     ( newModel, updateDisplay newModel )
 
@@ -399,6 +403,7 @@ view model =
         , div [ class "input__section" ]
             [viewInputSectionHeader "Skills"
             , viewSkill model.skills
+            , button [ onClick AddSkill ] [ text "+ Add Skill" ]
             ]
         , div [ class "input__section" ]
             (viewInputSectionHeader "Certifications"
