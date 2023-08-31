@@ -3,7 +3,7 @@ port module Main exposing (main)
 import Array exposing (..)
 import Browser
 import Html exposing (..)
-import Html.Attributes exposing (class, for, id, placeholder, type_, value, attribute)
+import Html.Attributes exposing (attribute, class, for, id, placeholder, type_, value)
 import Html.Events exposing (onClick, onInput)
 
 
@@ -162,6 +162,7 @@ emptyCertification =
     }
 
 
+
 -- Update
 
 
@@ -203,6 +204,7 @@ type ExperienceMsg
 type SkillMsg
     = SetSkillName String
     | SetSkillProficiency String
+
 
 type CertificationMsg
     = SetCertificationTitle String
@@ -281,10 +283,13 @@ updateSocials index msg socials =
             case msg of
                 SetSocialName name ->
                     Array.set index { social | name = name } socials
+
                 SetSocialUrl url ->
                     Array.set index { social | url = url } socials
+
         Nothing ->
             socials
+
 
 updateExperiences : Int -> ExperienceMsg -> Array Experience -> Array Experience
 updateExperiences index msg experiences =
@@ -296,19 +301,26 @@ updateExperiences index msg experiences =
         Just experience ->
             case msg of
                 SetExperienceTitle title ->
-                    Array.set index { experience | title = title} experiences
+                    Array.set index { experience | title = title } experiences
+
                 SetExperienceName name ->
                     Array.set index { experience | name = name } experiences
+
                 SetExperienceDuration duration ->
                     Array.set index { experience | duration = duration } experiences
+
                 SetExperienceLocation location ->
                     Array.set index { experience | location = location } experiences
+
                 SetExperienceDescription description ->
                     Array.set index { experience | descriptions = String.split ". " description } experiences
+
                 SetExperienceSkills skills ->
                     Array.set index { experience | skills = String.split "," skills |> List.map String.trim } experiences
+
         Nothing ->
             experiences
+
 
 updateSkills : Int -> SkillMsg -> Array Skill -> Array Skill
 updateSkills index msg skills =
@@ -321,8 +333,10 @@ updateSkills index msg skills =
             case msg of
                 SetSkillName name ->
                     Array.set index { skill | name = name } skills
+
                 SetSkillProficiency proficiency ->
                     Array.set index { skill | proficiency = Maybe.withDefault 0 (String.toInt proficiency) } skills
+
         Nothing ->
             skills
 
@@ -338,12 +352,16 @@ updateCertifications index msg certifications =
             case msg of
                 SetCertificationTitle title ->
                     Array.set index { certification | title = title } certifications
+
                 SetCertificationOrganization organization ->
                     Array.set index { certification | organization = organization } certifications
+
                 SetCertificationYear year ->
                     Array.set index { certification | year = year } certifications
+
                 SetCertificationLocation location ->
                     Array.set index { certification | location = location } certifications
+
         Nothing ->
             certifications
 
@@ -438,19 +456,20 @@ viewInputRange id_ value_ msg_ =
         , onInput msg_
         ]
         []
-        
+
 
 viewSocial : Array Social -> Html Msg
 viewSocial socials =
     div []
-        ( List.map viewSocialInputs (Array.toIndexedList socials) ) 
+        (List.map viewSocialInputs (Array.toIndexedList socials))
 
 
-viewSocialInputs : (Int, Social) -> Html Msg
+viewSocialInputs : ( Int, Social ) -> Html Msg
 viewSocialInputs tuple =
     let
         index =
             Tuple.first tuple
+
         social =
             Tuple.second tuple
     in
@@ -465,14 +484,15 @@ viewSocialInputs tuple =
 viewExperience : Array Experience -> Html Msg
 viewExperience experiences =
     div []
-        ( List.map viewExperienceInputs (Array.toIndexedList experiences) )
+        (List.map viewExperienceInputs (Array.toIndexedList experiences))
 
 
-viewExperienceInputs : (Int, Experience) -> Html Msg
+viewExperienceInputs : ( Int, Experience ) -> Html Msg
 viewExperienceInputs tuple =
     let
         index =
             Tuple.first tuple
+
         experience =
             Tuple.second tuple
     in
@@ -495,10 +515,10 @@ viewExperienceInputs tuple =
 viewSkill : Array Skill -> Html Msg
 viewSkill skills =
     div []
-        ( List.map viewSkillInputs (Array.toIndexedList skills) )
+        (List.map viewSkillInputs (Array.toIndexedList skills))
 
 
-viewSkillInputs : (Int, Skill) -> Html Msg
+viewSkillInputs : ( Int, Skill ) -> Html Msg
 viewSkillInputs tuple =
     let
         index =
@@ -518,10 +538,10 @@ viewSkillInputs tuple =
 viewCertification : Array Certification -> Html Msg
 viewCertification certifications =
     div []
-        ( List.map viewCertificationsInputs (Array.toIndexedList certifications) )
+        (List.map viewCertificationsInputs (Array.toIndexedList certifications))
 
 
-viewCertificationsInputs : (Int, Certification) -> Html Msg
+viewCertificationsInputs : ( Int, Certification ) -> Html Msg
 viewCertificationsInputs tuple =
     let
         index =
