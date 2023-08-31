@@ -42,7 +42,7 @@ type alias Model =
     , socials : Array Social
     , experiences : Array Experience
     , skills : Array Skill
-    , certifications : List Certification
+    , certifications : Array Certification
     }
 
 
@@ -148,9 +148,9 @@ emptySkill =
     }
 
 
-initCertifications : List Certification
+initCertifications : Array Certification
 initCertifications =
-    [ emptyCertification ]
+    Array.fromList [ emptyCertification ]
 
 
 emptyCertification : Certification
@@ -323,11 +323,11 @@ updateSkills index msg skills =
             skills
 
 
-updateCertifications : CertificationMsg -> List Certification -> List Certification
+updateCertifications : CertificationMsg -> Array Certification -> Array Certification
 updateCertifications certificationMsg certifications =
     let
         maybeCertification =
-            List.head certifications
+            Array.get 0 certifications
         
         newCertification =
             case maybeCertification of
@@ -348,7 +348,7 @@ updateCertifications certificationMsg certifications =
                 Nothing ->
                     emptyCertification
     in
-    [ newCertification ]
+    Array.fromList [ newCertification ]
 
 
 {-| Subscrtions functions to handle subscriptions
@@ -391,19 +391,19 @@ view model =
             , button [ onClick AddSocial ] [ text "+ Add Another" ]
             ]
         , div [ class "input__section" ]
-            [viewInputSectionHeader "Experiences"
+            [ viewInputSectionHeader "Experiences"
             , viewExperience model.experiences
             , button [ onClick AddExperience ] [ text "+ Add Experience " ]
             ]
         , div [ class "input__section" ]
-            [viewInputSectionHeader "Skills"
+            [ viewInputSectionHeader "Skills"
             , viewSkill model.skills
             , button [ onClick AddSkill ] [ text "+ Add Skill" ]
             ]
         , div [ class "input__section" ]
-            (viewInputSectionHeader "Certifications"
-                :: List.map viewCertificationsInputs model.certifications
-            )
+            [ viewInputSectionHeader "Certifications"
+            , viewCertification model.certifications
+            ]
         ]
 
 
@@ -515,6 +515,12 @@ viewSkillInputs tuple =
         , viewLabel "proficiency" "Proficiency"
         , viewInputRange "proficiency" skill.proficiency (SkillMsg index << SetSkillProficiency)
         ]
+
+
+viewCertification : Array Certification -> Html Msg
+viewCertification certifications =
+    div []
+        ( Array.toList (Array.map viewCertificationsInputs certifications) )
 
 
 viewCertificationsInputs : Certification -> Html Msg
