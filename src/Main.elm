@@ -40,7 +40,7 @@ type alias Model =
     , summary : String
     , contact : Contact
     , socials : Array Social
-    , experiences : List Experience
+    , experiences : Array Experience
     , skills : List Skill
     , certifications : List Certification
     }
@@ -120,9 +120,9 @@ emptySocial =
     }
 
 
-initExperiences : List Experience
+initExperiences : Array Experience
 initExperiences =
-    [ emptyExperience ]
+    Array.fromList [ emptyExperience ]
 
 
 emptyExperience : Experience
@@ -284,11 +284,11 @@ updateSocials msg socials =
                 Nothing ->
                     socials
 
-updateExperiences : ExperienceMsg -> List Experience -> List Experience
+updateExperiences : ExperienceMsg -> Array Experience -> Array Experience
 updateExperiences msg experiences =
     let
         maybeExperience =
-            List.head experiences
+            Array.get 0 experiences
 
         newExperience =
             case maybeExperience of
@@ -315,7 +315,7 @@ updateExperiences msg experiences =
                 Nothing ->
                     emptyExperience
     in
-    [ newExperience ]
+    Array.fromList [ newExperience ]
 
 
 updateSkills : SkillMsg -> List Skill -> List Skill
@@ -408,9 +408,9 @@ view model =
             , button [ onClick AddSocial ] [ text "+ Add Another" ]
             ]
         , div [ class "input__section" ]
-            (viewInputSectionHeader "Experiences"
-                :: List.map viewExperienceInputs model.experiences
-            )
+            [viewInputSectionHeader "Experiences"
+            , viewExperience model.experiences
+            ]
         , div [ class "input__section" ]
             (viewInputSectionHeader "Skills"
                 :: List.map viewSkillInputs model.skills
@@ -477,6 +477,12 @@ viewSocialInputs tuple =
         , viewLabel "url" "URL"
         , viewInput "url" "Url" social.url (SocialMsg << SetSocialUrl index)
         ]
+
+
+viewExperience : Array Experience -> Html Msg
+viewExperience experiences =
+    div []
+        ( Array.toList (Array.map viewExperienceInputs experiences ))
 
 
 viewExperienceInputs : Experience -> Html Msg
