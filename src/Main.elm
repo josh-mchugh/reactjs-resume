@@ -41,7 +41,7 @@ type alias Model =
     , contact : Contact
     , socials : Array Social
     , experiences : Array Experience
-    , skills : List Skill
+    , skills : Array Skill
     , certifications : List Certification
     }
 
@@ -136,9 +136,9 @@ emptyExperience =
     }
 
 
-initSkills : List Skill
+initSkills : Array Skill
 initSkills =
-    [ emptySkill ]
+    Array.fromList [ emptySkill ]
 
 
 emptySkill : Skill
@@ -302,11 +302,11 @@ updateExperiences index msg experiences =
         Nothing ->
             experiences
 
-updateSkills : SkillMsg -> List Skill -> List Skill
+updateSkills : SkillMsg -> Array Skill -> Array Skill
 updateSkills msg skills =
     let
         maybeSkill =
-            List.head skills
+            Array.get 0 skills
 
         newSkill =
             case maybeSkill of
@@ -321,7 +321,7 @@ updateSkills msg skills =
                 Nothing ->
                     emptySkill
     in
-    [ newSkill ]
+    Array.fromList [ newSkill ]
 
 
 updateCertifications : CertificationMsg -> List Certification -> List Certification
@@ -397,9 +397,9 @@ view model =
             , button [ onClick AddExperience ] [ text "+ Add Experience " ]
             ]
         , div [ class "input__section" ]
-            (viewInputSectionHeader "Skills"
-                :: List.map viewSkillInputs model.skills
-            )
+            [viewInputSectionHeader "Skills"
+            , viewSkill model.skills
+            ]
         , div [ class "input__section" ]
             (viewInputSectionHeader "Certifications"
                 :: List.map viewCertificationsInputs model.certifications
@@ -492,6 +492,12 @@ viewExperienceInputs tuple =
         , viewLabel "skills" "Skills"
         , viewInput "skills" "Skills" (String.join "," experience.skills) (ExperienceMsg index << SetExperienceSkills)
         ]
+
+
+viewSkill : Array Skill -> Html Msg
+viewSkill skills =
+    div []
+        ( Array.toList (Array.map viewSkillInputs skills) )
 
 
 viewSkillInputs : Skill -> Html Msg
