@@ -173,7 +173,7 @@ type Msg
     | SocialMsg Int SocialMsg
     | ExperienceMsg Int ExperienceMsg
     | SkillMsg Int SkillMsg
-    | CertificationMsg CertificationMsg
+    | CertificationMsg Int CertificationMsg
     | AddSocial
     | AddExperience
     | AddSkill
@@ -239,8 +239,8 @@ update msg model =
                 SkillMsg index skillMsg ->
                     { model | skills = updateSkills index skillMsg model.skills }
 
-                CertificationMsg certificationMsg ->
-                    { model | certifications = updateCertifications certificationMsg model.certifications }
+                CertificationMsg index certificationMsg ->
+                    { model | certifications = updateCertifications index certificationMsg model.certifications }
 
                 AddSocial ->
                     { model | socials = Array.push emptySocial model.socials }
@@ -327,32 +327,25 @@ updateSkills index msg skills =
             skills
 
 
-updateCertifications : CertificationMsg -> Array Certification -> Array Certification
-updateCertifications certificationMsg certifications =
+updateCertifications : Int -> CertificationMsg -> Array Certification -> Array Certification
+updateCertifications index msg certifications =
     let
         maybeCertification =
-            Array.get 0 certifications
-        
-        newCertification =
-            case maybeCertification of
-                Just certification ->
-                    case certificationMsg of
-                        SetCertificationTitle title ->
-                            { certification | title = title }
-
-                        SetCertificationOrganization organization ->
-                            { certification | organization = organization }
-
-                        SetCertificationYear year ->
-                            { certification | year = year }
-
-                        SetCertificationLocation location ->
-                            { certification | location = location }
-
-                Nothing ->
-                    emptyCertification
+            Array.get index certifications
     in
-    Array.fromList [ newCertification ]
+    case maybeCertification of
+        Just certification ->
+            case msg of
+                SetCertificationTitle title ->
+                    Array.set index { certification | title = title } certifications
+                SetCertificationOrganization organization ->
+                    Array.set index { certification | organization = organization } certifications
+                SetCertificationYear year ->
+                    Array.set index { certification | year = year } certifications
+                SetCertificationLocation location ->
+                    Array.set index { certification | location = location } certifications
+        Nothing ->
+            certifications
 
 
 {-| Subscrtions functions to handle subscriptions
@@ -525,18 +518,25 @@ viewSkillInputs tuple =
 viewCertification : Array Certification -> Html Msg
 viewCertification certifications =
     div []
-        ( Array.toList (Array.map viewCertificationsInputs certifications) )
+        ( List.map viewCertificationsInputs (Array.toIndexedList certifications) )
 
 
-viewCertificationsInputs : Certification -> Html Msg
-viewCertificationsInputs certification =
+viewCertificationsInputs : (Int, Certification) -> Html Msg
+viewCertificationsInputs tuple =
+    let
+        index =
+            Tuple.first tuple
+
+        certification =
+            Tuple.second tuple
+    in
     div []
         [ viewLabel "title" "Title"
-        , viewInput "title" "Title" certification.title (CertificationMsg << SetCertificationTitle)
+        , viewInput "title" "Title" certification.title (CertificationMsg index << SetCertificationTitle)
         , viewLabel "organization" "Organization"
-        , viewInput "organization" "Organization" certification.organization (CertificationMsg << SetCertificationOrganization)
+        , viewInput "organization" "Organization" certification.organization (CertificationMsg index << SetCertificationOrganization)
         , viewLabel "year" "Year"
-        , viewInput "year" "Year" certification.year (CertificationMsg << SetCertificationYear)
+        , viewInput "year" "Year" certification.year (CertificationMsg index << SetCertificationYear)
         , viewLabel "location" "Location"
-        , viewInput "location" "Location" certification.location (CertificationMsg << SetCertificationLocation)
+        , viewInput "location" "Location" certification.location (CertificationMsg index << SetCertificationLocation)
         ]
