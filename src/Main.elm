@@ -1,9 +1,10 @@
 port module Main exposing (main)
 
+import Array exposing (..)
 import Browser
 import Html exposing (..)
-import Html.Attributes exposing (class, for, id, placeholder, type_, value)
-import Html.Events exposing (onInput)
+import Html.Attributes exposing (class, for, id, placeholder, type_, value, attribute)
+import Html.Events exposing (onClick, onInput)
 
 
 
@@ -38,7 +39,7 @@ type alias Model =
     , title : String
     , summary : String
     , contact : Contact
-    , socials : List Social
+    , socials : Array Social
     , experiences : List Experience
     , skills : List Skill
     , certifications : List Certification
@@ -107,9 +108,9 @@ initContact =
     }
 
 
-initSocials : List Social
+initSocials : Array Social
 initSocials =
-    [ emptySocial ]
+    Array.fromList [ emptySocial ]
 
 
 emptySocial : Social
@@ -161,7 +162,6 @@ emptyCertification =
     }
 
 
-
 -- Update
 
 
@@ -174,6 +174,7 @@ type Msg
     | ExperienceMsg ExperienceMsg
     | SkillMsg SkillMsg
     | CertificationMsg CertificationMsg
+    | AddSocial
 
 
 type ContactMsg
@@ -183,8 +184,8 @@ type ContactMsg
 
 
 type SocialMsg
-    = SetSocialName String
-    | SetSocialUrl String
+    = SetSocialName Int String
+    | SetSocialUrl Int String
 
 
 type ExperienceMsg
@@ -199,7 +200,6 @@ type ExperienceMsg
 type SkillMsg
     = SetSkillName String
     | SetSkillProficiency String
-
 
 type CertificationMsg
     = SetCertificationTitle String
@@ -238,6 +238,9 @@ update msg model =
 
                 CertificationMsg certificationMsg ->
                     { model | certifications = updateCertifications certificationMsg model.certifications }
+
+                AddSocial ->
+                    { model | socials = Array.push emptySocial model.socials }
     in
     ( newModel, updateDisplay newModel )
 
@@ -255,27 +258,31 @@ updateContact msg contact =
             { contact | location = location }
 
 
-updateSocials : SocialMsg -> List Social -> List Social
+updateSocials : SocialMsg -> Array Social -> Array Social
 updateSocials msg socials =
     let
-        maybeSocial =
-            List.head socials
+        maybeSocial index =
+            Array.get index socials
 
-        newSocial =
-            case maybeSocial of
-                Just social ->
-                    case msg of
-                        SetSocialName name ->
-                            { social | name = name }
+        updateName name social =
+            { social | name = name }
 
-                        SetSocialUrl url ->
-                            { social | url = url }
-
-                Nothing ->
-                    emptySocial
+        updateUrl url social  =
+            { social | url = url }
     in
-    [ newSocial ]
-
+    case msg of
+        SetSocialName index name ->
+            case (maybeSocial index) of
+                Just social ->
+                    Array.set index (updateName name social) socials
+                Nothing ->
+                    socials
+        SetSocialUrl index url ->
+            case (maybeSocial index) of
+                Just social ->
+                    Array.set index (updateUrl url social) socials
+                Nothing ->
+                    socials
 
 updateExperiences : ExperienceMsg -> List Experience -> List Experience
 updateExperiences msg experiences =
@@ -396,9 +403,10 @@ view model =
             , viewInput "location" "Location" model.contact.location (ContactMsg << SetLocation)
             ]
         , div [ class "input__section" ]
-            (viewInputSectionHeader "Social"
-                :: List.map viewSocialInputs model.socials
-            )
+            [ viewInputSectionHeader "Social"
+            , viewSocial model.socials
+            , button [ onClick AddSocial ] [ text "+ Add Another" ]
+            ]
         , div [ class "input__section" ]
             (viewInputSectionHeader "Experiences"
                 :: List.map viewExperienceInputs model.experiences
@@ -436,13 +444,38 @@ viewInput id_ placeholder_ value_ msg_ =
         []
 
 
-viewSocialInputs : Social -> Html Msg
-viewSocialInputs social =
+viewInputRange : String -> Int -> (String -> Msg) -> Html Msg
+viewInputRange id_ value_ msg_ =
+    input
+        [ id id_
+        , type_ "range"
+        , value (String.fromInt value_)
+        , attribute "min" "0"
+        , attribute "max" "5"
+        , onInput msg_
+        ]
+        []
+        
+
+viewSocial : Array Social -> Html Msg
+viewSocial socials =
+    div []
+        ( List.map viewSocialInputs (Array.toIndexedList socials) ) 
+
+
+viewSocialInputs : (Int, Social) -> Html Msg
+viewSocialInputs tuple =
+    let
+        index =
+            Tuple.first tuple
+        social =
+            Tuple.second tuple
+    in
     div []
         [ viewLabel "name" "Name"
-        , viewInput "name" "Name" social.name (SocialMsg << SetSocialName)
+        , viewInput "name" "Name" social.name (SocialMsg << SetSocialName index)
         , viewLabel "url" "URL"
-        , viewInput "url" "Url" social.url (SocialMsg << SetSocialUrl)
+        , viewInput "url" "Url" social.url (SocialMsg << SetSocialUrl index)
         ]
 
 
@@ -470,7 +503,7 @@ viewSkillInputs skill =
         [ viewLabel "name" "Name"
         , viewInput "name" "Name" skill.name (SkillMsg << SetSkillName)
         , viewLabel "proficiency" "Proficiency"
-        , viewInput "proficiency" "Proficiency" (String.fromInt skill.proficiency) (SkillMsg << SetSkillProficiency)
+        , viewInputRange "proficiency" skill.proficiency (SkillMsg << SetSkillProficiency)
         ]
 
 
