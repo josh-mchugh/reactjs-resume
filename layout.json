@@ -3,6 +3,7 @@
     {
       "columns": [
         {
+          "class": "flex-auto w-4 pt-14 pl-8 bg-primary-dark text-white",
           "sections": [
             {
               "template": "name"
@@ -43,6 +44,7 @@
           ]
         },
         {
+          "class": "flex-auto w-64 px-7 my-16",
           "sections": [
             {
               "template": "header",

@@ -4,11 +4,17 @@ export default {
         "./src/**/*.{js,ts,jsx,tsx}"
     ],
     safelist: [
+        'border-gray-700',
+        'border-white',
         'mt-6',
         'mt-10',
         'mt-12',
-        'border-white',
-        'border-gray-700'
+        'my-16',
+        'pl-8',
+        'pt-14',
+        'px-7',
+        'w-4',
+        'w-64'
     ],
     theme: {
         extend: {
