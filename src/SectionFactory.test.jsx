@@ -19,7 +19,7 @@ describe("SectionFactory Component", () => {
         };
 
         it("elements should be rendered", () => {
-            render(<SectionFactory section={section} resume={{}}/>);
+            render(<SectionFactory section={section}/>);
             const elements = screen.getAllByText(CONTAINS_WORD_REGEX);
             expect(elements.length).toBeGreaterThanOrEqual(1);
         });
@@ -28,24 +28,23 @@ describe("SectionFactory Component", () => {
     describe("matches template for ExperienceSection", () => {
 
         const section = {
-            template: "experiences"
-        };
-
-        const resume = {
-            experiences: [
-                {
-                    "name": "Company Name Here",
-                    "title": "Senior Web Developer",
-                    "duration": "Jan 2023 - Present",
-                    "location": "Remote",
-                    "descriptions": ["Build clean and useful websites" ],
-                    "skills": ["HTML"]
-                }
-            ]
+            template: "experiences",
+            data: {
+                experiences: [
+                    {
+                        "name": "Company Name Here",
+                        "title": "Senior Web Developer",
+                        "duration": "Jan 2023 - Present",
+                        "location": "Remote",
+                        "descriptions": ["Build clean and useful websites" ],
+                        "skills": ["HTML"]
+                    }
+                ]
+            }
         };
 
         it("elements should be rendered", () => {
-            render(<SectionFactory section={section} resume={resume}/>);
+            render(<SectionFactory section={section} />);
             const elements = screen.getAllByText(CONTAINS_WORDS_REGEX);
             expect(elements.length).toBeGreaterThanOrEqual(1);
         });
@@ -54,20 +53,19 @@ describe("SectionFactory Component", () => {
     describe("matches template for SkillSection", () => {
 
         const section = {
-            template: "skills"
-        };
-
-        const resume = {
-            skills: [
-                {
-                    name: "Photoshop",
-                    value: 4
-                }
-            ]
+            template: "skills",
+            data: {
+                skills: [
+                    {
+                        name: "Photoshop",
+                        value: 4
+                    }
+                ]
+            }
         };
 
         it("elements should be rendered", () => {
-            render(<SectionFactory section={section} resume={resume}/>);
+            render(<SectionFactory section={section} />);
             const elements = screen.getAllByText(CONTAINS_WORD_REGEX);
             expect(elements.length).toBeGreaterThanOrEqual(1);
         });
@@ -76,22 +74,21 @@ describe("SectionFactory Component", () => {
     describe("matches template for CertificationSection", () => {
 
         const section = {
-            template: "certifications"
-        };
-
-        const resume = {
-            certifications: [
-                {
-                    title: "Master Degree in Studies",
-                    name: "Name of University",
-                    location: "New York, NY",
-                    year: "2012"
-                }
-            ]
+            template: "certifications",
+            data: {
+                certifications: [
+                    {
+                        title: "Master Degree in Studies",
+                        name: "Name of University",
+                        location: "New York, NY",
+                        year: "2012"
+                    }
+                ]
+            }
         };
 
         it("elements should be rendered", () => {
-            render(<SectionFactory section={section} resume={resume}/>);
+            render(<SectionFactory section={section} />);
             const elements = screen.getAllByText(CONTAINS_WORDS_REGEX);
             expect(elements.length).toBeGreaterThanOrEqual(1);
         });
@@ -100,15 +97,14 @@ describe("SectionFactory Component", () => {
     describe("matches template for InterestSection", () => {
 
         const section = {
-            template: "interests"
-        };
-
-        const resume = {
-            interests: ["Passion for traveling and exploring."]
+            template: "interests",
+            data: {
+                interests: ["Passion for traveling and exploring."]
+            }
         };
 
         it("elements should be rendered", () => {
-            render(<SectionFactory section={section} resume={resume}/>);
+            render(<SectionFactory section={section} />);
             const elements = screen.getAllByText(CONTAINS_WORDS_REGEX);
             expect(elements.length).toBeGreaterThanOrEqual(1);
         });
@@ -117,21 +113,20 @@ describe("SectionFactory Component", () => {
     describe("matches template for ProjectSection", () => {
 
         const section = {
-            template: "projects"
-        };
-
-        const resume = {
-            projects: [
-                {
-                    name: "2D ReactJS Game",
-                    description: "Simple 2D ReactJS game which can be played on the browser",
-                    skills: ["ReactJS"]
-                }
-            ]
+            template: "projects",
+            data: {
+                projects: [
+                    {
+                        name: "2D ReactJS Game",
+                        description: "Simple 2D ReactJS game which can be played on the browser",
+                        skills: ["ReactJS"]
+                    }
+                ]
+            }
         };
 
         it("elements should be rendered", () => {
-            render(<SectionFactory section={section} resume={resume}/>);
+            render(<SectionFactory section={section} />);
             const elements = screen.getAllByText(CONTAINS_WORDS_REGEX);
             expect(elements.length).toBeGreaterThanOrEqual(1);
         });
@@ -140,16 +135,15 @@ describe("SectionFactory Component", () => {
     describe("template should match for NameSection", () => {
 
         const section = {
-            template: "name"
-        };
-
-        const resume = {
-            name: "John Doe",
-            title: "Web and Graphic Designer"
+            template: "name",
+            data: {
+                name: "John Doe",
+                title: "Web and Graphic Designer"
+            }
         };
 
         it("elements should be rendered", () => {
-            render(<SectionFactory section={section} resume={resume}/>);
+            render(<SectionFactory section={section} />);
             const elements = screen.getAllByText(CONTAINS_WORDS_REGEX);
             expect(elements.length).toBeGreaterThanOrEqual(1);
         });
@@ -158,15 +152,14 @@ describe("SectionFactory Component", () => {
     describe("template should match for SummarySection", () => {
 
         const section = {
-            template: "summary"
-        };
-
-        const resume = {
-            summary: "Create clean and useful web applications"
+            template: "summary",
+            data: {
+                summary: "Create clean and useful web applications"
+            }
         };
 
         it("elements should be rendered", () => {
-            render(<SectionFactory section={section} resume={resume}/>);
+            render(<SectionFactory section={section} />);
             const elements = screen.getAllByText(CONTAINS_WORDS_REGEX);
             expect(elements.length).toBeGreaterThanOrEqual(1);
         });
@@ -175,11 +168,8 @@ describe("SectionFactory Component", () => {
     describe("template should match for ContactSection", () => {
 
         const section = {
-            template: "contact"
-        };
-
-        const resume = {
-            contact: {
+            template: "contact",
+            data: {
                 phone: "(123) 456-8899",
                 email: "info@youremail.com",
                 location: "New York, New York"
@@ -187,7 +177,7 @@ describe("SectionFactory Component", () => {
         };
 
         it("elements should be rendered", () => {
-            render(<SectionFactory section={section} resume={resume}/>);
+            render(<SectionFactory section={section} />);
             const elements = screen.getAllByText(CONTAINS_WORDS_REGEX);
             expect(elements.length).toBeGreaterThanOrEqual(1);
         });
@@ -196,21 +186,20 @@ describe("SectionFactory Component", () => {
     describe("template should match for SocialSection", () => {
 
         const section = {
-            template: "social"
-        };
-
-        const resume = {
-            socials: [
-                {
-                    name: "Facebook",
-                    icon: "fa-brands fa-facebook",
-                    url: "https://facebook.com/profile"
-                }
-            ]
+            template: "social",
+            data: {
+                socials: [
+                    {
+                        name: "Facebook",
+                        icon: "fa-brands fa-facebook",
+                        url: "https://facebook.com/profile"
+                    }
+                ]
+            }
         };
 
         it("elements should rendered", () => {
-            render(<SectionFactory section={section} resume={resume} />);
+            render(<SectionFactory section={section} />);
             const elements = screen.getAllByText(CONTAINS_WORD_REGEX);
             expect(elements.length).toBeGreaterThanOrEqual(1);
         });
@@ -223,7 +212,7 @@ describe("SectionFactory Component", () => {
         };
 
         it("no text elements should not be rendered", () => {
-            render(<SectionFactory section={section} resume={{}}/>);
+            render(<SectionFactory section={section} />);
             const elements = screen.queryAllByText(CONTAINS_WORDS_REGEX);
             expect(elements.length).toBe(0);
         });

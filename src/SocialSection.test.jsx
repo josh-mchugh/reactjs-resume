@@ -4,7 +4,7 @@ import SocialSection from './SocialSection';
 
 describe("SocialSection Component", () => {
 
-    const data = [
+    const socials = [
         {
             icon: "fa-twitter",
             name: "Twitter",
@@ -13,19 +13,19 @@ describe("SocialSection Component", () => {
     ];
 
     it("social name should be in the document", () => {
-        render(<SocialSection data={data}/>);
+        render(<SocialSection socials={socials}/>);
         const element = screen.getByText("Twitter:");
         expect(element).toBeInTheDocument();
     });
 
     it("social url should be in the document", () => {
-        render(<SocialSection data={data}/>);
+        render(<SocialSection socials={socials}/>);
         const element = screen.getByText("https://twitter.com/profile");
         expect(element).toBeInTheDocument();
     });
 
     it("social icon should be present in document", () => {
-        const { container } = render(<SocialSection data={data}/>);
+        const { container } = render(<SocialSection socials={socials}/>);
         const element = container.querySelector(".fa-twitter");
         expect(element).toBeInTheDocument();
     });

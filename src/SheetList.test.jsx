@@ -4,7 +4,7 @@ import SheetList from './SheetList';
 
 describe("SheetList Component", () => {
 
-    const layout = {
+    const displayData = {
         rows: [
             {
                 columns: [
@@ -19,10 +19,8 @@ describe("SheetList Component", () => {
         ]
     };
 
-    const resume = {}
-
     it("multiple sheets should be present", () => {
-        const { container } = render(<SheetList layout={layout} resume={resume}/>);
+        const { container } = render(<SheetList displayData={displayData}/>);
         const elements = container.querySelectorAll("section");
         expect(elements.length).toBe(1);
     });
