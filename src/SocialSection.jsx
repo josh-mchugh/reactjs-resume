@@ -1,5 +1,5 @@
 const SocialSection = (props) => {
-    const socialItems = props.data.map((item, index) => <Social key={index} {...item} />);
+    const socialItems = props.socials.map((item, index) => <Social key={index} {...item} />);
     return (
         <div>
           <div className="flex mt-1 ml-4">

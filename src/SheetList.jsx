@@ -2,13 +2,12 @@ import  { useEffect, useRef } from 'react';
 import SectionFactory from './SectionFactory';
 
 const SheetList = (props) => {
-    return <Sheet layout={props.layout} resume={props.resume} />;
+    return <Sheet displayData={props.displayData}/>;
 };
 
 const Sheet = (props) => {
-
-    const rows = props.layout.rows.map((row, index) => {
-        return <RenderRow key={index} row={row} resume={props.resume}/>;
+    const rows = props.displayData.rows.map((row, index) => {
+        return <RenderRow key={index} row={row} />;
     });
 
     return (
@@ -22,7 +21,7 @@ const Sheet = (props) => {
 
 const RenderRow = (props) => {
     return props.row.columns.map((column, index) =>
-        <RenderColumn key={index} column={column} resume={props.resume} />
+        <RenderColumn key={index} column={column} />
     );
 };
 
@@ -34,6 +33,7 @@ const RenderColumn = (props) => {
     useEffect(() => {
         if(contentRef && contentRef.current) {
             contentHeight = contentRef.current.clientHeight;
+
             if(contentHeight > 920) {
                 console.log("content exceeds 920");
             }
@@ -45,17 +45,12 @@ const RenderColumn = (props) => {
           <div style={{height: "auto"}} ref={contentRef}>
             { props.column.sections.map((section, index) => {
                 currentIndex = index;
-                return <RenderSection key={index} section={section} resume={props.resume} />;
+                return <SectionFactory key={index} section={section} />;
             })
             }
           </div>
         </div>
     );
 };
-
-const RenderSection = (props) => {
-    return <SectionFactory section={props.section} resume={props.resume} />;
-};
-
 
 export default SheetList;

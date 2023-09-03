@@ -2,11 +2,9 @@
   "name": "John Doe",
   "title": "Web and Graphic Designer",
   "summary": "Rock Star/Ninja can you ballpark the cost per unit for me, for touch base disband the squad but rehydrate as needed sacred cow.",
-  "contact": {
-    "phone": "(123) 456-8899",
-    "email": "info@youremail.com",
-    "location": "New York, New York"
-  },
+  "phone": "(123) 456-8899",
+  "email": "info@youremail.com",
+  "location": "New York, New York",
   "socials": [
     {
       "name": "Facebook",

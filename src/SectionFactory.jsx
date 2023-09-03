@@ -1,3 +1,4 @@
+
 import CertificationSection from './CertificationSection';
 import ContactSection from './ContactSection';
 import ExperienceSection from './ExperienceSection';
@@ -12,27 +13,27 @@ import SocialSection from './SocialSection';
 const SectionFactory = (props) => {
     switch(props.section.template) {
     case 'contact':
-        return <ContactSection {...props.resume.contact} />;
+        return <ContactSection {...props.section.data} />;
     case 'certifications':
-        return <CertificationSection certifications={props.resume.certifications} />;
+        return <CertificationSection {...props.section.data} />;
     case 'experiences':
-        return <ExperienceSection experiences={props.resume.experiences} />;
+        return <ExperienceSection {...props.section.data} />;
     case 'header':
         return <HeaderSection {...props.section.data} />;
     case 'interests':
-        return <InterestSection interests={props.resume.interests} />;
+        return <InterestSection {...props.section.data} />;
     case 'name':
-        return <NameSection {...props.resume} />;
+        return <NameSection {...props.section.data} />;
     case 'projects':
-        return <ProjectSection projects={props.resume.projects} />;
+        return <ProjectSection {...props.section.data} />;
     case 'summary':
-        return <SummarySection {...props.resume} />;
+        return <SummarySection {...props.section.data} />;
     case 'skills':
-        return <SkillSection skills={props.resume.skills} />;
+        return <SkillSection {...props.section.data} />;
     case 'social':
-        return <SocialSection data={props.resume.socials} />;
+        return <SocialSection {...props.section.data} />;
     default:
-        return <div key={props.key}></div>;
+        return <div></div>;
     }
 };
 

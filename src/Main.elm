@@ -38,18 +38,13 @@ type alias Model =
     { name : String
     , title : String
     , summary : String
-    , contact : Contact
+    , phone : String
+    , email : String
+    , location : String
     , socials : Array Social
     , experiences : Array Experience
     , skills : Array Skill
     , certifications : Array Certification
-    }
-
-
-type alias Contact =
-    { phone : String
-    , email : String
-    , location : String
     }
 
 
@@ -90,7 +85,9 @@ init () =
     ( { name = ""
       , title = ""
       , summary = ""
-      , contact = initContact
+      , phone = ""
+      , email = ""
+      , location = ""
       , socials = initSocials
       , experiences = initExperiences
       , skills = initSkills
@@ -98,14 +95,6 @@ init () =
       }
     , Cmd.none
     )
-
-
-initContact : Contact
-initContact =
-    { phone = ""
-    , email = ""
-    , location = ""
-    }
 
 
 initSocials : Array Social
@@ -168,9 +157,11 @@ emptyCertification =
 
 type Msg
     = SetName String
-    | SetSummary String
     | SetTitle String
-    | ContactMsg ContactMsg
+    | SetSummary String
+    | SetPhone String
+    | SetEmail String
+    | SetLocation String
     | SocialMsg Int SocialMsg
     | ExperienceMsg Int ExperienceMsg
     | SkillMsg Int SkillMsg
@@ -179,12 +170,6 @@ type Msg
     | AddExperience
     | AddSkill
     | AddCertification
-
-
-type ContactMsg
-    = SetPhone String
-    | SetEmail String
-    | SetLocation String
 
 
 type SocialMsg
@@ -229,8 +214,14 @@ update msg model =
                 SetTitle title ->
                     { model | title = title }
 
-                ContactMsg contactMsg ->
-                    { model | contact = updateContact contactMsg model.contact }
+                SetPhone phone ->
+                    { model | phone = phone }
+
+                SetEmail email ->
+                    { model | email = email }
+
+                SetLocation location ->
+                    { model | location = location }
 
                 SocialMsg index socialMsg ->
                     { model | socials = updateSocials index socialMsg model.socials }
@@ -257,19 +248,6 @@ update msg model =
                     { model | certifications = Array.push emptyCertification model.certifications }
     in
     ( newModel, updateDisplay newModel )
-
-
-updateContact : ContactMsg -> Contact -> Contact
-updateContact msg contact =
-    case msg of
-        SetPhone phone ->
-            { contact | phone = phone }
-
-        SetEmail email ->
-            { contact | email = email }
-
-        SetLocation location ->
-            { contact | location = location }
 
 
 updateSocials : Int -> SocialMsg -> Array Social -> Array Social
@@ -394,11 +372,11 @@ view model =
         , div [ class "input__section" ]
             [ viewInputSectionHeader "Contact Details"
             , viewLabel "phone" "Phone"
-            , viewInput "phone" "Phone" model.contact.phone (ContactMsg << SetPhone)
+            , viewInput "phone" "Phone" model.phone SetPhone
             , viewLabel "email" "Email"
-            , viewInput "email" "Email" model.contact.email (ContactMsg << SetEmail)
+            , viewInput "email" "Email" model.email SetEmail
             , viewLabel "location" "Location"
-            , viewInput "location" "Location" model.contact.location (ContactMsg << SetLocation)
+            , viewInput "location" "Location" model.location SetLocation
             ]
         , div [ class "input__section" ]
             [ viewInputSectionHeader "Social"
