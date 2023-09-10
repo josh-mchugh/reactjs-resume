@@ -4,9 +4,11 @@
   display: flex;
 }
 .content__input {
-  width: 33%;
+  width: 33.33%;
   min-width: 250px;
   border-right: 1px solid black;
+  height: 100vh;
+  overflow-y: scroll;
 }
 .content__display {
     display: flex;
