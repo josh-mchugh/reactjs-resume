@@ -367,7 +367,7 @@ view model =
             , viewLabel "title" "Title"
             , viewInput "title" "Title" model.title SetTitle
             , viewLabel "summary" "Summary"
-            , viewInput "summary" "Summary" model.summary SetSummary
+            , viewTextArea "summary" "Summary" model.summary SetSummary
             ]
         , div [ class "input__section" ]
             [ viewInputSectionHeader "Contact Details"
@@ -416,6 +416,17 @@ viewInput id_ placeholder_ value_ msg_ =
     input
         [ id id_
         , type_ "text"
+        , placeholder placeholder_
+        , value value_
+        , onInput msg_
+        ]
+        []
+
+
+viewTextArea : String -> String -> String -> (String -> Msg) -> Html Msg
+viewTextArea id_ placeholder_ value_ msg_ =
+    textarea
+        [ id id_
         , placeholder placeholder_
         , value value_
         , onInput msg_
@@ -484,7 +495,7 @@ viewExperienceInputs tuple =
         , viewLabel "location" "Location"
         , viewInput "location" "Location" experience.location (ExperienceMsg index << SetExperienceLocation)
         , viewLabel "description" "Description"
-        , viewInput "description" "Description" (String.join ". " experience.descriptions) (ExperienceMsg index << SetExperienceDescription)
+        , viewTextArea "description" "Description" (String.join ". " experience.descriptions) (ExperienceMsg index << SetExperienceDescription)
         , viewLabel "skills" "Skills"
         , viewInput "skills" "Skills" (String.join "," experience.skills) (ExperienceMsg index << SetExperienceSkills)
         ]
