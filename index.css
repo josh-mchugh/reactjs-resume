@@ -38,6 +38,26 @@
     margin-bottom: .75rem;
 }
 
+.section__content {
+    padding-bottom: .5rem;
+}
+
+.section__content:not(:first-child) {
+    padding-top: .5rem;
+    border-top: 1px dashed black;
+}
+
+.section__content-remove {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+.section__content-remove-icon {
+    padding: .2rem;
+    cursor: pointer;
+}
+
 /* Sheet Section */
 
 .sheet {

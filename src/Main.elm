@@ -167,9 +167,13 @@ type Msg
     | SkillMsg Int SkillMsg
     | CertificationMsg Int CertificationMsg
     | AddSocial
+    | RemoveSocial Int
     | AddExperience
+    | RemoveExperience Int
     | AddSkill
+    | RemoveSkill Int
     | AddCertification
+    | RemoveCertification Int
 
 
 type SocialMsg
@@ -238,14 +242,26 @@ update msg model =
                 AddSocial ->
                     { model | socials = Array.push emptySocial model.socials }
 
+                RemoveSocial socialIndex ->
+                    { model | socials = removeSocial socialIndex model.socials }
+
                 AddExperience ->
                     { model | experiences = Array.push emptyExperience model.experiences }
+
+                RemoveExperience experienceIndex ->
+                    { model | experiences =  removeExperience experienceIndex model.experiences }
 
                 AddSkill ->
                     { model | skills = Array.push emptySkill model.skills }
 
+                RemoveSkill skillIndex ->
+                    { model | skills = removeSkill skillIndex model.skills }
+
                 AddCertification ->
                     { model | certifications = Array.push emptyCertification model.certifications }
+
+                RemoveCertification certificationIndex ->
+                    { model | certifications = removeCertification certificationIndex model.certifications }
     in
     ( newModel, updateDisplay newModel )
 
@@ -267,6 +283,14 @@ updateSocials index msg socials =
 
         Nothing ->
             socials
+
+
+removeSocial : Int -> Array Social -> Array Social
+removeSocial socialIndex socials =
+    Array.toIndexedList socials
+        |> List.filter (\( index, _ ) -> index /= socialIndex)
+        |> List.map Tuple.second
+        |> Array.fromList
 
 
 updateExperiences : Int -> ExperienceMsg -> Array Experience -> Array Experience
@@ -300,6 +324,14 @@ updateExperiences index msg experiences =
             experiences
 
 
+removeExperience : Int -> Array Experience -> Array Experience
+removeExperience experienceIndex experiences =
+    Array.toIndexedList experiences
+        |> List.filter (\( index, _ ) -> experienceIndex /= index)
+        |> List.map Tuple.second
+        |> Array.fromList
+
+
 updateSkills : Int -> SkillMsg -> Array Skill -> Array Skill
 updateSkills index msg skills =
     let
@@ -317,6 +349,14 @@ updateSkills index msg skills =
 
         Nothing ->
             skills
+
+
+removeSkill : Int -> Array Skill -> Array Skill
+removeSkill skillIndex skills =
+    Array.toIndexedList skills
+        |> List.filter (\( index, _ ) -> skillIndex /= index)
+        |> List.map Tuple.second
+        |> Array.fromList
 
 
 updateCertifications : Int -> CertificationMsg -> Array Certification -> Array Certification
@@ -342,6 +382,14 @@ updateCertifications index msg certifications =
 
         Nothing ->
             certifications
+
+
+removeCertification : Int -> Array Certification -> Array Certification
+removeCertification certificationIndex certifications =
+    Array.toIndexedList certifications
+        |> List.filter (\( index, _ ) -> certificationIndex /= index)
+        |> List.map Tuple.second
+        |> Array.fromList
 
 
 {-| Subscrtions functions to handle subscriptions
@@ -454,16 +502,10 @@ viewSocial socials =
 
 
 viewSocialInputs : ( Int, Social ) -> Html Msg
-viewSocialInputs tuple =
-    let
-        index =
-            Tuple.first tuple
-
-        social =
-            Tuple.second tuple
-    in
-    div []
-        [ viewLabel "name" "Name"
+viewSocialInputs ( index, social ) =
+    div [ class "section__content" ]
+        [ viewRemoveButton index <| RemoveSocial index
+        , viewLabel "name" "Name"
         , viewInput "name" "Name" social.name (SocialMsg index << SetSocialName)
         , viewLabel "url" "URL"
         , viewInput "url" "Url" social.url (SocialMsg index << SetSocialUrl)
@@ -477,16 +519,10 @@ viewExperience experiences =
 
 
 viewExperienceInputs : ( Int, Experience ) -> Html Msg
-viewExperienceInputs tuple =
-    let
-        index =
-            Tuple.first tuple
-
-        experience =
-            Tuple.second tuple
-    in
-    div []
-        [ viewLabel "title" "Title"
+viewExperienceInputs ( index, experience )=
+    div [ class "section__content" ]
+        [ viewRemoveButton index <| RemoveExperience index
+        , viewLabel "title" "Title"
         , viewInput "title" "Title" experience.title (ExperienceMsg index << SetExperienceTitle)
         , viewLabel "organization" "Organization"
         , viewInput "organization" "Organization" experience.name (ExperienceMsg index << SetExperienceName)
@@ -508,16 +544,10 @@ viewSkill skills =
 
 
 viewSkillInputs : ( Int, Skill ) -> Html Msg
-viewSkillInputs tuple =
-    let
-        index =
-            Tuple.first tuple
-
-        skill =
-            Tuple.second tuple
-    in
-    div []
-        [ viewLabel "name" "Name"
+viewSkillInputs ( index, skill ) =
+    div [ class "section__content" ]
+        [ viewRemoveButton index <| RemoveSkill index
+        , viewLabel "name" "Name"
         , viewInput "name" "Name" skill.name (SkillMsg index << SetSkillName)
         , viewLabel "proficiency" "Proficiency"
         , viewInputRange "proficiency" skill.proficiency (SkillMsg index << SetSkillProficiency)
@@ -531,16 +561,10 @@ viewCertification certifications =
 
 
 viewCertificationsInputs : ( Int, Certification ) -> Html Msg
-viewCertificationsInputs tuple =
-    let
-        index =
-            Tuple.first tuple
-
-        certification =
-            Tuple.second tuple
-    in
-    div []
-        [ viewLabel "title" "Title"
+viewCertificationsInputs ( index, certification) =
+    div [ class "section__content" ]
+        [ viewRemoveButton index <| RemoveCertification index
+        , viewLabel "title" "Title"
         , viewInput "title" "Title" certification.title (CertificationMsg index << SetCertificationTitle)
         , viewLabel "organization" "Organization"
         , viewInput "organization" "Organization" certification.organization (CertificationMsg index << SetCertificationOrganization)
@@ -549,3 +573,14 @@ viewCertificationsInputs tuple =
         , viewLabel "location" "Location"
         , viewInput "location" "Location" certification.location (CertificationMsg index << SetCertificationLocation)
         ]
+
+viewRemoveButton : Int -> Msg -> Html Msg
+viewRemoveButton index msg_ =
+    case index == 0 of
+        True ->
+            text ""
+        False ->
+            div [ class "section__content-remove", onClick msg_ ]
+                [ div [ class "section__content-remove-icon" ]
+                      [ text "X" ]
+                ]
