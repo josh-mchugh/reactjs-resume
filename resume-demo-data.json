@@ -24,7 +24,7 @@
   ],
   "experiences": [
     {
-      "name": "Company Name Here",
+      "organization": "Company Name Here",
       "title": "Senior Web Developer",
       "duration": "Jan 2023 - Present",
       "location": "Remote",
@@ -43,7 +43,7 @@
       ]
     },
     {
-      "name": "Company Name Here",
+      "organization": "Company Name Here",
       "title": "Senior Web Developer",
       "duration": "Jan 2022 – Dec 2022",
       "location": "Remote",
@@ -62,7 +62,7 @@
       ]
     },
     {
-      "name": "Company Name Here",
+      "organization": "Company Name Here",
       "title": "Senior Web Developer",
       "duration": "Jan 2021 – Dec 2021",
       "location": "Remote",
