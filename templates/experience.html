@@ -1,0 +1,35 @@
+<div class="section__header">
+  <div class="title">WORK EXPERIENCE</div>
+  <div class="divider">
+    <div class="divider__line"></div>
+  </div>
+</div>
+{{#experiences}}
+  <div class="section__experience">
+    <div class="header">
+      <div class="header__title">{{title}}</div>
+      <div>{{duration}}</div>
+    </div>
+    <div class="header">
+      <div>{{organization}}</div>
+      <div>{{location}}</div>
+    </div>
+    <ul class="description_list">
+      {{#descriptions}}
+        <li class="description_list__item">
+          <div class="description_list__item_icon">
+            <i class="fa-solid fa-chevron-right"></i>
+          </div>
+          <div class="description_list__item_text">{{.}}</div>
+        </li>
+      {{/descriptions}}
+    </ul>
+    <div class="skill_list">
+      {{#skills}}
+        <div class="skill_list__item">
+          <div class="skill_list__item_text">{{.}}</div>
+        </div>
+      {{/skills}}
+    </div>
+  </div>
+{{/experiences}}

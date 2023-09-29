@@ -1,0 +1,23 @@
+<div class="section__header section__header--social"">
+    <div class=" title">Social</div>
+    <div class="divider">
+        <div class="divider__line divider__line--white"></div>
+    </div>
+</div>
+<div class="section__social">
+    <ul class="list">
+        {{#socials}}
+            {{#social}}
+                <li class="list__item">
+                    <div>
+                        <i class="{{icon}} social__icon"></i>
+                        <span class="social__name">{{name}}</span>
+                    </div>
+                    <div>
+                        <a class="social__link" href="{{url}}">{{url}}</a>
+                    </div>
+                </li>
+            {{#social}}
+        {{/socials}}
+    </ul>
+</div>

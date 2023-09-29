@@ -6,55 +6,35 @@
           "class": "flex-auto w-4 pt-14 pl-8 bg-primary-dark text-white",
           "sections": [
             {
-              "template": "name",
+              "name": "name",
               "resumeSelectors": [
                 "name",
                 "title"
-              ]
+              ],
+              "template": "<div class=\"section__name\"><div class=\"name\">{{name}}</div><div class=\"title\">{{title}}</div></div>"
             },
             {
-              "template": "header",
-              "data": {
-                "title": "SUMMARY",
-                "color": "white",
-                "margins": "mt-10"
-              }
-            },
-            {
-              "template": "summary",
+              "name": "summary",
               "resumeSelectors": [
                 "summary"
-              ]
+              ],
+              "template": "<div class=\"section__header section__header--summary\"><div class=\"title\">SUMMARY</div><div class=\"divider\"><div class=\"divider__container\"><div class=\"divider__line divider__line--white\"></div></div></div></div><div class=\"section__summary\"><div class=\"summary\">{{summary}}</div></div>"
             },
             {
-              "template": "header",
-              "data": {
-                "title": "CONTACT",
-                "color": "white",
-                "margins": "mt-10"
-              }
-            },
-            {
-              "template": "contact",
+              "name": "contact",
               "resumeSelectors": [
                 "phone",
                 "email",
                 "location"
-              ]
+              ],
+              "template": "<div class=\"section__header section__header--contact\"><div class=\"title\">CONTACT</div><div class=\"divider\"><div class=\"divider__line divider__line--white\"></div></div></div><div class=\"section__contact\"><ul class=\"list\"><li class=\"list__item\"><i class=\"fa-solid fa-phone list__item_icon\"></i><span class=\"list__item_text\">{{phone}}</span></li><li class=\"list__item\"><i class=\"fa-solid fa-envelope list__item_icon\"></i><a class=\"list__item_text list__item_text--email\" href=\"{{email}}\">{{email}}</a></li><li class=\"list__item\"><i class=\"fa-solid fa-location-dot list__item_icon\"></i><span class=\"list__item_text\">{{location}}</span></li></ul></div>"
             },
             {
-              "template": "header",
-              "data": {
-                "title": "SOCIAL",
-                "color": "white",
-                "margins": "mt-12"
-              }
-            },
-            {
-              "template": "social",
+              "name": "social",
               "resumeSelectors": [
                 "socials"
-              ]
+              ],
+                "template": "<div class=\"section__header section__header--social\"><div class=\" title\">Social</div><div class=\"divider\"><div class=\"divider__line divider__line--white\"></div></div></div><div class=\"section__social\"><ul class=\"list\">{{#socials}}<li class=\"list__item\"><div><i class=\"{{icon}} social__icon\"></i><span class=\"social__name\">{{name}}</span></div><div><a class=\"social__link\" href=\"{{url}}\">{{url}}</a></div></li>{{/socials}}</ul></div>"
             }
           ]
         },
@@ -62,35 +42,21 @@
           "class": "flex-auto w-64 px-7 my-16",
           "sections": [
             {
-              "template": "header",
-              "data": {
-                "title": "WORK EXPERIENCE",
-                "color": "gray-700",
-                "margins": ""
-              }
-            },
-            {
-              "template": "experiences",
+              "name": "experiences",
               "resumeSelectors": [
                 "experiences"
-              ]
+              ],
+              "template": "<div class=\"section__header\"><div class=\"title\">WORK EXPERIENCE</div><div class=\"divider\"><div class=\"divider__line\"></div></div></div>{{#experiences}}<div class=\"section__experience\"><div class=\"header\"><div class=\"header__title\">{{title}}</div><div>{{duration}}</div></div><div class=\"header\"><div>{{organization}}</div><div>{{location}}</div></div><ul class=\"description_list\">{{#descriptions}}<li class=\"description_list__item\"><div class=\"description_list__item_icon\"><i class=\"fa-solid fa-chevron-right\"></i></div><div class=\"description_list__item_text\">{{.}}</div></li>{{/descriptions}}</ul><div class=\"skill_list\">{{#skills}}<div class=\"skill_list__item\"><div class=\"skill_list__item_text\">{{.}}</div></div>{{/skills}}</div></div>{{/experiences}}"
             },
             {
-              "template": "header",
-              "data": {
-                "title": "PROFESSIONAL SKILLS",
-                "color": "gray-700",
-                "margins": "mt-6"
-              }
-            },
-            {
-              "template": "skills",
+              "name": "skills",
               "resumeSelectors": [
                 "skills"
-              ]
+              ],
+              "template": "<div class=\"section__header section__header--skill\"><div class=\"title\">PROFESSIONAL SKILLS</div><div class=\"divider\"><div class=\"divider__line\"></div></div></div><div class=\"section__skill\"><div class=\"list\">{{#skills}}<div class=\"item\"><div>{{name}}</div><div class=\"rating\"><div class=\"block block--active\"></div><div class=\"block block--active\"></div><div class=\"block block--active\"></div><div class=\"block block--active\"></div><div class=\"block\"></div></div></div>{{/skills}}</div></div>"
             },
             {
-              "template": "header",
+              "name": "header",
               "data": {
                 "title": "EDUCATION",
                 "color": "gray-700",
@@ -98,10 +64,11 @@
               }
             },
             {
-              "template": "certifications",
+              "name": "certifications",
               "resumeSelectors": [
                 "certifications"
-              ]
+              ],
+              "template": ""
             }
           ]
         }

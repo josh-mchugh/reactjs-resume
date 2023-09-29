@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import SheetList from './SheetList';
 import data from '../resume-demo-data.json';
@@ -35,7 +36,11 @@ function createDisplayData(resume, layout) {
                 let sectionInfo = {};
 
                 // set layout inforation
-                sectionInfo.template = section.template;
+                sectionInfo.name = section.name;
+
+                if(section.template) {
+                    sectionInfo.template = section.template;
+                }
 
                 // if layout information already contains data
                 if(section.data) {
