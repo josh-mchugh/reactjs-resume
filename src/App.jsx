@@ -21,6 +21,7 @@ function App(props) {
 
 function createDisplayData(resume, layout) {
     let pageInfo = {};
+    pageInfo.class = layout.class;
 
     // Iterate over rows
     layout.rows.forEach(row => {

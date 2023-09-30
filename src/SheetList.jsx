@@ -12,7 +12,7 @@ const Sheet = (props) => {
 
     return (
         <section className="sheet">
-          <div className="flex h-full font-['Roboto'] text-gray-700">
+          <div className={props.displayData.class}>
             { rows }
           </div>
         </section>
@@ -20,8 +20,13 @@ const Sheet = (props) => {
 };
 
 const RenderRow = (props) => {
-    return props.row.columns.map((column, index) =>
-        <RenderColumn key={index} column={column} />
+    const columns = props.row.columns.map((column, index) =>
+          <RenderColumn key={index} column={column} />
+    );
+    return (
+        <div className="row">
+          {columns}
+        </div>
     );
 };
 

@@ -1,0 +1,20 @@
+<div class="section__header section__header--project">
+    <div class="title">PROJECTS</div>
+    <div class="divider">
+        <div class="divider__line"></div>
+    </div>
+</div>
+{{#projects}}
+    <div class="section__project">
+        <div class="name">{{name}}</div>
+        <div class="description">{{description}}</div>
+        <div class="skill_list">
+            {{#skills}}
+                <div class="skill_list__item">
+                    <div class="skill_list__item_text">{{.}}</div>
+                </div>
+            {{/skills}}
+        </div>
+    </div>
+{{/projects}}}
+    

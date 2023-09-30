@@ -1,9 +1,10 @@
 {
+  "class": "sheet--full-height",
   "rows": [
     {
       "columns": [
         {
-          "class": "flex-auto w-4 pt-14 pl-8 bg-primary-dark text-white",
+          "class": "column__left",
           "sections": [
             {
               "name": "name",
@@ -34,12 +35,12 @@
               "resumeSelectors": [
                 "socials"
               ],
-                "template": "<div class=\"section__header section__header--social\"><div class=\" title\">Social</div><div class=\"divider\"><div class=\"divider__line divider__line--white\"></div></div></div><div class=\"section__social\"><ul class=\"list\">{{#socials}}<li class=\"list__item\"><div><i class=\"{{icon}} social__icon\"></i><span class=\"social__name\">{{name}}</span></div><div><a class=\"social__link\" href=\"{{url}}\">{{url}}</a></div></li>{{/socials}}</ul></div>"
+              "template": "<div class=\"section__header section__header--social\"><div class=\" title\">Social</div><div class=\"divider\"><div class=\"divider__line divider__line--white\"></div></div></div><div class=\"section__social\"><ul class=\"list\">{{#socials}}<li class=\"list__item\"><div><i class=\"{{icon}} social__icon\"></i><span class=\"social__name\">{{name}}</span></div><div><a class=\"social__link\" href=\"{{url}}\">{{url}}</a></div></li>{{/socials}}</ul></div>"
             }
           ]
         },
         {
-          "class": "flex-auto w-64 px-7 my-16",
+        "class": "column__right",
           "sections": [
             {
               "name": "experiences",
