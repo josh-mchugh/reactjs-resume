@@ -4,16 +4,15 @@
         <div class="divider__line"></div>
     </div>
 </div>
+<div class="section__skill">
     <div class="list">
         {{#skills}}
             <div class="item">
                 <div>{{name}}</div>
                 <div class="rating">
-                    <div class="block block--active"></div>
-                    <div class="block block--active"></div>
-                    <div class="block block--active"></div>
-                    <div class="block block--active"></div>
-                    <div class="block"></div>
+                    {{#gauge}}
+                        <div class="block {{.}}"></div>
+                    {{/gauge}}
                 </div>
             </div>
         {{/skills}}

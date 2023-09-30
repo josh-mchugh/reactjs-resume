@@ -1,5 +1,3 @@
-
-
 import CertificationSection from './CertificationSection';
 import ContactSection from './ContactSection';
 import ExperienceSection from './ExperienceSection';
@@ -17,7 +15,7 @@ const SectionFactory = (props) => {
     case 'contact':
         return <TemplateComponent template={props.section.template} data={props.section.data} />;
     case 'certifications':
-        return <CertificationSection {...props.section.data} />;
+        return <TemplateComponent template={props.section.template} data={props.section.data} />;
     case 'experiences':
         return <TemplateComponent template={props.section.template} data={props.section.data} />;
     case 'header':
@@ -31,7 +29,12 @@ const SectionFactory = (props) => {
     case 'summary':
         return <TemplateComponent template={props.section.template} data={props.section.data} />;
     case 'skills':
-        return <TemplateComponent template={props.section.template} data={props.section.data} />;
+        var skills = props.section.data.skills.map(skill => {
+            var gauge = [1, 2, 3, 4, 5].map(value => value <= skill.proficiency ? 'block--active' : '');
+            return {...skill, gauge};
+        });
+        var data = {...props.section.data, skills};
+        return <TemplateComponent template={props.section.template} data={data} />;
     case 'social':
         return <TemplateComponent template={props.section.template} data={props.section.data} />;
     default:

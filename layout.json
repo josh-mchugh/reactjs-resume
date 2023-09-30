@@ -53,22 +53,14 @@
               "resumeSelectors": [
                 "skills"
               ],
-              "template": "<div class=\"section__header section__header--skill\"><div class=\"title\">PROFESSIONAL SKILLS</div><div class=\"divider\"><div class=\"divider__line\"></div></div></div><div class=\"section__skill\"><div class=\"list\">{{#skills}}<div class=\"item\"><div>{{name}}</div><div class=\"rating\"><div class=\"block block--active\"></div><div class=\"block block--active\"></div><div class=\"block block--active\"></div><div class=\"block block--active\"></div><div class=\"block\"></div></div></div>{{/skills}}</div></div>"
-            },
-            {
-              "name": "header",
-              "data": {
-                "title": "EDUCATION",
-                "color": "gray-700",
-                "margins": "mt-6"
-              }
+              "template": "<div class=\"section__header section__header--skill\"><div class=\"title\">PROFESSIONAL SKILLS</div><div class=\"divider\"><div class=\"divider__line\"></div></div></div><div class=\"section__skill\"><div class=\"list\">{{#skills}}<div class=\"item\"><div>{{name}}</div><div class=\"rating\">{{#gauge}}<div class=\"block {{.}}\"></div>{{/gauge}}</div></div>{{/skills}}</div></div>"
             },
             {
               "name": "certifications",
               "resumeSelectors": [
                 "certifications"
               ],
-              "template": ""
+              "template": "<div class=\"section__header section__header--certification\"><div class=\"title\">EDUCATION</div><div class=\"divider\"><div class=\"divider__line\"></div></div></div><div class=\"section__certification\">{{#certifications}}<div class=\"certification\"><div class=\"header\"><div class=\"title\">{{title}}</div><div>{{year}}</div></div><div class=\"header\"><div>{{organization}}</div><div>{{location}}</div></div></div>{{/certifications}}</div>"
             }
           ]
         }

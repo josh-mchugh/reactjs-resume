@@ -5,14 +5,16 @@
     </div>
 </div>
 <div class="section__certification">
-    <div class="certification">
-        <div class="header">
-            <div class="title">Master Degree in Studies</div>
-            <div>2012</div>
+    {{#certifications}}
+        <div class="certification">
+            <div class="header">
+                <div class="title">{{title}}</div>
+                <div>{{year}}</div>
+            </div>
+            <div class="header">
+                <div>{{organization}}</div>
+                <div>{{location}}</div>
+            </div>
         </div>
-        <div class="header">
-            <div>Name of University</div>
-            <div>New York, New York</div>
-        </div>
-    </div>
+    {{/certifications}}
 </div>
