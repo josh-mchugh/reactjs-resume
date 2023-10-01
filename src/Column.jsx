@@ -1,29 +1,27 @@
-import  { useEffect, useRef } from 'react';
+import  { useEffect, useRef, useState } from 'react';
 import Section from './Section';
+import { calculateBoundry } from './BoundryService';
 
 const Column = (props) => {
-    const contentRef = useRef(0);
-    let contentHeight = 0;
-    let currentIndex = 0;
+
+    const ref = useRef(0);
+    const [boundry, setBoundry] = useState({});
 
     useEffect(() => {
-        if(contentRef && contentRef.current) {
-            contentHeight = contentRef.current.clientHeight;
-
-            if(contentHeight > 920) {
-                console.log("content exceeds 920");
-            }
+        if(ref && ref.current) {
+            const rect = ref.current.getBoundingClientRect();
+            setBoundry(calculateBoundry(ref));
         }
     }, [props]);
 
+    const sections = props.column.sections.map((section, index) => {
+        return <Section key={index} {...section} />;
+    });
+
     return (
         <div className={`${props.column.class}`}>
-          <div style={{height: "auto"}} ref={contentRef}>
-            { props.column.sections.map((section, index) => {
-                currentIndex = index;
-                return <Section key={index} {...section} />;
-            })
-            }
+          <div style={{height: "auto"}} ref={ref}>
+            { sections }
           </div>
         </div>
     );
