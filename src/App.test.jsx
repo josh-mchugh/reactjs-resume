@@ -72,7 +72,7 @@ describe("App Component", () => {
         
         it("facebook label should be present", () => {
             render(<App/>);
-            const element = screen.getByText("Facebook:");
+            const element = screen.getByText("Facebook");
             expect(element).toBeInTheDocument();
         });
 
@@ -84,7 +84,7 @@ describe("App Component", () => {
 
         it("twitter label should be present", () => {
             render(<App/>);
-            const element = screen.getByText("Twitter:");
+            const element = screen.getByText("Twitter");
             expect(element).toBeInTheDocument();
         });
 
@@ -96,7 +96,7 @@ describe("App Component", () => {
 
         it("LinkedIn label should be present", () => {
             render(<App/>);
-            const element = screen.getByText("LinkedIn:");
+            const element = screen.getByText("LinkedIn");
             expect(element).toBeInTheDocument();
         });
 

@@ -26,6 +26,7 @@ function createDisplayData(resume, layout) {
     // Iterate over rows
     layout.rows.forEach(row => {
         let rowInfo = {};
+        rowInfo.class = row.class;
 
         // Iterate over columns
         row.columns.forEach(column => {

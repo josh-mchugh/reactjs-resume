@@ -5,7 +5,7 @@ const Row = (props) => {
         <Column key={index} column={column} />
     );
     return (
-        <div className="row">
+        <div className={props.row.class}>
           {columns}
         </div>
     );

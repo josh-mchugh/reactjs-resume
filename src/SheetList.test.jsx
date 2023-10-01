@@ -5,23 +5,19 @@ import SheetList from './SheetList';
 describe("SheetList Component", () => {
 
     const displayData = {
-        rows: [
-            {
-                columns: [
-                    {
-                        sections: []
-                    },
-                    {
-                        sections: []
-                    }
-                ]
-            }
-        ]
+        class: "sheet--class",
+        rows: []
     };
 
     it("multiple sheets should be present", () => {
         const { container } = render(<SheetList displayData={displayData}/>);
         const elements = container.querySelectorAll("section");
+        expect(elements.length).toBe(1);
+    });
+
+    it("sheet contains be found by class", () => {
+        const { container } = render(<SheetList displayData={displayData}/>);
+        const elements = container.querySelectorAll(".sheet--class");
         expect(elements.length).toBe(1);
     });
 });

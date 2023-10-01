@@ -1,7 +1,7 @@
 import Row from './Row';
 
 const SheetList = (props) => {
-    return <Sheet displayData={props.displayData}/>;
+    return <Sheet displayData={props.displayData} />;
 };
 
 const Sheet = (props) => {
