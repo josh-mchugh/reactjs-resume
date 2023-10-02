@@ -1,16 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import Column from './Column';
-import { calculateBoundry } from './BoundryService';
+import { defaultBoundry, calculateBoundry } from './BoundryService';
 
 const Row = (props) => {
 
     const ref = useRef(0);
-    const [boundry, setBoundry] = useState({});
+    const [boundry, setBoundry] = useState(defaultBoundry);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if(ref && ref.current) {
-            const rect = ref.current.getBoundingClientRect();
-            setBoundry(calculateBoundry(ref));
+            setBoundry(calculateBoundry(ref.current));
         }
     }, [props]);
 
@@ -18,6 +17,8 @@ const Row = (props) => {
     const columns = props.row.columns.map((column, index) =>
         <Column key={index} column={column} />
     );
+
+    console.log(`name: ${props.row.class}\nboundry: ${boundry.bottom}`);
 
     return (
         <div className={props.row.class} ref={ref}>

@@ -1,6 +1,6 @@
-import  { useEffect, useRef, useState } from 'react';
+import  { useLayoutEffect, useRef, useState } from 'react';
 import Row from './Row';
-import { calculateBoundry } from './BoundryService';
+import { defaultBoundry, calculateBoundry } from './BoundryService';
 
 const SheetList = (props) => {
     return <Sheet displayData={props.displayData} />;
@@ -8,13 +8,12 @@ const SheetList = (props) => {
 
 const Sheet = (props) => {
 
-    const ref = useRef({});
-    const [boundry, setBoundry] = useState({});
+    const ref = useRef(0);
+    const [boundry, setBoundry] = useState(defaultBoundry);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if(ref && ref.current) {
-            const rect = ref.current.getBoundingClientRect();
-            setBoundry(calculateBoundry(rect));
+            setBoundry(calculateBoundry(ref.current));
         }
     }, [props]);
 

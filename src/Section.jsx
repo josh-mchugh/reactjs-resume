@@ -1,16 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import TemplateComponent from 'react-mustache-template-component';
-import { calculateBoundry } from './BoundryService';
+import { defaultBoundry, calculateBoundry } from './BoundryService';
 
 const Section = (props) => {
 
-    const ref = useRef({});
-    const [boundry, setBoundry] = useState({});
+    const ref = useRef(0);
+    const [boundry, setBoundry] = useState(defaultBoundry);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if(ref && ref.current) {
-            const rect = ref.current.getBoundingClientRect();
-            setBoundry(calculateBoundry(rect));
+            setBoundry(calculateBoundry(ref.current));
         }
     }, [props]);
 
