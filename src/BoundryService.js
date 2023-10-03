@@ -1,41 +1,41 @@
-const calculateMarginTop = (computedStyle) => {
+const getMarginTop = (computedStyle) => {
     return parseFloat(computedStyle.getPropertyValue("margin-top"));
 };
 
-const calculateMarginRight = (computedStyle) => {
+const getMarginRight = (computedStyle) => {
     return parseFloat(computedStyle.getPropertyValue("margin-right"));
 };
 
-const calculateMarginBottom = (computedStyle) => {
+const getMarginBottom = (computedStyle) => {
     return parseFloat(computedStyle.getPropertyValue("margin-bottom"));
 };
 
-const calculateMarginLeft = (computedStyle) => {
+const getMarginLeft = (computedStyle) => {
     return parseFloat(computedStyle.getPropertyValue("margin-left"));
 };
 
 const calculateX = (rect, computedStyle) => {
-    return rect.x - calculateMarginLeft(computedStyle);
+    return rect.x - getMarginLeft(computedStyle);
 };
 
 const calculateY = (rect, computedStyle) => {
-    return rect.y - calculateMarginTop(computedStyle);
+    return rect.y - getMarginTop(computedStyle);
 };
 
 const calculateRight = (rect, computedStyle) => {
-    return rect.right + calculateMarginRight(computedStyle);
+    return rect.right + getMarginRight(computedStyle);
 };
 
 const calculateBottom = (rect, computedStyle) => {
-    return rect.bottom + calculateMarginBottom(computedStyle);
+    return rect.bottom + getMarginBottom(computedStyle);
 };
 
 const calculateHeight = (rect, computedStyle) => {
-    return rect.height + calculateMarginTop(computedStyle) + calculateMarginBottom(computedStyle);
+    return rect.height + getMarginTop(computedStyle) + getMarginBottom(computedStyle);
 };
 
 const calculateWidth = (rect, computedStyle) => {
-    return rect.width + calculateMarginLeft(computedStyle) + calculateMarginRight(computedStyle);
+    return rect.width + getMarginLeft(computedStyle) + getMarginRight(computedStyle);
 };
 
 export const calculateBoundry = (ref) => {
