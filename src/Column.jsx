@@ -1,20 +1,20 @@
 import  { useLayoutEffect, useRef, useState } from 'react';
 import Section from './Section';
-import { defaultBoundry, calculateBoundry } from './BoundryService';
+import { defaultDimension, calculateDimension } from './DimensionService';
 
 const Column = (props) => {
 
     const containerRef = useRef(0);
-    const [containerBoundry, setContainerBoundry] = useState(defaultBoundry);
+    const [containerDimension, setContainerDimension] = useState(defaultDimension);
     const contentRef = useRef(0);
-    const [contentBoundry, setContentBoundry] = useState(defaultBoundry);
+    const [contentDimension, setContentDimension] = useState(defaultDimension);
 
     useLayoutEffect(() => {
         if(containerRef && containerRef.current) {
-            setContainerBoundry(calculateBoundry(containerRef.current));
+            setContainerDimension(calculateDimension(containerRef.current));
         }
         if(contentRef && contentRef.current) {
-            setContentBoundry(calculateBoundry(contentRef.current));
+            setContentDimension(calculateDimension(contentRef.current));
         }
     }, [props]);
 
@@ -23,10 +23,10 @@ const Column = (props) => {
     });
 
     console.log(`name: ${props.column.class}`);
-    console.log("Container boundry: ");
-    console.log(containerBoundry);
-    console.log("Content boundry: ");
-    console.log(contentBoundry);
+    console.log("Container dimension: ");
+    console.log(containerDimension);
+    console.log("Content dimesnion: ");
+    console.log(contentDimension);
 
     return (
         <div className={`${props.column.class}`} ref={containerRef}>

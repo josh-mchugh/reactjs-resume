@@ -1,15 +1,15 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import Column from './Column';
-import { defaultBoundry, calculateBoundry } from './BoundryService';
+import { defaultDimension, calculateDimension } from './DimensionService';
 
 const Row = (props) => {
 
     const ref = useRef(0);
-    const [boundry, setBoundry] = useState(defaultBoundry);
+    const [dimension, setDimension] = useState(defaultDimension);
 
     useLayoutEffect(() => {
         if(ref && ref.current) {
-            setBoundry(calculateBoundry(ref.current));
+            setDimension(calculateDimension(ref.current));
         }
     }, [props]);
 
@@ -18,7 +18,7 @@ const Row = (props) => {
         <Column key={index} column={column} />
     );
 
-    console.log(`name: ${props.row.class}\nboundry: ${boundry.bottom}`);
+    console.log(`name: ${props.row.class}\ndimension bottom: ${dimension.bottom}`);
 
     return (
         <div className={props.row.class} ref={ref}>

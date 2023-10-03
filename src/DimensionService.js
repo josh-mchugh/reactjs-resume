@@ -38,7 +38,7 @@ const calculateWidth = (rect, computedStyle) => {
     return rect.width + getMarginLeft(computedStyle) + getMarginRight(computedStyle);
 };
 
-export const calculateBoundry = (ref) => {
+export const calculateDimension = (ref) => {
     const rect = ref.getBoundingClientRect();
     const computedStyle = window.getComputedStyle(ref);
     return {
@@ -51,7 +51,7 @@ export const calculateBoundry = (ref) => {
     };
 };
 
-export const defaultBoundry = (rect) => {
+export const defaultDimension = (rect) => {
     return {
         x: 0,
         y: 0,

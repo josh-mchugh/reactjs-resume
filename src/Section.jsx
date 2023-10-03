@@ -1,15 +1,15 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import TemplateComponent from 'react-mustache-template-component';
-import { defaultBoundry, calculateBoundry } from './BoundryService';
+import { defaultDimension, calculateDimension } from './DimensionService';
 
 const Section = (props) => {
 
     const ref = useRef(0);
-    const [boundry, setBoundry] = useState(defaultBoundry);
+    const [dimension, setDimension] = useState(defaultDimension);
 
     useLayoutEffect(() => {
         if(ref && ref.current) {
-            setBoundry(calculateBoundry(ref.current));
+            setDimension(calculateDimension(ref.current));
         }
     }, [props]);
 
@@ -26,7 +26,7 @@ const Section = (props) => {
         return props.data;
     };
 
-    console.log(`name: ${props.name}\nboundry: ${boundry.bottom}`);
+    console.log(`name: ${props.name}\ndimension bottom: ${dimension.bottom}`);
 
     return <TemplateComponent template={props.template} data={processData()} ref={ref} />;
 };
